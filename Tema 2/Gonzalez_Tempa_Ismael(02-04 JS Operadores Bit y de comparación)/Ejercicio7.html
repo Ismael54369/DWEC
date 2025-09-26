@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej 7</title>
+</head>
+<body>
+<!-- Crea un ejemplo combinando con paréntesis con cada uno de los operadores booleanos y
+muestra lo con document.write -->
+    <h2>Ejercicio 7</h2>
+    <script>
+        // Operadores booleanos
+        let a = true;
+        let b = false;
+        let c = true;
+
+        document.write("a = " + a + "<br>");
+        document.write("b = " + b + "<br>");
+        document.write("c = " + c + "<br><br>");
+        document.write("a && (b || c) = " + (a && (b || c)) + "<br>"); // AND y OR
+        document.write("!(a || b) && c = " + (!(a || b) && c) + "<br>"); // NOT, OR y AND
+        document.write("!(a && b) || (b || c) = " + (!(a && b) || (b || c)) + "<br>"); // NOT, AND y OR
+    </script>
+</body>
+</html>

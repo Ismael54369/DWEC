@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej 12</title>
+</head>
+<body>
+    <h2>Ejercicio 12</h2>
+    <script>
+        let segundoparametroBinario = "11111111";
+        let segundoparametro = parseInt(segundoparametroBinario, 2);
+        let DesplazamientoAND = decimal & segundoparametro // 0
+        let segundoparametroBinario1 = "11111111";
+        let segundoparametro1 = parseInt(segundoparametroBinario1, 2);
+        let DesplazamientoOR = decimal | segundoparametro // 1
+        let segundoparametroBinario2 = "11111111";
+        let segundoparametro2 = parseInt(segundoparametroBinario2, 2);
+        let DesplazamientoXOR = decimal ^ segundoparametro // 1
+        let segundoparametroBinario3 = "11111111";
+        let segundoparametro3 = parseInt(segundoparametroBinario3, 2);
+        let DesplazamientoNOT = ~ segundoparametro // -10
+        let segundoparametroBinario4 = "11111111";
+        let segundoparametro4 = parseInt(segundoparametroBinario4, 2);
+        let Desplazamientoizquierda = segundoparametro << 1 // 32
+        let segundoparametroBinario5 = "11111111";
+        let segundoparametro5 = parseInt(segundoparametroBinario5, 2);
+        let Desplazamientoderecha = segundoparametro >> 1 // 8
+        let segundoparametroBinario6 = "11111111";
+        let segundoparametro6 = parseInt(segundoparametroBinario6, 2);
+        let Desplazamientoderecha0 = decimal >>> 2 // 32
+
+        document.writeln("<br>AND " + DesplazamientoAND);
+        document.writeln("<br>OR " + DesplazamientoOR);
+        document.writeln("<br>XOR "+ DesplazamientoXOR);
+        document.writeln("<br>NOT "+ DesplazamientoNOT);
+        document.writeln("<br><< "+ Desplazamientoizquierda);
+        document.writeln("<br>>> "+ Desplazamientoderecha);
+        document.writeln("<br>>>> "+ Desplazamientoderecha0);
+    </script>
+</body>
+</html>

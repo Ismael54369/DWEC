@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej 11</title>
+</head>
+<body>
+    <h2>Ejercicio 11</h2>
+    <script>
+       let binario = "10010111";
+       let num255 = "11111111";
+       let decimal = parseInt("10010111", 2);
+       document.writeln("<br>Binario " + binario + " es " + decimal + " en decimal");
+
+       let DesplazamientoAND = decimal & 255
+       let DesplazamientoOR = decimal | 255
+       let DesplazamientoXOR = decimal ^ decimal
+       let DesplazamientoNOT = ~decimal
+       let Desplazamientoizquierda = decimal << 1
+       let Desplazamientoderecha = decimal >> 1
+       let Desplazamientoderecha0 = decimal >>> 2
+       
+       document.writeln("<br>AND " + DesplazamientoAND);
+       document.writeln("<br>OR " + DesplazamientoOR);
+       document.writeln("<br>XOR "+ DesplazamientoXOR);
+       document.writeln("<br>NOT "+ DesplazamientoNOT);
+       document.writeln("<br><< "+ Desplazamientoizquierda);
+       document.writeln("<br>>> "+ Desplazamientoderecha);
+       document.writeln("<br>>>> "+ Desplazamientoderecha0);
+    </script>
+</body>
+</html>
