@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios</title>
+</head>
+<body>
+    <h2>Ejercicio 2</h2>
+    <script>
+    // Ejercicio 2
+    var s = new String('rafa');
+    document.writeln(s);
+    var longitud = s.length;
+    document.writeln(longitud);
+    var pos = s.indexOf("fa"); 
+    document.writeln(pos);
+    </script>
+    <p>El ejercicio lo que hace es: </p>
+    <ul>
+        <li>Crear una variable de tipo String con el valor 'rafa'</li>
+        <li>Mostrar por pantalla el valor de la variable</li>
+        <li>Mostrar por pantalla la longitud de la cadena</li>
+        <li>Mostrar por pantalla la posicion en la que se encuentra la subcadena 'fa'</li>
+    </ul>
+    <h2>Ejercicio 4, 6 y 8</h2>
+    <script>
+    // Ejercicio 4
+    var arraya =["Santiago","Coruña", "Lugo"];
+    document.writeln(arraya[1]);
+
+    // Ejercicio 6
+    var arrayb= { elem1:"Santiago", elem2:"Coruña", elem3:"Lugo" };
+    document.writeln(arrayb["elem3"]);
+
+    // Ejercicio 8
+    delete arrayb.elem3;
+    document.writeln(arrayb["elem3"]);
+    </script>
+    <p>El ejercicio lo que hace es: </p>
+    <ul>
+        <li>Crear 2 arrays con dos métodos diferentes, con [] usado normalmente para declarar arrays y usando {} declarandolo como si fuera un objeto</li>
+        <li>Muestra el contenido del array en la posicion 2 (los arrays empiezan por 0)</li>
+        <li>Muestra el tercer elemento del array, Lugo en este caso</li>
+        <li>He borrado elem3 con delete</li>
+    </ul>
+    <h2>Ejercicios 10, 12 y 14</h2>
+    <script>
+    // Ejercicio 10
+    let texto = "<el pajarito \"pedro\" comia \"grillos\">";
+    document.writeln(texto);
+
+    // Ejercicio 12
+    a = new Array(1,2,3);
+    a instanceof Array; // devolverá true.
+
+    // Ejercicio 14
+    var nombre="juan", direccion="C\ pepep,1", apellidos="lopez Abad", edad="30";
+    document.write( nombre + "," + apellidos + "," + direccion + "," + edad );
+    </script>
+    <h2>Ejercicio 16 y 17</h2>
+    <script>
+    // Ejercicio 16
+    var a =10;
+    var b = 15;
+    var opcion= b>a ? "B es mayor que A": "A es mayor que B";
+    document.writeln( "opcion "+opcion);
+
+    // Ejercicio 17
+    var a = confirm("Estas de Acuerdo");
+    var opcion= a ? "Acuerdo": "En Desacuerdo";
+    document.writeln( "opcion "+opcion);
+    </script>
+    <h2>Ejercicio 19</h2>
+    <script>
+    var a ="hola", b= 34, c= 3.1e3, d = 34;
+    var at = typeof(a) ;
+    var bt = typeof(b) ;
+    var ct = typeof(c) ;
+    document.writeln( " tipo de "+ a + " es "+at);
+    document.writeln( " tipo de "+b + " es "+bt);
+    document.writeln( " tipo de "+ c + " es "+ct);
+    </script>
+</body>
+</html>
