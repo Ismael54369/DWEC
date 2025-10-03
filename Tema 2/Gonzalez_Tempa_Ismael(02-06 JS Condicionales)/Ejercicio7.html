@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7</title>
+</head>
+<body>
+    <h2>Ejercicio 7</h2>
+    <script>
+        let ventana = window.location.href;
+        if(ventana.substring(0,4) === "http") {
+            document.writeln("Estas en una pagina remota");
+        } else {
+            document.writeln("Estas en una pagina local");
+        }
+    </script>
+</body>
+</html>
