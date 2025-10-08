@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 13</title>
+</head>
+<body>
+    <h2>Ejercicio 13</h2>
+    <script>
+        let nombre1 = prompt("Introduce el primer nombre:");
+        let nombre2 = prompt("Introduce el segundo nombre:");
+        if (nombre1.charAt(0).toLowerCase() === nombre2.charAt(0).toLowerCase() || nombre1.charAt(nombre1.length-1).toUpperCase() === nombre2.charAt(nombre2.length-1).toUpperCase()) {
+            document.writeln("Los nombres comienzan o terminan Angelpor la misma letra.");
+        } else {
+            document.writeln("Los nombres comienzan y terminan por letras diferentes.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 27</title>
+</head>
+<body>
+    <h2>Ejercicio 27</h2>
+    <script>
+        let semaforo = prompt("Introduce el color del semáforo (rojo, amarillo, verde):").toLowerCase();
+        switch (semaforo) {
+            case "rojo":
+                document.writeln("Detente");
+                break;
+            case "amarillo":
+                document.writeln("Precaución");
+                break;
+            case "verde":
+                document.writeln("Avanza");
+                break;
+            default:
+                document.writeln("Color no válido");
+                break;
+        }
+    </script>
+</body>
+</html>

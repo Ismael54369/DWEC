@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 16</title>
+</head>
+<body>
+    <h2>Ejercicio 16</h2>
+    <script>
+        let anio = parseInt(prompt("Introduce un año:"));
+        if ((anio % 4 === 0 && anio % 100 !== 0) || (anio % 400 === 0)) {
+            document.write(anio + " es un año bisiesto.");
+        } else {
+            document.write(anio + " no es un año bisiesto.");
+        }
+    </script>
+</body>
+</html>

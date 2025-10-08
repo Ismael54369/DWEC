@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 22</title>
+</head>
+<body>
+    <h2>Ejercicio 22</h2>
+    <script>
+        let nota = parseFloat(prompt("Introduce una nota entre 0 y 10:"));
+        switch (nota) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                document.write("Insuficiente");
+                break;
+            case 5:
+                document.write("Suficiente");
+                break;
+            case 6:
+                document.write("Bien");
+                break;
+            case 7:
+            case 8:
+                document.write("Notable");
+                break;
+            case 9:
+            case 10:
+                document.write("Sobresaliente");
+                break;
+            default:
+                document.write("Nota no válida. Debe estar entre 0 y 10.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 14</title>
+</head>
+<body>
+    <h2>Ejercicio 14</h2>
+    <script>
+        let candidatoA = "PARTIDO ROJO";
+        let candidatoB = "PARTIDO AZUL";
+        let candidatoC = "PARTIDO VERDE";
+
+        var voto = prompt("Introduce tu voto (A, B o C):").toUpperCase();
+        switch(voto) {
+            case 'A':
+                document.writeln("Has votado por el " + candidatoA);
+                break;
+            case 'B':
+                document.writeln("Has votado por el " + candidatoB);
+                break;
+            case 'C':
+                document.writeln("Has votado por el " + candidatoC);
+                break;
+            default:
+                document.writeln("Voto no válido. Por favor, introduce A, B o C.");
+        }
+    </script>
+</body>
+</html>

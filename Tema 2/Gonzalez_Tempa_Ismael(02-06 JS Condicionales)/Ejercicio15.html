@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 15</title>
+</head>
+<body>
+    <h2>Ejercicio 15</h2>
+    <script>
+        let letra = prompt("Introduce una letra:").toLowerCase();
+        if ("aeiou".includes(letra) && letra.length === 1) {
+            document.writeln("La letra introducida es una vocal.");
+        } else if (letra.length === 1 && letra >= 'a' && letra <= 'z') {
+            document.writeln("La letra introducida es una consonante.");
+        } else {
+            document.writeln("No has introducido una letra válida.");
+        }
+    </script>
+</body>
+</html>
