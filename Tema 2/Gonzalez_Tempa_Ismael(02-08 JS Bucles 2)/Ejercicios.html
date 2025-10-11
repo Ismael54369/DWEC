@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios</title>
+</head>
+<body>
+    <script>
+        let numero = prompt("Ingrese un número de ejercicio (hasta el 10):");
+        switch (numero) {
+            case '1':
+                document.write("Ejecutando Ejercicio 1...<br>");
+                import('./Ejercicio1.js');
+                break;
+            case '2':
+                document.write("Ejecutando Ejercicio 2...<br>");
+                import('./Ejercicio2.js');
+                break;
+            case '3':
+                document.write("Ejecutando Ejercicio 3...<br>");
+                import('./Ejercicio3.js');
+                break;
+            case '4':
+                document.write("Ejecutando Ejercicio 4...<br>");
+                import('./Ejercicio4.js');
+                break;
+            case '5':
+                document.write("Ejecutando Ejercicio 5...<br>");
+                import('./Ejercicio5.js');
+                break;
+            case '6':
+                document.write("Ejecutando Ejercicio 6...<br>");  
+                import('./Ejercicio6.js');
+                break;
+            case '8':
+                document.write("Ejecutando Ejercicio 8...<br>");
+                import('./Ejercicio8.js');
+                break;
+            case '9':
+                document.write("Ejecutando Ejercicio 9...<br>");
+                import('./Ejercicio9.js');
+                break;
+            case '10':
+                document.write("Ejecutando Ejercicio 10...<br>");
+                import('./Ejercicio10.js');
+            default:
+                document.write("Número de ejercicio no válido. Por favor, ingrese un número entre 1 y 10.");
+        }
+    </script>
+</body>
+</html>
