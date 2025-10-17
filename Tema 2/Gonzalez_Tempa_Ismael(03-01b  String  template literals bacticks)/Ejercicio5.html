@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    <h1>Ejercicio 5</h1>
+    <p>Análisis de texto dinámico.</p>
+    <script>
+        const nombre = "Lucia";
+        const hobby = "leer libros de ciencia ficción";
+
+        // Crea un mensaje: `A ${nombre} le encanta ${hobby}.`
+        document.writeln("<h3>Tarea 1</h3>");
+        const mensaje = `A ${nombre} le encanta ${hobby}`;
+        document.writeln(mensaje);
+
+        // Muestra cuántas letras tiene el mensaje (length).
+        document.writeln("<h3>Tarea 2</h3>");
+        document.writeln(`La longitud del mensaje es de ${mensaje.length} caracteres`);
+
+        // Verifica si el texto incluye la palabra “ficción” (includes()).
+        document.writeln("<h3>Tarea 3</h3>");
+        document.writeln(`El mensaje incluye la palabra ficción: ${mensaje.includes("ficción")}`);
+
+        // Reemplaza “ficción” por “aventuras” (replace()).
+        document.writeln("<h3>Tarea 4</h3>");
+        document.writeln(`Reemplazando ficción por aventuras: ${mensaje.replace("ficción", "aventuras")}`);
+
+        // Convierte la oración a minúsculas y luego a mayúsculas (toLowerCase(), toUpperCase()).
+        document.writeln("<h3>Tarea 5</h3>");
+        document.writeln(`<p>Oración en minúscula: ${mensaje.toLowerCase()}</p>`);
+        document.writeln(`<p>Oración en mayúscula: ${mensaje.toUpperCase()}</p>`);
+
+        
+    </script>
+</body>
+</html>

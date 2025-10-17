@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+</head>
+<body>
+    <h1>Ejercicio 6</h1>
+    <p>Plantilla de perfil resumido.</p>
+    <script>
+        const usuario = {
+            nombre: "Beatriz",
+            descripcion: "Apasionada del desarrollo web, la inteligencia artificial y los videojuegos."
+        };
+
+        // Genera un texto con backticks: `Perfil de ${usuario.nombre}: ${usuario.descripcion}`
+        document.writeln("<h3>Tarea 1</h3>");
+        const mensaje = `Perfil de ${usuario.nombre}: ${usuario.descripcion}`;
+        document.writeln(mensaje);
+
+        // Si la descripción tiene más de 50 caracteres, recórtala y añade "..." al final (usa slice y length).
+        document.writeln("<h3>Tarea 2</h3>");
+        if (usuario.descripcion.length > 50) {
+            const nuevaDescripcion = usuario.descripcion.slice(0, usuario.descripcion.length / 2).concat("...");
+            document.writeln(mensaje.replace(usuario.descripcion, nuevaDescripcion));
+        } else {
+            document.writeln(mensaje);
+        }
+    </script>
+</body>
+</html>

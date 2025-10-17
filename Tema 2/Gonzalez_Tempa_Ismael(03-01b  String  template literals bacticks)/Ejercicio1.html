@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <h1>Ejercicio 1</h1>
+    <p>Creación de tarjetas de usuario con Template Literals.</p>
+    <script>
+        // --- Usuario 1 ---
+        const nombre = "Laura García";
+        const edad = 29;
+        const ciudad = "Madrid";
+        const intereses = ["fotografía", "viajes", "tecnología"];
+
+        // Creamos una plantilla HTML usando backticks
+        const tarjetaUsuario = `
+        <div class="tarjeta">
+            <h2>${nombre}</h2>
+            <p>Edad: ${edad}</p>
+            <p>Ciudad: ${ciudad}</p>
+            <h4>Intereses:</h4>
+            <ul>
+            ${intereses.map(interes => `<li>${interes}</li>`).join("")}
+            </ul>
+            </div>
+        `;
+
+        // --- Usuario 2 ---
+        const nombre2 = "Ismael Gonzalez";
+        const edad2 = 23;
+        const ciudad2 = "Málaga";
+        const intereses2 = ["fútbol", "viajes", "tecnología"];
+
+        const tarjetaUsuario2 = `
+        <div class="tarjeta">
+            <h2>${nombre2}</h2>
+            <p>Edad: ${edad2}</p>
+            <p>Ciudad: ${ciudad2}</p>
+            <h4>Intereses:</h4>
+            <ul>
+            ${intereses2.map(interes => `<li>${interes}</li>`).join("")}
+            </ul>
+            </div>
+        `;
+        // --- Usuario 3 ---
+        const nombre3 = "Manolo Perez";
+        const edad3 = 26;
+        const ciudad3 = "Jaen";
+        const intereses3 = ["gimnasia", "golf", "leer"];
+
+        const tarjetaUsuario3 = `
+        <div class="tarjeta">
+            <h2>${nombre3}</h2>
+            <p>Edad: ${edad3}</p>
+            <p>Ciudad: ${ciudad3}</p>
+            <h4>Intereses:</h4>
+            <ul>
+            ${intereses3.map(interes => `<li>${interes}</li>`).join("")}
+            </ul>
+            </div>
+        `;
+        document.writeln(`${tarjetaUsuario}<br>`);
+        document.writeln(`${tarjetaUsuario2}<br>`);
+        document.writeln(`${tarjetaUsuario3}<br>`);
+        </script>
+    </div>
+</body>
+</html>
+        </header>
+    </div>
+</body>
+</html>

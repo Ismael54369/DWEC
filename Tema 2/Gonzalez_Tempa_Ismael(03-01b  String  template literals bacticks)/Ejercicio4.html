@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+</head>
+<body>
+    <h1>Ejercicio 4</h1>
+    <p>Tabla de datos HTML.</p>
+    <script>
+        const usuarios = [" ana", "PEDRO", "maria "];
+
+        // Limpia los nombres (trim() y toLowerCase()).
+        document.writeln("<h3>Tarea 1</h3>");
+        const usuarioLimpio = usuarios.map(usuario => usuario.trim(" ").toLowerCase()).join();
+        document.writeln(usuarioLimpio);
+
+        // Capitaliza la primera letra de cada uno.
+        document.writeln("<h3>Tarea 2</h3>");
+        const capitalizado = usuarioLimpio.split(",").map(usuario => usuario[0].toUpperCase().concat(usuario.substring(1))).join();
+        document.writeln(capitalizado);
+
+        // Usa backticks para crear un bloque HTML con una lista <ul> donde cada <li> tenga un nombre formateado.
+        document.writeln("<h3>Tarea 3</h3>");
+        const lista = `<ul>${capitalizado.split(",").map(usuario => `<li>${usuario}</li>`).join("")}</ul>`;
+        document.writeln(lista);
+    </script>
+</body>
+</html>
