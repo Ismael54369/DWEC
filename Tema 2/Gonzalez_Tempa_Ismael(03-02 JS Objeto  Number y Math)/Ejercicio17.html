@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 17</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Ejercicio 17</h1>
+            <p class="lead">pH.</p>
+            <script>
+              // Toma una entrada con window.prompt() para tomar el numero de Iones muestre el Ph con una tabla
+              // que muestre su fondo de rojo intenso muy acido a azul intenso muy basico
+              iones = parseFloat(prompt("Introduce el numero de Iones"));
+              document.writeln(`<table class="table table-dark">
+              <tr>
+                <th>
+                  pH
+                </th>
+                <th>
+                  Tipo de solución
+                </th>
+              </tr>
+              <tr>
+                <td style="background-color: #ff0000;">0-3</td>
+                <td>Muy ácido</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #ff6666;">4-6</td>
+                    <td>Ácido</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #ffff66;">7</td>
+                    <td>Neutro</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #66b2ff;">8-10</td>
+                    <td>Básico</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #0000ff; color: white;">11-14</td>
+                    <td>Muy básico</td>
+                </tr>
+                </table>`);
+                ph = -Math.log10(iones);
+                document.writeln(`El pH de la solución con ${iones} iones es de ${ph}`);
+            </script>
+        </header>
+    </div>
+</body>
+</html>
