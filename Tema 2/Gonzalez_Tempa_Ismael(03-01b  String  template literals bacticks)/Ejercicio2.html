@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <h1>Ejercicio 2</h1>
+    <p>Creacion de texto descriptivo usando backticks.</p>
+    <script>
+        const producto = "auriculares inalámbricos";
+        const precio = 59.99;
+        const marca = "SoundMax";
+        const texto = `Los ${producto} de la marca ${marca} cuestan ${precio}€.`;
+        
+        document.writeln("<h3>Tarea 1</h3>");
+        document.writeln(texto);
+
+        // Convierte la primera letra de cada palabra a mayúscula (usa toUpperCase, split, map, join).
+        const palabras = texto.split(" ");
+        const textoMayusculas = palabras.map(palabra => palabra[0].toUpperCase().concat(palabra.substring(1))).join(" ");
+        document.writeln("<h3>Tarea 2</h3>");
+        document.writeln(textoMayusculas);
+
+        //// Cambia el símbolo € por "euros" (usa replace).
+        const textoEuros = texto.replace("€", " euros");
+        document.writeln("<h3>Tarea 3</h3>");
+        document.writeln(textoEuros);
+    </script>
+</body>
+</html>

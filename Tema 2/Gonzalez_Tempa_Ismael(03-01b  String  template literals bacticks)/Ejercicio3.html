@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+<body>
+    <h1>Ejercicio 3</h1>
+    <p>Plantilla de correo.</p>
+    <script>
+        const nombre = " juan pérez ";
+        const producto = "Teclado mecánico RGB";
+        const fecha = "09/10/2025";
+
+        // Quita espacios extra en el nombre (usa trim()).
+        document.writeln("<h3>Tarea 1</h3>");
+        const nombreSinEspacio = nombre.trim(" ");
+        document.writeln(`El nombre sin espacios es ${nombreSinEspacio}.`);
+
+        // Crea una plantilla de correo con backticks:
+        const mensaje = `Hola ${nombreSinEspacio}, tu pedido del producto ${producto} se enviará el ${fecha}.`
+        document.writeln("<h3>Tarea 2</h3>");
+        document.writeln(mensaje);
+
+        // Convierte la primera letra del nombre y apellido en mayúsculas (usa split y map).
+        const nombres = nombreSinEspacio.split(" ");
+        const nombreMay = nombres.map(nom => nom[0].toUpperCase().concat(nom.substring(1))).join(" ");
+        const mensajeNuevo = mensaje.replace(nombreSinEspacio, nombreMay);
+        document.writeln("<h3>Tarea 3</h3>");
+        document.writeln(mensajeNuevo);
+
+        // Convierte todo el mensaje a mayúsculas (usa toUpperCase).
+        document.writeln("<h3>Tarea 4</h3>");
+        document.writeln(mensaje.toUpperCase());
+    </script>
+</body>
+</html>

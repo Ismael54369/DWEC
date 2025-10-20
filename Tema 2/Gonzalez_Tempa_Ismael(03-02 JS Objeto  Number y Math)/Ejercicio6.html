@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Ejercicio 6</h1>
+            <p class="lead">Seno, coseno, tangente.</p>
+            <script>
+                let angulo = parseInt(prompt("Ingrese un angulo (0-360)"));
+                if (angulo < 0 || angulo > 360 || isNaN(angulo)) {
+                    document.writeln(`<p class="text-danger">ERROR: EL ANGULO DEBE ESTAR ENTRE 0 Y 360</p>`);
+                } else {
+                    let radianes = ((angulo/180)*Math.PI);
+                    document.writeln(`El angulo es ${angulo} que convertido a radianes es ${radianes}
+                    <ol class="list group list-group-numbered">
+                    <li class="list-group-item">El seno es: ${Math.sin(radianes)}</li>
+                    <li class="list-group-item">El coseno es: ${Math.cos(radianes)}</li>
+                    <li class="list-group-item">La tangente es: ${Math.tan(radianes)}</li>
+                    </ol>`);
+                }
+            </script>
+        </header>
+    </div>
+</body>
+</html>

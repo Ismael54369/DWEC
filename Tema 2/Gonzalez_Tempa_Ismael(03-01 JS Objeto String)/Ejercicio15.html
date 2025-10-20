@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 15</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Ejercicio 15</h1>
+            <p class="lead">Substr.</p>
+            <script>
+                let entrada = prompt("Ingrese la entrada");
+                let posicion = prompt("Ingrese la posicion");
+                let longitud = prompt("Ingrese la longitud");
+                let cadenaSubstr = entrada.substr(posicion, longitud);
+                document.writeln("La entrada es: " + entrada + "<br>");
+                document.writeln("La cadena substr es: " + cadenaSubstr);
+            </script>
+        </header>
+    </div>
+</body>
+</html>
