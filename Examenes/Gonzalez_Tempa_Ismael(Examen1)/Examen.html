@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> </h1>
+    <h2>ejercicio  1 Prompt</h2>
+    <script>
+       num1 = parseInt(prompt("EJ1. Introduce el primer número"));
+       num2 = parseInt(prompt("EJ1. Introduce el segundo número"));
+       num3 = parseInt(prompt("EJ1. Introduce el tercer número"));
+
+       if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+         document.writeln("ERROR: DEBEN SER NUMERO LO QUE INTRODUZCAS");
+       } else {
+         document.writeln(`El resultado de la siguiente formula (Numero1*Numero2 + Numero3)*Numero3 es: ${(num1*num2+num3)*num3}`);
+       }
+    </script>
+
+ <h2>ejercicio 2 typeof
+ </h2>
+    <script>
+    var a ="hola", b= 34, c= 3.2, d = true;
+    var at = typeof(a);
+    var bt = typeof(b);
+    var ct = typeof(c);
+    var dt = typeof(d);
+    document.writeln( " tipo de "+ a + " es "+at);
+    document.writeln( " tipo de "+b + " es "+bt);
+    document.writeln( " tipo de "+ c + " es "+ct);
+    document.writeln( " tipo de "+ d + " es "+dt);
+    array = new Array(1,2,3),
+    document.writeln(`${array instanceof Array}`); //dará true
+    document.writeln(`${array instanceof Boolean}`); //dará false
+    </script>
+
+<h2>ejercicio  3 operador ternario
+</h2>
+    <script>
+      let num = parseInt(prompt("EJ 3. Introduce un numero del 1 al 12"));
+      let filosofos = {
+         1: "Aristoteles",
+         2: "Platon",
+         3: "San Agustin",
+         4: "Santo Tomas",
+         5: "Descartes",
+         6: "Rousseau",
+         7: "Locke"
+      }
+      var mensaje = num>7 ? `No conocido`: `El filosofo es ${filosofos[num]}`;
+      document.writeln(mensaje);
+    </script>
+
+
+<h2>ejercicio  4 binario
+</h2>
+    <script>
+       let dec1 = parseInt(prompt("EJ 4. Introduzca el primer numero"));
+       let dec2 = parseInt(prompt("EJ 4. Introduzca el segundo numero"));
+       let opcion = parseInt(prompt(` EJ 4. Introduzca un numero: 
+       1. AND
+       2. OR
+       3. XOR
+       4. DIZQ
+       5. DDER`));
+       if (opcion == 1) {
+         var and = dec1 & dec2;
+         document.writeln(`Para la opcion AND el decimal 1 es ${dec1}, el 2, ${dec2} y el resultado en decimal ${and} y en binario ${and.toString(2)}`);
+       } else if (opcion == 2) {
+         var or = dec1 | dec2;
+         document.writeln(`Para la opcion OR el decimal 1 es ${dec1}, el 2, ${dec2} y el resultado en decimal ${or} y en binario ${or.toString(2)}`);
+       } else if (opcion == 3) {
+         var xor = dec1 ^ dec2;
+         document.writeln(`Para la opcion XOR el decimal 1 es ${dec1}, el 2, ${dec2} y el resultado en decimal ${xor} y en binario ${xor.toString(2)}`);
+       } else if(opcion == 4) {
+         var dizq = dec1 << dec2;
+         document.writeln(`Para la opcion DIZQ el decimal 1 es ${dec1}, el 2, ${dec2} y el resultado en decimal ${dizq} y en binario ${dizq.toString(2)}`);
+       } else if(opcion == 5) {
+         var dder = dec1 >> dec2;
+         document.writeln(`Para la opcion DDER el decimal 1 es ${dec1}, el 2, ${dec2} y el resultado en decimal ${dder} y en binario ${dder.toString(2)}`);
+       }
+    </script>
+    
+
+ <h2>ejercicio  5 switch
+</h2>
+    <script>
+       let numero = parseInt(prompt("EJ 5. Introduce valores entre 1 y 9"));
+       switch (numero) {
+         case 1:
+         case 2:
+         case 3:
+            document.writeln("Numeros pequeños");
+            break;
+         case 5: 
+            document.writeln("La opcion es mayor o igual que 5 ");
+            break;
+         case 6: 
+            document.writeln("La opcion es mayor o igual que 6 ");
+            break;
+         case 7:
+            document.writeln("La opcion es mayor o igual que 7 ");
+            break;
+         case 8:
+            document.writeln("Numero 8");
+            break;
+         case 9: 
+            document.writeln("Numero 9");
+            break;
+         default:
+            document.writeln("Error");
+            break;
+       }
+    </script>
+    
+
+ <h2>ejercicio 6  tabla
+</h2>
+    <script>
+       let filas = parseInt(prompt("EJ 6. Introduce el numero de filas para la tabla"));
+       let colores = ["#f25","#f50","#f85","#F11","#F36","#fA5","#f5B","#f25","#f50","#f85","#F11"];
+
+       document.writeln("<table border='1' cellspacing='5' cellpadding='5'>");
+       for (let i = 1; i <= filas; i++) {
+         document.writeln("<tr>");
+         for (let j = 1; j <= filas; j++) { 
+            document.writeln(`<td bgcolor=${colores[j]}> ${i}</td>`);
+         }
+         document.writeln("</tr>");
+       }
+       document.writeln("</table>");
+    </script>
+    
+
+ <h2>ejercicio 7 bucle1
+</h2>
+    <script>
+       var persona = {   Nombre: "paco",   
+       Apellido: "Lopez", 
+       nacimiento:"11/12/1969", 
+       trabajo:"informatico" , 
+       sexo: "hombre", 
+       amigos:  ["juan","pedro","miguel"],
+       sueldo:40000, 
+       trabajo:"olists", 
+       UltimoProjecto: "jse.js" };
+
+       document.writeln(`<ul>`);
+       for (const propiedad in persona) {
+         document.writeln(`<li><b>${propiedad}</b>: ${persona[propiedad]}</li>`);
+       }
+       document.writeln(`</ul>`);
+    </script>
+    
+
+ <h2>ejercicio 8 bucle2
+</h2>
+    <script>
+       var signos = [ "capricornio", "acuario","piscis","aries", "tauro" ];
+       document.writeln("<table border='1' cellspacing='5' cellpadding='5'>");
+       
+    </script>
+    
+
+ <h2>ejercicio  9 tabla2
+</h2>
+    <script>
+       
+       
+    </script>
+</body>
+</html>
