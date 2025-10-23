@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    <h1>Ejercicio 5</h1>
+    <!--Ejercicio 5. Crea un script que te lea tu año de nacimiento y pais y sexo) . te calcule cuantos años te quedan
+para llegar a la edad media de esperanza de vida tu país (debes hacer un if )
+Pais Media Hombre Mujer
+Japón 84,3 81,5 86,9
+Suiza 83,4 81,8 85,1
+España 83,2 80,7 85,7
+Italia 83,0 80,9 84,9
+Irak 72,4 69,9 75,0
+Guinea Ecuatorial 62,2 60,9 63,6
+Somalia 56,5 54,0 59,2-->
+    <table>
+        <tr>
+            <th>País</th>
+            <th>Media</th>
+            <th>Hombre</th>
+            <th>Mujer</th>
+        </tr>
+        <tr>
+            <td>Japón</td>
+            <td>84,3</td>
+            <td>81,5</td>
+            <td>86,9</td>
+        </tr>
+        <tr>
+            <td>Suiza</td>
+            <td>83,4</td>
+            <td>81,8</td>
+            <td>85,1</td>
+        </tr>
+        <tr>
+            <td>España</td>
+            <td>83,2</td>
+            <td>80,7</td>
+            <td>85,7</td>
+        </tr>
+        <tr>
+            <td>Italia</td>
+            <td>83,0</td>
+            <td>80,9</td>
+            <td>84,9</td>
+        </tr>
+        <tr>
+            <td>Irak</td>
+            <td>72,4</td>
+            <td>69,9</td>
+            <td>75,0</td>
+        </tr>
+        <tr>
+            <td>Guinea Ecuatorial</td>
+            <td>62,2</td>
+            <td>60,9</td>
+            <td>63,6</td>
+        </tr>
+        <tr>
+            <td>Somalia</td>
+            <td>56,5</td>
+            <td>54,0</td>
+            <td>59,2</td>
+        </tr>
+    </table>
+    <script>
+        function calcularEdadMs(fechaNac) {
+            const hoy = new Date();
+            const nacimiento = new Date(fechaNac);
+            const diferenciaMs = hoy.getTime() - nacimiento.getTime();
+            const edad = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24 * 365.25));
+            return edad;
+        }
+
+        function esperanzaVida(pais, sexo) {
+            const datosEsperanza = {
+                "Japón": { hombre: 81.5, mujer: 86.9 },
+                "Suiza": { hombre: 81.8, mujer: 85.1 },
+                "España": { hombre: 80.7, mujer: 85.7 },
+                "Italia": { hombre: 80.9, mujer: 84.9 },
+                "Irak": { hombre: 69.9, mujer: 75.0 },
+                "Guinea Ecuatorial": { hombre: 60.9, mujer: 63.6 },
+                "Somalia": { hombre: 54.0, mujer: 59.2 }
+            };
+
+            if (datosEsperanza[pais]) {
+                return datosEsperanza[pais][sexo.toLowerCase()];
+            } else {
+                return null;
+            }
+        }
+
+        let fechaNacimiento = prompt("Introduce tu fecha de nacimiento (YYYY-MM-DD):");
+        let pais = prompt("Introduce tu país (Japón, Suiza, España, Italia, Irak, Guinea Ecuatorial, Somalia):");
+        let sexo = prompt("Introduce tu sexo (hombre/mujer):");
+
+        let edadActual = calcularEdadMs(fechaNacimiento);
+        let esperanza = esperanzaVida(pais, sexo);
+
+        if (esperanza !== null) {
+            let añosRestantes = esperanza - edadActual;
+            if (añosRestantes > 0) {
+                document.writeln(`Te quedan aproximadamente ${añosRestantes.toFixed(1)} años para llegar a la esperanza de vida en ${pais}.`);
+            } else {
+                document.writeln(`Has superado la esperanza de vida en ${pais}. ¡Felicidades!`);
+            }
+        } else {
+            document.writeln("País no reconocido. Por favor, introduce un país válido.");
+        }
+    </script>
+</body>
+</html>
