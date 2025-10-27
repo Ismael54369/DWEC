@@ -6,7 +6,91 @@
     <title>Ejercicios Objeto Window</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script type="text/javascript">
-        
+        let nuevaVentana;
+        let intervalId = null;
+        let zoomLevel = 15;
+
+        // Ejercicio 8: Propiedades del objeto location
+        function mostrarPropiedadesLocation() {
+            const loc = window.location;
+            const propiedades = `
+                - <b>hash:</b> ${loc.hash} <br>
+                - <b>host:</b> ${loc.host} <br>
+                - <b>hostname:</b> ${loc.hostname} <br>
+                - <b>href:</b> ${loc.href} <br>
+                - <b>pathname:</b> ${loc.pathname} <br>
+                - <b>port:</b> ${loc.port} <br>
+                - <b>protocol:</b> ${loc.protocol} <br>
+                - <b>search:</b> ${loc.search}`;
+            document.getElementById("text").innerHTML = "Propiedades del objeto <code>location</code>:<br>" + propiedades;
+        }
+
+        // Ejercicio 9: Métodos de location
+        function cargarNuevaURL() {
+            const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
+            if (url) {
+                location.assign(url);
+            }
+        }
+
+        function recargarPagina() {
+            location.reload();
+        }
+
+        function reemplazarURL() {
+            const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
+            if (url) {
+                location.replace(url);
+            }
+        }
+
+        // Ejercicio 10: Propiedades del objeto navigator
+        function mostrarPropiedadesNavigator() {
+            const nav = window.navigator;
+            const propiedades = `
+                - <b>appCodeName:</b> ${nav.appCodeName} <br>
+                - <b>appName:</b> ${nav.appName} <br>
+                - <b>appVersion:</b> ${nav.appVersion} <br>
+                - <b>cookieEnabled:</b> ${nav.cookieEnabled} <br>
+                - <b>platform:</b> ${nav.platform} <br>
+                - <b>userAgent:</b> ${nav.userAgent}`;
+            document.getElementById("text").innerHTML = "Propiedades del objeto <code>navigator</code>:<br>" + propiedades;
+        }
+
+        // Ejercicio 11: Geolocalización
+        function obtenerGeolocalizacion() {
+            const demo = document.getElementById("text");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        demo.innerHTML = `Tu ubicación:<br>
+                            <b>Latitud:</b> ${position.coords.latitude}<br>
+                            <b>Longitud:</b> ${position.coords.longitude}`;
+                    },
+                    (error) => {
+                        demo.textContent = "Error al obtener la geolocalización: " + error.message;
+                    }
+                );
+            } else {
+                demo.textContent = "La geolocalización no es soportada por este navegador.";
+            }
+        }
+
+        // Ejercicio 12: Google Maps
+        function cargarMapa() {
+            const iframe = document.getElementById("mapaFrame");
+            if (!iframe) return;
+            const lat = 36.643675;
+            const lon = -4.4902875;
+            iframe.src = `https://www.google.es/maps/@${lat},${lon},${zoomLevel}z?output=embed`;
+        }
+
+        function cambiarZoom(cantidad) {
+            zoomLevel += cantidad;
+            if (zoomLevel < 1) zoomLevel = 1;
+            if (zoomLevel > 21) zoomLevel = 21;
+            cargarMapa();
+        }
 
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
@@ -18,65 +102,62 @@
 
             switch (num) {
                 case 1:
-                    titulo.textContent = "Ejercicio 1 - Crear Ventana";
-                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana</button>`;
+                    titulo.textContent = "Ejercicio 8 - Propiedades de Location";
+                    htmlControles = `<button onclick="mostrarPropiedadesLocation()" class="btn btn-primary">Mostrar Propiedades de Location</button>`;
                     break;
                 case 2:
-                    titulo.textContent = "Ejercicio 2 - Cerrar Ventana";
-                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana primero</button>
-                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    titulo.textContent = "Ejercicio 9 - Métodos de Location";
+                    htmlControles = `<div class="input-group mb-3">
+                                        <input type="text" id="urlInput" class="form-control" placeholder="Introduce una URL (ej: https://www.google.com)">
+                                     </div>
+                                     <button onclick="cargarNuevaURL()" class="btn btn-primary me-2">Cargar con assign()</button>
+                                     <button onclick="reemplazarURL()" class="btn btn-warning me-2">Cargar con replace()</button>
+                                     <button onclick="recargarPagina()" class="btn btn-success">Recargar con reload()</button>`;
                     break;
                 case 3:
-                    titulo.textContent = "Ejercicio 3 - ¿Ventana Abierta?";
-                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana</button>
-                                     <button onclick="estaAbiertaEj3()" class="btn btn-success me-2">¿Está abierta?</button>
-                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    titulo.textContent = "Ejercicio 10 - Propiedades de Navigator";
+                    htmlControles = `<button onclick="mostrarPropiedadesNavigator()" class="btn btn-primary">Mostrar Propiedades de Navigator</button>`;
                     break;
                 case 4:
-                    titulo.textContent = "Ejercicio 4 - Propiedades de Ventana";
-                    htmlControles = `<button onclick="crearVentanaEj4()" class="btn btn-primary me-2">Crear y ver propiedades</button>
-                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    titulo.textContent = "Ejercicio 11 - Geolocalización";
+                    htmlControles = `<button onclick="obtenerGeolocalizacion()" class="btn btn-info">Obtener mi Ubicación</button>`;
                     break;
                 case 5:
-                    titulo.textContent = "Ejercicio 5 - Alerta y Confirmación";
-                    htmlControles = `<button onclick="ejecutarEj5()" class="btn btn-primary">Alertar</button>`;
-                    break;
-                case 6:
-                    titulo.textContent = "Ejercicio 6 - setInterval y clearInterval";
-                    htmlControles = `<button onclick="ejecutarEj6()" class="btn btn-success me-2">Iniciar 'Hola'</button>
-                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
-                    break;
-                case 7:
-                    titulo.textContent = "Ejercicio 7 - Hora";
-                    htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-success me-2">Iniciar recuento de hora</button>
-                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
+                    titulo.textContent = "Ejercicio 12 - Google Maps con Iframe";
+                    htmlControles = `<div class="w-100 text-center">
+                                        <div class="btn-group mb-3" role="group">
+                                            <button onclick="cambiarZoom(1)" class="btn btn-success">Aumentar Zoom (+)</button>
+                                            <button onclick="cambiarZoom(-1)" class="btn btn-danger">Minimizar Zoom (-)</button>
+                                        </div>
+                                        <iframe id="mapaFrame" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                     </div>`;
+                    // Cargar el mapa inmediatamente al seleccionar el ejercicio
+                    setTimeout(cargarMapa, 0);
                     break;
             }
             controlesDiv.innerHTML = htmlControles;
         }
 
         function inicializar() {
-            setupEjercicio(1);
+            setupEjercicio(parseInt(document.getElementById('select-ejercicio').value));
         }
     </script>
 </head>
 <body onload="inicializar()">
     <div class="container mt-4">
         <header class="p-3 mb-4 bg-light rounded-3">
-            <h1 class="display-5">Ejercicios con el Objeto Window</h1>
+            <h1 class="display-5">Ejercicios con los Objetos Location y Navigator</h1>
             <p class="lead">Selecciona un ejercicio del menú para ver su funcionamiento.</p>
         </header>
 
         <div class="mb-4">
             <label for="select-ejercicio" class="form-label fw-bold">Seleccionar Ejercicio:</label>
             <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))">
-                <option value="1">Ejercicio 1: Crear Ventana</option>
-                <option value="2">Ejercicio 2: Cerrar Ventana</option>
-                <option value="3">Ejercicio 3: Comprobar si está abierta</option>
-                <option value="4">Ejercicio 4: Propiedades de la ventana</option>
-                <option value="5">Ejercicio 5: Alerta y Confirmación</option>
-                <option value="6">Ejercicio 6: setInterval y clearInterval</option>
-                <option value="7">Ejercicio 7: Hora</option>
+                <option value="1">Ejercicio 8: Propiedades de Location</option>
+                <option value="2">Ejercicio 9: Métodos de Location</option>
+                <option value="3">Ejercicio 10: Propiedades de Navigator</option>
+                <option value="4">Ejercicio 11: Geolocalización</option>
+                <option value="5">Ejercicio 12: Google Maps</option>
             </select>
         </div>
 
@@ -85,7 +166,7 @@
                 <h2 id="titulo-ejercicio" class="h4 mb-0"></h2>
             </div>
             <div class="card-body">
-                <div id="controles-ejercicio" class="d-flex justify-content-center mb-3">
+                <div id="controles-ejercicio" class="d-flex flex-wrap justify-content-center align-items-center mb-3">
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <p><span id="text" class="fw-bold"></span></p>
