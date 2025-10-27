@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script type="text/javascript">
         let nuevaVentana;
-        let intervalIdEj6 = null;
+        let intervalId = null;
 
         function crearVentanaEj1() {
             const altura = parseInt(prompt("Introduce la altura de la nueva ventana"));
@@ -61,25 +61,38 @@
         }
 
         function ejecutarEj6() { 
-            if (intervalIdEj6) {
+            if (intervalId) {
                 clearInterval(intervalIdEj6);
-                intervalIdEj6 = null;
+                intervalId = null;
             } else {
                 function dihola() {
                 document.getElementById("text").textContent += "Hola ";
             }
-                intervalIdEj6 = setInterval(dihola, 500);
-                document.getElementById("text").textContent = "Intervalo iniciado.";
+                intervalId = setInterval(dihola, 500);
+                document.getElementById("text").textContent = "Intervalo iniciado. ";
             }
         }
 
-        function pararEj6() {
-            clearInterval(intervalIdEj6);
-            intervalIdEj6 = null;
+        function parar() {
+            clearInterval(intervalId);
+            intervalId = null;
             document.getElementById("text").textContent = "Intervalo detenido.";
         }
 
-        function ejecutarEj7() { document.getElementById("text").textContent = "Lógica del ejercicio 7 aquí."; }
+        function ejecutarEj7() { 
+            const date = new Date();
+            if (intervalId) {
+                clearInterval(intervalIdEj6);
+                intervalId = null;
+            } else {
+                function hora() {
+                const date = new Date();
+                document.getElementById("text").textContent = "Hola son las " + date.toLocaleTimeString();
+            }
+                intervalId = setInterval(hora, 1000);
+                document.getElementById("text").textContent = "Intervalo iniciado. ";
+            }
+         }
 
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
@@ -117,11 +130,12 @@
                 case 6:
                     titulo.textContent = "Ejercicio 6 - setInterval y clearInterval";
                     htmlControles = `<button onclick="ejecutarEj6()" class="btn btn-success me-2">Iniciar 'Hola'</button>
-                                     <button onclick="pararEj6()" class="btn btn-danger">Detener</button>`;
+                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
                     break;
                 case 7:
-                    titulo.textContent = "Ejercicio 7";
-                    htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-info">Ejecutar Ejercicio 7</button>`;
+                    titulo.textContent = "Ejercicio 7 - Hora";
+                    htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-success me-2">Iniciar recuento de hora</button>
+                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
                     break;
             }
             controlesDiv.innerHTML = htmlControles;
@@ -139,7 +153,6 @@
             <p class="lead">Selecciona un ejercicio del menú para ver su funcionamiento.</p>
         </header>
 
-        <!-- Menú de selección de ejercicios -->
         <div class="mb-4">
             <label for="select-ejercicio" class="form-label fw-bold">Seleccionar Ejercicio:</label>
             <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))">
@@ -149,18 +162,16 @@
                 <option value="4">Ejercicio 4: Propiedades de la ventana</option>
                 <option value="5">Ejercicio 5: Alerta y Confirmación</option>
                 <option value="6">Ejercicio 6: setInterval y clearInterval</option>
-                <option value="7">Ejercicio 7</option>
+                <option value="7">Ejercicio 7: Hora</option>
             </select>
         </div>
 
-        <!-- Contenedor para el ejercicio actual -->
         <div class="card">
             <div class="card-header">
                 <h2 id="titulo-ejercicio" class="h4 mb-0"></h2>
             </div>
             <div class="card-body">
                 <div id="controles-ejercicio" class="d-flex justify-content-center mb-3">
-                    <!-- Los botones del ejercicio se cargarán aquí -->
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <p><span id="text" class="fw-bold"></span></p>
