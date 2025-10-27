@@ -8,6 +8,8 @@
     <script type="text/javascript">
         let nuevaVentana;
         let intervalId = null;
+        let zoomLevel = 15;
+        const GEO_API_KEY = "PON_AQUI_TU_API_KEY"; // IMPORTANTE: Reemplaza con tu API Key de Google
 
         function crearVentanaEj1() {
             const altura = parseInt(prompt("Introduce la altura de la nueva ventana"));
@@ -94,6 +96,112 @@
             }
          }
 
+        function mostrarLocation() {
+            const loc = window.location;
+            document.getElementById("text").innerHTML = `
+                <h3>Propiedades del Objeto <code>location</code>:</h3>
+                <ul>
+                    <li><b>hash:</b> ${loc.hash}</li>
+                    <li><b>host:</b> ${loc.host}</li>
+                    <li><b>hostname:</b> ${loc.hostname}</li>
+                    <li><b>href:</b> ${loc.href}</li>
+                    <li><b>pathname:</b> ${loc.pathname}</li>
+                    <li><b>port:</b> ${loc.port}</li>
+                    <li><b>protocol:</b> ${loc.protocol}</li>
+                    <li><b>search:</b> ${loc.search}</li>
+                </ul>`;
+        }
+
+        function cargarNuevaURL(metodo) {
+            const url = document.getElementById("urlInput") ? document.getElementById("urlInput").value : prompt("Introduce la URL a cargar (ej: https://www.iesplayamar.es):");
+            if (url) {
+                if (metodo === 'assign') {
+                    location.assign(url);
+                } else if (metodo === 'replace') {
+                    location.replace(url);
+                }
+            } else {
+                document.getElementById("text").textContent = "URL no válida o cancelada.";
+            }
+        }
+
+        function recargarPagina() {
+            location.reload();
+        }
+
+        function mostrarNavigator() {
+            const nav = window.navigator;
+            document.getElementById("text").innerHTML = `
+                <h3>Propiedades del Objeto <code>navigator</code>:</h3>
+                <ul>
+                    <li><b>appCodeName:</b> ${nav.appCodeName}</li>
+                    <li><b>appName:</b> ${nav.appName}</li>
+                    <li><b>appVersion:</b> ${nav.appVersion}</li>
+                    <li><b>cookieEnabled:</b> ${nav.cookieEnabled}</li>
+                    <li><b>platform:</b> ${nav.platform}</li>
+                    <li><b>userAgent:</b> ${nav.userAgent}</li>
+                </ul>`;
+        }
+
+        function obtenerGeolocalizacion() {
+            const demo = document.getElementById("text");
+            if (navigator.geolocation) {
+                demo.innerHTML = "Pidiendo permiso para obtener ubicación...";
+                navigator.geolocation.getCurrentPosition(
+                    (position) => { // Éxito
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        demo.innerHTML = `
+                            <b>Latitud:</b> ${lat}<br>
+                            <b>Longitud:</b> ${lon}<br><br>
+                            <iframe id="mapa"
+                                width="600"
+                                height="450"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                src="https://www.google.com/maps/embed/v1/view?key=${GEO_API_KEY}&center=${lat},${lon}&zoom=${zoomLevel}">
+                            </iframe>`;
+                    },
+                    (error) => { // Error
+                        let mensajeError = "Error al obtener la geolocalización: ";
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                mensajeError += "El usuario denegó la solicitud.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                mensajeError += "La información de ubicación no está disponible.";
+                                break;
+                            case error.TIMEOUT:
+                                mensajeError += "La solicitud de ubicación ha caducado.";
+                                break;
+                            default:
+                                mensajeError += "Ocurrió un error desconocido.";
+                                break;
+                        }
+                        demo.innerHTML = mensajeError;
+                    }
+                );
+            } else {
+                demo.innerHTML = "La geolocalización no es soportada por este navegador.";
+            }
+        }
+
+        function cambiarZoom(direccion) {
+            const mapaFrame = document.getElementById("mapa");
+            if (!mapaFrame) {
+                document.getElementById("text").innerHTML = "Primero debes cargar el mapa.";
+                return;
+            }
+            if (direccion === 'mas') {
+                zoomLevel++;
+            } else if (direccion === 'menos' && zoomLevel > 1) {
+                zoomLevel--;
+            }
+            const nuevaSrc = mapaFrame.src.replace(/&zoom=\d+/, `&zoom=${zoomLevel}`);
+            mapaFrame.src = nuevaSrc;
+        }
+
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
             const titulo = document.getElementById("titulo-ejercicio");
@@ -137,6 +245,34 @@
                     htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-success me-2">Iniciar recuento de hora</button>
                                      <button onclick="parar()" class="btn btn-danger">Detener</button>`;
                     break;
+                case 8:
+                    titulo.textContent = "Ejercicio 8 - Objeto Location";
+                    htmlControles = `<button onclick="mostrarLocation()" class="btn btn-info">Mostrar Propiedades de Location</button>`;
+                    textoResultado.innerHTML = `Pulsa el botón para ver las propiedades del objeto <code>location</code> de esta página.`;
+                    break;
+                case 9:
+                    titulo.textContent = "Ejercicio 9 - assign, replace y reload";
+                    htmlControles = `<div class="input-group mb-3" style="max-width: 400px;">
+                                        <input type="text" id="urlInput" class="form-control" placeholder="https://www.iesplayamar.es">
+                                     </div>
+                                     <button onclick="cargarNuevaURL('assign')" class="btn btn-primary me-2">Cargar con assign()</button>
+                                     <button onclick="cargarNuevaURL('replace')" class="btn btn-warning me-2">Cargar con replace()</button>
+                                     <button onclick="recargarPagina()" class="btn btn-secondary">Recargar con reload()</button>`;
+                    textoResultado.innerHTML = `<b>assign()</b>: Carga una nueva URL y la añade al historial (puedes volver atrás).<br>
+                                                <b>replace()</b>: Carga una nueva URL pero reemplaza la página actual en el historial (no puedes volver atrás).<br>
+                                                <b>reload()</b>: Recarga la página actual.`;
+                    break;
+                case 10:
+                    titulo.textContent = "Ejercicio 10 - Objeto Navigator";
+                    htmlControles = `<button onclick="mostrarNavigator()" class="btn btn-info">Mostrar Propiedades de Navigator</button>`;
+                    break;
+                case 11:
+                    titulo.textContent = "Ejercicio 11 - Geolocalización y Mapas";
+                    htmlControles = `<button onclick="obtenerGeolocalizacion()" class="btn btn-primary me-2">Obtener Ubicación y Mostrar Mapa</button>
+                                     <button onclick="cambiarZoom('mas')" class="btn btn-success me-2">Zoom +</button>
+                                     <button onclick="cambiarZoom('menos')" class="btn btn-danger">Zoom -</button>`;
+                    textoResultado.innerHTML = `<b>IMPORTANTE:</b> Para que este ejercicio funcione, debes reemplazar el texto <i>"PON_AQUI_TU_API_KEY"</i> en el código JS por una API Key válida de Google Maps.`;
+                    break;
             }
             controlesDiv.innerHTML = htmlControles;
         }
@@ -163,6 +299,10 @@
                 <option value="5">Ejercicio 5: Alerta y Confirmación</option>
                 <option value="6">Ejercicio 6: setInterval y clearInterval</option>
                 <option value="7">Ejercicio 7: Hora</option>
+                <option value="8">Ejercicio 8: Objeto Location</option>
+                <option value="9">Ejercicio 9: assign, replace y reload</option>
+                <option value="10">Ejercicio 10: Objeto Navigator</option>
+                <option value="11">Ejercicio 11: Geolocalización y Mapas</option>
             </select>
         </div>
 
@@ -171,7 +311,7 @@
                 <h2 id="titulo-ejercicio" class="h4 mb-0"></h2>
             </div>
             <div class="card-body">
-                <div id="controles-ejercicio" class="d-flex justify-content-center mb-3">
+                <div id="controles-ejercicio" class="d-flex flex-wrap justify-content-center align-items-center mb-3">
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <p><span id="text" class="fw-bold"></span></p>

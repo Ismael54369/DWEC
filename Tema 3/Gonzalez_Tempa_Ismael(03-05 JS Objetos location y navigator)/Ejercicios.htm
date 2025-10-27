@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Objeto Window</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script type="text/javascript">
+        
+
+        function setupEjercicio(num) {
+            const controlesDiv = document.getElementById("controles-ejercicio");
+            const titulo = document.getElementById("titulo-ejercicio");
+            const textoResultado = document.getElementById("text");
+            textoResultado.innerHTML = "";
+
+            let htmlControles = "";
+
+            switch (num) {
+                case 1:
+                    titulo.textContent = "Ejercicio 1 - Crear Ventana";
+                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana</button>`;
+                    break;
+                case 2:
+                    titulo.textContent = "Ejercicio 2 - Cerrar Ventana";
+                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana primero</button>
+                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    break;
+                case 3:
+                    titulo.textContent = "Ejercicio 3 - ¿Ventana Abierta?";
+                    htmlControles = `<button onclick="crearVentanaEj1()" class="btn btn-primary me-2">Crear ventana</button>
+                                     <button onclick="estaAbiertaEj3()" class="btn btn-success me-2">¿Está abierta?</button>
+                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    break;
+                case 4:
+                    titulo.textContent = "Ejercicio 4 - Propiedades de Ventana";
+                    htmlControles = `<button onclick="crearVentanaEj4()" class="btn btn-primary me-2">Crear y ver propiedades</button>
+                                     <button onclick="cerrarVentanaComun()" class="btn btn-danger">Cerrar ventana</button>`;
+                    break;
+                case 5:
+                    titulo.textContent = "Ejercicio 5 - Alerta y Confirmación";
+                    htmlControles = `<button onclick="ejecutarEj5()" class="btn btn-primary">Alertar</button>`;
+                    break;
+                case 6:
+                    titulo.textContent = "Ejercicio 6 - setInterval y clearInterval";
+                    htmlControles = `<button onclick="ejecutarEj6()" class="btn btn-success me-2">Iniciar 'Hola'</button>
+                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
+                    break;
+                case 7:
+                    titulo.textContent = "Ejercicio 7 - Hora";
+                    htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-success me-2">Iniciar recuento de hora</button>
+                                     <button onclick="parar()" class="btn btn-danger">Detener</button>`;
+                    break;
+            }
+            controlesDiv.innerHTML = htmlControles;
+        }
+
+        function inicializar() {
+            setupEjercicio(1);
+        }
+    </script>
+</head>
+<body onload="inicializar()">
+    <div class="container mt-4">
+        <header class="p-3 mb-4 bg-light rounded-3">
+            <h1 class="display-5">Ejercicios con el Objeto Window</h1>
+            <p class="lead">Selecciona un ejercicio del menú para ver su funcionamiento.</p>
+        </header>
+
+        <div class="mb-4">
+            <label for="select-ejercicio" class="form-label fw-bold">Seleccionar Ejercicio:</label>
+            <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))">
+                <option value="1">Ejercicio 1: Crear Ventana</option>
+                <option value="2">Ejercicio 2: Cerrar Ventana</option>
+                <option value="3">Ejercicio 3: Comprobar si está abierta</option>
+                <option value="4">Ejercicio 4: Propiedades de la ventana</option>
+                <option value="5">Ejercicio 5: Alerta y Confirmación</option>
+                <option value="6">Ejercicio 6: setInterval y clearInterval</option>
+                <option value="7">Ejercicio 7: Hora</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 id="titulo-ejercicio" class="h4 mb-0"></h2>
+            </div>
+            <div class="card-body">
+                <div id="controles-ejercicio" class="d-flex justify-content-center mb-3">
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <p><span id="text" class="fw-bold"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
