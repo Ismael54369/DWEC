@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicios Objeto Window</title>
+    <title>Ejercicios Objeto Location y Navigator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script type="text/javascript">
         let nuevaVentana;
         let intervalId = null;
         let zoomLevel = 15;
 
-        // Ejercicio 8: Propiedades del objeto location
+        // Ejercicio 2: Propiedades del objeto location
         function mostrarPropiedadesLocation() {
             const loc = window.location;
             const propiedades = `
@@ -25,7 +25,7 @@
             document.getElementById("text").innerHTML = "Propiedades del objeto <code>location</code>:<br>" + propiedades;
         }
 
-        // Ejercicio 9: Métodos de location
+        // Ejercicio 3 y 4: Métodos de location
         function cargarNuevaURL() {
             const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
             if (url) {
@@ -33,10 +33,12 @@
             }
         }
 
+        //Ejercicio 5: Recargar página
         function recargarPagina() {
             location.reload();
         }
 
+        //Ejercicicio 6: Reemplazar URL
         function reemplazarURL() {
             const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
             if (url) {
@@ -44,7 +46,15 @@
             }
         }
 
-        // Ejercicio 10: Propiedades del objeto navigator
+        //Ejercicio 7: Diferencia entre replace y assign
+        function diferenciaReplaceAssign() {
+            const info = `
+                <b>replace():</b> Cambia la URL actual sin guardar la página anterior en el historial del navegador.<br>
+                <b>assign():</b> Cambia la URL actual y guarda la página anterior en el historial del navegador.`;
+            document.getElementById("text").innerHTML = info;
+        }
+
+        // Ejercicio 8: Propiedades del objeto navigator
         function mostrarPropiedadesNavigator() {
             const nav = window.navigator;
             const propiedades = `
@@ -57,7 +67,7 @@
             document.getElementById("text").innerHTML = "Propiedades del objeto <code>navigator</code>:<br>" + propiedades;
         }
 
-        // Ejercicio 11: Geolocalización
+        // Ejercicio 9: Geolocalización
         function obtenerGeolocalizacion() {
             const demo = document.getElementById("text");
             if (navigator.geolocation) {
@@ -76,15 +86,16 @@
             }
         }
 
-        // Ejercicio 12: Google Maps
+        // Ejercicio 10: Google Maps
         function cargarMapa() {
             const iframe = document.getElementById("mapaFrame");
             if (!iframe) return;
             const lat = 36.643675;
             const lon = -4.4902875;
-            iframe.src = `https://www.google.es/maps/@${lat},${lon},${zoomLevel}z?output=embed`;
+            iframe.src = `https://maps.google.com/maps?q=${lat},${lon}&z=${zoomLevel}&output=embed`;
         }
 
+        // Ejercicio 11: Zoom
         function cambiarZoom(cantidad) {
             zoomLevel += cantidad;
             if (zoomLevel < 1) zoomLevel = 1;
@@ -92,6 +103,7 @@
             cargarMapa();
         }
 
+        //Configuracion de los ejercicios
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
             const titulo = document.getElementById("titulo-ejercicio");
@@ -100,13 +112,14 @@
 
             let htmlControles = "";
 
+            //Genero los controles según el ejercicio seleccionado
             switch (num) {
                 case 1:
-                    titulo.textContent = "Ejercicio 8 - Propiedades de Location";
-                    htmlControles = `<button onclick="mostrarPropiedadesLocation()" class="btn btn-primary">Mostrar Propiedades de Location</button>`;
+                    titulo.textContent = "Ejercicio 2 - Propiedades de Location";
+                    htmlControles = `<button onclick="mostrarPropiedadesLocation()" class="btn btn-info">Mostrar Propiedades de Location</button>`;
                     break;
                 case 2:
-                    titulo.textContent = "Ejercicio 9 - Métodos de Location";
+                    titulo.textContent = "Ejercicio 3, 4, 5 y 6 - Métodos de Location";
                     htmlControles = `<div class="input-group mb-3">
                                         <input type="text" id="urlInput" class="form-control" placeholder="Introduce una URL (ej: https://www.google.com)">
                                      </div>
@@ -115,15 +128,19 @@
                                      <button onclick="recargarPagina()" class="btn btn-success">Recargar con reload()</button>`;
                     break;
                 case 3:
-                    titulo.textContent = "Ejercicio 10 - Propiedades de Navigator";
-                    htmlControles = `<button onclick="mostrarPropiedadesNavigator()" class="btn btn-primary">Mostrar Propiedades de Navigator</button>`;
+                    titulo.textContent = "Ejercicio 7 - Diferencia entre replace() y assign()";
+                    htmlControles = `<button onclick="diferenciaReplaceAssign()" class="btn btn-info">Mostrar Diferencia</button>`;
                     break;
                 case 4:
-                    titulo.textContent = "Ejercicio 11 - Geolocalización";
-                    htmlControles = `<button onclick="obtenerGeolocalizacion()" class="btn btn-info">Obtener mi Ubicación</button>`;
+                    titulo.textContent = "Ejercicio 8 - Propiedades de Navigator";
+                    htmlControles = `<button onclick="mostrarPropiedadesNavigator()" class="btn btn-info">Mostrar Propiedades de Navigator</button>`;
                     break;
                 case 5:
-                    titulo.textContent = "Ejercicio 12 - Google Maps con Iframe";
+                    titulo.textContent = "Ejercicio 9 - Geolocalización";
+                    htmlControles = `<button onclick="obtenerGeolocalizacion()" class="btn btn-info">Obtener mi Ubicación</button>`;
+                    break;
+                case 6:
+                    titulo.textContent = "Ejercicio 10 y 11 - Google Maps con Iframe";
                     htmlControles = `<div class="w-100 text-center">
                                         <div class="btn-group mb-3" role="group">
                                             <button onclick="cambiarZoom(1)" class="btn btn-success">Aumentar Zoom (+)</button>
@@ -153,11 +170,12 @@
         <div class="mb-4">
             <label for="select-ejercicio" class="form-label fw-bold">Seleccionar Ejercicio:</label>
             <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))">
-                <option value="1">Ejercicio 8: Propiedades de Location</option>
-                <option value="2">Ejercicio 9: Métodos de Location</option>
-                <option value="3">Ejercicio 10: Propiedades de Navigator</option>
-                <option value="4">Ejercicio 11: Geolocalización</option>
-                <option value="5">Ejercicio 12: Google Maps</option>
+                <option value="1">Ejercicio 2: Propiedades de Location</option>
+                <option value="2">Ejercicio 3, 4, 5 y 6: Métodos de Location</option>
+                <option value="3">Ejercicio 7: Diferencia entre replace() y assign()</option>
+                <option value="4">Ejercicio 8: Propiedades de Navigator</option>
+                <option value="5">Ejercicio 9: Geolocalización</option>
+                <option value="6">Ejercicio 10: Google Maps</option>
             </select>
         </div>
 
