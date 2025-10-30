@@ -1,0 +1,15 @@
+<!DOCTYPE html><html > <head>
+<meta charset="UTF-8" />
+<title>Hello World!</title></head>
+<body>
+    <div id="tituloViejo"></div>
+    <div id="tituloNuevo"></div>
+
+    <script language="JavaScript">
+    nombre=prompt('Ingrese su nombre:','');
+    document.getElementById("tituloViejo").innerHTML = "Titulo antiguo " + document.title; // displays "Hello World!"
+    document.title = nombre;
+    document.getElementById("tituloNuevo").innerHTML = "Titulo nuevo " + document.title; // displays "Hello World!"
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <h1>Propiedades del Objeto <code>document</code></h1>
+
+    <script>
+        // Creamos una lista para mostrar las propiedades de forma ordenada.
+        document.write('<ul>');
+
+        // 1. document.domain (Obsoleto)
+        // Muestra el dominio del servidor. En archivos locales, suele estar vacío.
+        // Está en desuso por razones de seguridad.
+        document.write(`<li><b>document.domain:</b> <code>${document.domain || '(vacío o no disponible en archivos locales)'}</code> <br><small>(Propiedad obsoleta)</small></li>`);
+
+        // 2. document.lastModified
+        // Devuelve la fecha y hora de la última modificación del archivo.
+        document.write(`<li><b>document.lastModified:</b> <code>${document.lastModified}</code></li>`);
+
+        // 3. document.readyState
+        // Devuelve el estado de carga del documento. Al ejecutar este script,
+        // normalmente será 'interactive' o 'complete'.
+        document.write(`<li><b>document.readyState:</b> <code>${document.readyState}</code></li>`);
+
+        // 4. document.referrer
+        // Muestra la URL de la página que nos enlazó a esta. Si abres el archivo
+        // directamente, estará vacío.
+        document.write(`<li><b>document.referrer:</b> <code>${document.referrer || '(vacío, no se ha accedido desde otra página)'}</code></li>`);
+
+        // 5. document.title
+        // Muestra el título de la página (el que está en la etiqueta <title>).
+        document.write(`<li><b>document.title (antes):</b> <code>${document.title}</code></li>`);
+        document.title = "¡Título Cambiado con JS!"; // También podemos cambiarlo
+        document.write(`<li><b>document.title (después):</b> <code>${document.title}</code></li>`);
+
+        // 6. document.URL
+        // Devuelve la URL completa del documento actual.
+        document.write(`<li><b>document.URL:</b> <code>${document.URL}</code></li>`);
+
+        document.write('</ul>');
+    </script>
+</body>
+</html>

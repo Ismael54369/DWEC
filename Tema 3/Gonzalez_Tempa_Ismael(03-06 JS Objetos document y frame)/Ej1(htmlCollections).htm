@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <style id="main-style">
+        body { font-family: sans-serif; line-height: 1.6; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+        ul { list-style-type: square; }
+        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
+        .deprecated { color: #e74c3c; border-bottom-color: #e74c3c; }
+    </style>
+</head>
+<body>
+    
+    <h1>Propiedades del Objeto <code>document</code></h1>
+
+    <!-- Elementos para poblar las colecciones -->
+    <a name="ancla1"></a>
+    <a name="ancla2"></a>
+
+    <!-- applet está obsoleto y no funcionará en navegadores modernos -->
+    <applet code="MyApplet.class" width="100" height="100"></applet>
+
+    <a href="https://www.google.com">Google</a>
+    <a href="#ancla1">Ir a Ancla 1</a>
+
+    <form name="formulario1"></form>
+    <form name="formulario2"></form>
+
+    <img src="imagen1.jpg" alt="Imagen 1">
+    <img src="imagen2.png" alt="Imagen 2">
+
+    <script>
+        // 1. Creamos un array (una lista) con los NOMBRES de las propiedades que queremos ver.
+        //    Guardamos los nombres como texto.
+        const nombresDeColecciones = [
+            "anchors",
+            "applets",
+            "links",
+            "forms",
+            "images",
+            "scripts",
+            "styleSheets",
+            "cookie"
+        ];
+
+        // 2. Usamos un bucle 'for' normal para recorrer nuestra lista de nombres.
+        //    El bucle se repetirá 8 veces, una por cada nombre en el array.
+        for (let i = 0; i < nombresDeColecciones.length; i++) {
+
+            // En cada vuelta del bucle, sacamos un nombre de la lista.
+            // Por ejemplo, en la primera vuelta, 'nombreActual' será "anchors".
+            // En la segunda, será "applets", y así sucesivamente.
+            const nombreActual = nombresDeColecciones[i];
+
+            // Escribimos el título. Si el nombre es 'anchors' o 'applets', le ponemos la clase "deprecated".
+            if (nombreActual === 'anchors' || nombreActual === 'applets') {
+                document.write(`<h2 class="deprecated">document.${nombreActual}</h2>`);
+            } else {
+                document.write(`<h2>document.${nombreActual}</h2>`);
+            }
+
+            // 3. Ahora, accedemos a la propiedad del 'document' usando el nombre que tenemos.
+            //    Escribir document[nombreActual] es como escribir document.links (si nombreActual es "links").
+            //    Esto nos permite acceder a diferentes propiedades en cada vuelta del bucle.
+            const coleccion = document[nombreActual];
+
+            // 4. Añadimos una comprobación para los casos especiales.
+            if (nombreActual === 'cookie') {
+                // Si es 'cookie', no es una colección. Es solo texto.
+                document.cookie = "usuario=test; SameSite=Lax"; // Creamos una para el ejemplo
+                document.write(`<p>El valor de la cookie es: <code>${document.cookie}</code></p>`);
+
+            } else if (nombreActual === 'styleSheets') {
+                // Si es 'styleSheets', es una lista de objetos de estilo, no de etiquetas.
+                document.write(`<ul>`);
+                for (let j = 0; j < coleccion.length; j++) {
+                    const hojaDeEstilo = coleccion[j];
+                    // Mostramos su ID o la URL si es un archivo externo.
+                    document.write(`<li>Hoja de estilo ${j}: (ID: <code>${hojaDeEstilo.ownerNode.id}</code>)</li>`);
+                }
+                document.write(`</ul>`);
+
+            } else if (coleccion && coleccion.length > 0) {
+                // 5. Para el resto (images, links, etc.), usamos la lógica que ya teníamos.
+                document.write(`<ul>`);
+                for (let j = 0; j < coleccion.length; j++) {
+                    const elemento = coleccion[j];
+                    document.write(`<li>Elemento ${j}: <code>${elemento.outerHTML.replace(/</g, "&lt;")}</code></li>`);
+                }
+                document.write(`</ul>`);
+            } else {
+                document.write("<p>La colección está vacía.</p>");
+            }
+        }
+    </script>
+</body>
+</html>
