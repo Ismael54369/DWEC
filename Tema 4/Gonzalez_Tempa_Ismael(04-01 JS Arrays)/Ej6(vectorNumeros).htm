@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de un Vector de Números</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Análisis de un Vector de Números</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="caja1" class="form-label">Introduce números separados por comas:</label>
+                    <input type="text" class="form-control" id="caja1" placeholder="Ej: 10, 5, 23, 8, 15" />
+                </div>
+                <button class="btn btn-primary" onclick="analizarArray()">Analizar Vector</button>
+                
+                <hr />
+
+                <h5 class="card-subtitle mb-2 text-muted">Array original:</h5>
+                <p id="array-original" class="border p-2 rounded bg-light" style="word-wrap: break-word;"></p>
+
+                <h5 class="card-subtitle mb-2 text-muted">Array ordenado:</h5>
+                <p id="array-ordenado" class="border p-2 rounded bg-light" style="word-wrap: break-word;"></p>
+
+                <h5 class="card-subtitle mt-4 mb-2 text-muted">Resultados del análisis:</h5>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Número Mayor
+                        <span id="numero-mayor" class="badge bg-success rounded-pill fs-6"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Número Menor
+                        <span id="numero-menor" class="badge bg-danger rounded-pill fs-6"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Media Aritmética
+                        <span id="media" class="badge bg-info rounded-pill fs-6"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      function mayor(arrayDeNumeros) {
+        let numMayor = arrayDeNumeros[0];
+        for (let i = 1; i < arrayDeNumeros.length; i++) {
+          if (arrayDeNumeros[i] > numMayor) {
+            numMayor = arrayDeNumeros[i];
+          }
+        }
+        return numMayor;
+      }
+
+      function menor(arrayDeNumeros) {
+        let numMenor = arrayDeNumeros[0];
+        for (let i = 1; i < arrayDeNumeros.length; i++) {
+          if (arrayDeNumeros[i] < numMenor) {
+            numMenor = arrayDeNumeros[i];
+          }
+        }
+        return numMenor;
+      }
+
+      function media(arrayDeNumeros) {
+        let suma = 0;
+        for (let i = 0; i < arrayDeNumeros.length; i++) {
+          suma += arrayDeNumeros[i];
+        }
+        return suma / arrayDeNumeros.length;
+      }
+
+      function analizarArray() {
+        // 1. Leer y procesar la entrada del usuario.
+        const textoInput = document.getElementById("caja1").value;
+        if (!textoInput) {
+          alert("Por favor, introduce algunos números.");
+          return; // Este return es necesario para detener la función si no hay texto.
+        }
+
+        const arrayDeStrings = textoInput.split(",");
+        const numeros = []; // Un array vacío para guardar los números válidos.
+
+        // Recorremos el array de strings con un bucle for.
+        for (let i = 0; i < arrayDeStrings.length; i++) {
+          const textoNumero = arrayDeStrings[i].trim(); // Quitamos espacios.
+          const numeroConvertido = parseFloat(textoNumero); // Convertimos a número.
+
+          // Si la conversión da como resultado un número válido...
+          if (!isNaN(numeroConvertido)) {
+            numeros.push(numeroConvertido); // ...lo añadimos al array 'numeros'.
+          }
+        }
+
+        if (numeros.length === 0) {
+          alert("No se encontraron números válidos en la entrada.");
+          return; // Detenemos la función si no hay números.
+        }
+
+        // 2. Realizar los cálculos.
+        const elMayor = mayor(numeros);
+        const elMenor = menor(numeros);
+        const laMedia = media(numeros);
+
+        // 3. Mostrar todos los resultados en el HTML.
+        document.getElementById('array-original').textContent = numeros.join(', ');
+        const numerosOrdenados = numeros.sort();
+        document.getElementById('array-ordenado').textContent = numerosOrdenados.join(', ');
+        document.getElementById('numero-mayor').textContent = elMayor;
+        document.getElementById('numero-menor').textContent = elMenor;
+        document.getElementById('media').textContent = laMedia.toFixed(2); // Redondear a 2 decimales
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Análisis de un Vector de Números</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">Concatenar Arrays</h1>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="caja1" class="form-label"
+              >Introduce los elementos separados por comas (array1):</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="caja1"
+              placeholder="Ej: elemento1, elemento2..."
+            />
+
+            <label for="caja2" class="form-label"
+              >Introduce los elementos separados por comas (array2):</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="caja2"
+              placeholder="Ej: elemento4, elemento5..."
+            />
+
+            <label for="caja3" class="form-label"
+              >Introduce los elementos separados por comas (array3):</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="caja3"
+              placeholder="Ej: elemento7, elemento8..."
+            />
+          </div>
+          <button class="btn btn-primary" onclick="concatenarArray()">
+            Concatenar
+          </button>
+
+          <hr />
+
+          <h5 class="card-subtitle mt-4 mb-2 text-muted">Resultado:</h5>
+          <p class="card-text" id="texto"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function concatenarArray() {
+        // 1. Leer y procesar la entrada del usuario.
+        const texto1 = document.getElementById("caja1").value;
+        const texto2 = document.getElementById("caja2").value;
+        const texto3 = document.getElementById("caja3").value;
+        if (!texto1 || !texto2 || !texto3) {
+          alert("Por favor, introduce algo.");
+          return; // Este return es necesario para detener la función si no hay texto.
+        }
+
+        const array1 = texto1.split(",");
+        const array2 = texto2.split(",");
+        const array3 = texto3.split(",");
+        const arrayCombinado = [];
+
+        // 1. Determinar la longitud mínima para intercalar sin errores.
+        const longitudMinima = Math.min(array1.length, array2.length, array3.length);
+
+        // 2. Intercalar los elementos hasta donde ambos arrays tienen elementos.
+        for (let i = 0; i < longitudMinima; i++) {
+          arrayCombinado.push(array1[i].trim());
+          arrayCombinado.push(array2[i].trim());
+          arrayCombinado.push(array3[i].trim());
+        }
+
+        // 3. Añadir los elementos restantes del array más largo.
+        if (array1.length > longitudMinima) {
+          for (let i = longitudMinima; i < array1.length; i++) {
+            arrayCombinado.push(array1[i].trim());
+          }
+        } 
+        
+        if (array2.length > longitudMinima) {
+          for (let i = longitudMinima; i < array2.length; i++) {
+            arrayCombinado.push(array2[i].trim());
+          }
+        } 
+        
+        if (array3.length > longitudMinima) {
+            for (let i = longitudMinima; i < array3.length; i++) {
+            arrayCombinado.push(array3[i].trim());
+          }
+        }
+
+        document.getElementById(
+          "texto"
+        ).innerHTML = `El contenido del array combinado es: <strong>${arrayCombinado.join(
+          " - "
+        )}</strong> <br> El tamaño final del array es: <strong>${
+          arrayCombinado.length
+        }</strong>`;
+      }
+    </script>
+  </body>
+</html>
