@@ -7,13 +7,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script type="text/javascript">
         let nuevaVentana;
-        let intervalId = null;
-        let zoomLevel = 15;
+        let intervalId = null; // Variable para almacenar el ID de un intervalo (no usada en este fichero).
+        let zoomLevel = 15; // Nivel de zoom inicial para el mapa de Google.
 
-        // Ejercicio 2: Propiedades del objeto location
+        // --- FUNCIONES PARA EL OBJETO LOCATION ---
+
+        /**
+         * EJERCICIO 2: Muestra las principales propiedades del objeto 'location'.
+         * El objeto 'location' contiene información sobre la URL actual.
+         */
         function mostrarPropiedadesLocation() {
-            const loc = window.location;
-            const propiedades = `
+            const loc = window.location; // Obtenemos el objeto 'location' de la ventana actual.
+            // Creamos un string con formato HTML para mostrar las propiedades.
+            const propiedades = ` 
                 - <b>hash:</b> ${loc.hash} <br>
                 - <b>host:</b> ${loc.host} <br>
                 - <b>hostname:</b> ${loc.hostname} <br>
@@ -22,71 +28,101 @@
                 - <b>port:</b> ${loc.port} <br>
                 - <b>protocol:</b> ${loc.protocol} <br>
                 - <b>search:</b> ${loc.search}`;
+            // Insertamos el texto en el elemento con id="text".
             document.getElementById("text").innerHTML = "Propiedades del objeto <code>location</code>:<br>" + propiedades;
         }
 
-        // Ejercicio 3 y 4: Métodos de location
+        /**
+         * EJERCICIO 3 y 4: Carga una nueva URL usando el método assign().
+         * Este método navega a la URL indicada y guarda la página actual en el historial.
+         */
         function cargarNuevaURL() {
+            // Obtenemos la URL del campo de texto, o usamos una por defecto si está vacío.
             const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
             if (url) {
-                location.assign(url);
+                location.assign(url); // Navega a la nueva URL.
             }
         }
 
-        //Ejercicio 5: Recargar página
+        /**
+         * EJERCICIO 5: Recarga la página actual usando el método reload().
+         */
         function recargarPagina() {
-            location.reload();
+            location.reload(); // Recarga la página. Es como pulsar F5.
         }
 
-        //Ejercicicio 6: Reemplazar URL
+        /**
+         * EJERCICIO 6: Reemplaza la URL actual por una nueva usando replace().
+         * Este método navega a la URL indicada SIN guardar la página actual en el historial.
+         */
         function reemplazarURL() {
+            // Obtenemos la URL del campo de texto, o usamos una por defecto si está vacío.
             const url = document.getElementById("urlInput").value || "https://www.iesplayamar.es";
             if (url) {
-                location.replace(url);
+                location.replace(url); // Reemplaza la URL actual. No se puede volver atrás con el botón del navegador.
             }
         }
 
-        //Ejercicio 7: Diferencia entre replace y assign
+        /**
+         * EJERCICIO 7: Muestra una explicación de la diferencia entre replace() y assign().
+         */
         function diferenciaReplaceAssign() {
             const info = `
                 <b>replace():</b> Cambia la URL actual sin guardar la página anterior en el historial del navegador.<br>
                 <b>assign():</b> Cambia la URL actual y guarda la página anterior en el historial del navegador.`;
+            // Muestra la información en el elemento con id="text".
             document.getElementById("text").innerHTML = info;
         }
 
-        // Ejercicio 8: Propiedades del objeto navigator
+        // --- FUNCIONES PARA EL OBJETO NAVIGATOR ---
+
+        /**
+         * EJERCICIO 8: Muestra las propiedades del objeto 'navigator'.
+         * El objeto 'navigator' contiene información sobre el navegador del usuario.
+         */
         function mostrarPropiedadesNavigator() {
-            const nav = window.navigator;
-            const propiedades = `
+            const nav = window.navigator; // Obtenemos el objeto 'navigator'.
+            // Creamos un string HTML para mostrar las propiedades.
+            const propiedades = ` 
                 - <b>appCodeName:</b> ${nav.appCodeName} <br>
                 - <b>appName:</b> ${nav.appName} <br>
                 - <b>appVersion:</b> ${nav.appVersion} <br>
                 - <b>cookieEnabled:</b> ${nav.cookieEnabled} <br>
                 - <b>platform:</b> ${nav.platform} <br>
                 - <b>userAgent:</b> ${nav.userAgent}`;
+            // Insertamos el texto en el elemento con id="text".
             document.getElementById("text").innerHTML = "Propiedades del objeto <code>navigator</code>:<br>" + propiedades;
         }
 
-        // Ejercicio 9: Geolocalización
+        /**
+         * EJERCICIO 9: Obtiene y muestra la geolocalización del usuario.
+         * Utiliza la API de Geolocalización del navegador.
+         */
         function obtenerGeolocalizacion() {
             const demo = document.getElementById("text");
+            // Comprobamos si el navegador soporta la geolocalización.
             if (navigator.geolocation) {
+                // Si la soporta, pedimos la posición actual.
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    (position) => { // Función que se ejecuta si se obtiene la posición con éxito.
                         demo.innerHTML = `Tu ubicación:<br>
                             <b>Latitud:</b> ${position.coords.latitude}<br>
                             <b>Longitud:</b> ${position.coords.longitude}`;
                     },
-                    (error) => {
+                    (error) => { // Función que se ejecuta si hay un error.
                         demo.textContent = "Error al obtener la geolocalización: " + error.message;
                     }
                 );
             } else {
+                // Si el navegador no soporta la geolocalización.
                 demo.textContent = "La geolocalización no es soportada por este navegador.";
             }
         }
 
-        // Ejercicio 10: Google Maps
+        /**
+         * EJERCICIO 10: Carga un mapa de Google Maps en un iframe.
+         * Usa coordenadas fijas y el nivel de zoom de la variable global 'zoomLevel'.
+         */
         function cargarMapa() {
             const iframe = document.getElementById("mapaFrame");
             if (!iframe) return;
@@ -95,7 +131,10 @@
             iframe.src = `https://maps.google.com/maps?q=${lat},${lon}&z=${zoomLevel}&output=embed`;
         }
 
-        // Ejercicio 11: Zoom
+        /**
+         * EJERCICIO 11: Cambia el nivel de zoom del mapa.
+         * @param {number} cantidad - El valor a sumar o restar al zoom actual (ej: 1 o -1).
+         */
         function cambiarZoom(cantidad) {
             zoomLevel += cantidad;
             if (zoomLevel < 1) zoomLevel = 1;
@@ -103,7 +142,11 @@
             cargarMapa();
         }
 
-        //Configuracion de los ejercicios
+        /**
+         * FUNCIÓN DE CONFIGURACIÓN: Prepara la interfaz para el ejercicio seleccionado.
+         * Esta función genera dinámicamente los botones y elementos necesarios para cada ejercicio.
+         * @param {number} num - El número del ejercicio a mostrar.
+         */
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
             const titulo = document.getElementById("titulo-ejercicio");
@@ -112,7 +155,7 @@
 
             let htmlControles = "";
 
-            //Genero los controles según el ejercicio seleccionado
+            // Generamos los controles HTML según el ejercicio seleccionado en el menú desplegable.
             switch (num) {
                 case 1:
                     titulo.textContent = "Ejercicio 2 - Propiedades de Location";
@@ -155,12 +198,16 @@
             controlesDiv.innerHTML = htmlControles;
         }
 
+        /**
+         * FUNCIÓN DE INICIO: Se ejecuta cuando la página ha cargado completamente.
+         * Llama a setupEjercicio para mostrar el primer ejercicio por defecto.
+         */
         function inicializar() {
             setupEjercicio(parseInt(document.getElementById('select-ejercicio').value));
         }
     </script>
 </head>
-<body onload="inicializar()">
+<body onload="inicializar()"> <!-- El evento 'onload' llama a la función 'inicializar' cuando la página se carga. -->
     <div class="container mt-4">
         <header class="p-3 mb-4 bg-light rounded-3">
             <h1 class="display-5">Ejercicios con los Objetos Location y Navigator</h1>
@@ -169,7 +216,7 @@
 
         <div class="mb-4">
             <label for="select-ejercicio" class="form-label fw-bold">Seleccionar Ejercicio:</label>
-            <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))">
+            <select id="select-ejercicio" class="form-select w-auto" onchange="setupEjercicio(parseInt(this.value))"> <!-- El evento 'onchange' llama a setupEjercicio cada vez que se cambia la opción. -->
                 <option value="1">Ejercicio 2: Propiedades de Location</option>
                 <option value="2">Ejercicio 3, 4, 5 y 6: Métodos de Location</option>
                 <option value="3">Ejercicio 7: Diferencia entre replace() y assign()</option>

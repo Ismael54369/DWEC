@@ -9,49 +9,45 @@
 <body>
     <h1>Ejercicio 6</h1>
     <script>
-        document.writeln(Date.today() + "Returns today's date, with time set to 00:00 (start of day).<br>"); 
-        document.writeln(Date.today().next().friday() + "Returns the date of the next Friday.<br>"); 
-        document.writeln(Date.today().last().monday() + "Returns the date of the previous Monday.<br>"); 
+        document.writeln(Date.today() + " - Devuelve la fecha de hoy, con la hora a las 00:00 (inicio del día).<br>"); 
+        document.writeln(Date.today().next().friday() + " - Devuelve la fecha del próximo viernes.<br>"); 
+        document.writeln(Date.today().last().monday() + " - Devuelve la fecha del lunes anterior.<br>");        
+        document.writeln(new Date().last().week() + " - Devuelve la fecha de hace una semana.<br>");
+        document.writeln(Date.today().is().friday() + " - Devuelve true|false si el día de la semana coincide.<br>");
+        document.writeln(Date.today().is().fri() + " - Versión abreviada de is().friday().<br>");
+        document.writeln(Date.today().is().november() + " - Devuelve true|false si el mes coincide.<br>");
+        document.writeln(Date.today().is().nov() + " - Versión abreviada de is().november().<br>");
 
-        document.writeln(new Date().next().march() + "Returns the date of the next March.<br>"); 
-        document.writeln(new Date().last().week() + "Returns the date one week ago.<br>"); 
+        document.writeln(Date.today().is().weekday() + " - Devuelve true|false si hoy es un día laborable.<br>");
 
-        document.writeln(Date.today().is().friday() + "Returns true|false if the day-of-week matches.<br>");
-        document.writeln(Date.today().is().fri() + "Abbreviated version of is().friday()<br>");
+        document.writeln(Date.today().addDays(1) + " - Añade un día (+1).<br>");
+        document.writeln(Date.today().addMonths(-3) + " - Resta tres meses (-3).<br>");
 
-        document.writeln(Date.today().is().november() + "Returns true|false if the month matches.<br>");
-        document.writeln(Date.today().is().nov() + "Abbreviated version of is().november()<br>");
+        document.writeln(Date.today().add(1).day() + " - Añade un (+1) día.<br>");
+        document.writeln(Date.today().add(-3).months() + " - Resta tres (-3) meses.<br>");
 
-        document.writeln(Date.today().is().weekday() + "Returns true|false if today is a weekday.<br>");
+        document.writeln(Date.today().add(1).day().fromNow() + " - Un (1) día a partir de ahora.<br>");
+        document.writeln(Date.today().add(-3).months().ago() + " - Hace tres (3) meses.<br>");
 
-        document.writeln(Date.today().addDays(1) + "Add one day (+1).<br>");
-        document.writeln(Date.today().addMonths(-3) + "Subtract three months (-3).<br>");
+        document.writeln(Date.monday() + " - Devuelve el lunes de la semana actual.<br>");
+        document.writeln(Date.mon() + " - Versión abreviada de Date.monday().<br>");
 
-        document.writeln(Date.today().add(1).day() + "Add one (+1) day.<br>");
-        document.writeln(Date.today().add(-3).months() + "Subtract three (-3) months.<br>");
+        document.writeln(Date.march() + " - Devuelve el 1 de marzo de este año.<br>");
+        document.writeln(Date.mar() + " - Versión abreviada de Date.march().<br>");
 
-        document.writeln(Date.today().add(1).day().fromNow() + "One (1) day from now.<br>");
-        document.writeln(Date.today().add(-3).months().ago() + "Three (3) months ago.<br>");
+        document.writeln(Date.today().first().thursday() + " - Devuelve el primer jueves del mes actual.<br>");
+        document.writeln(Date.today().second().thursday() + " - Devuelve el segundo jueves del mes actual.<br>");
 
-        document.writeln(Date.monday() + "Returns Monday of the current week.<br>");
-        document.writeln(Date.mon() + "Abbreviated version of Date.monday()<br>");
+        document.writeln(Date.march().third().thursday() + " - Devuelve el tercer jueves de marzo del año actual.<br>");
+        document.writeln(Date.october().fourth().sunday() + " - Devuelve el cuarto domingo de octubre.<br>");
 
-        document.writeln(Date.march() + "Returns March 1st of this year.<br>");
-        document.writeln(Date.mar() + "Abbreviated version of Date.march()<br>");
+        document.writeln(Date.today().fifth().sunday() + " - Devuelve el quinto domingo del mes actual.<br>");
+        document.writeln(Date.october().final().sunday() + " - Devuelve el último domingo de octubre.<br>");
 
-        document.writeln(Date.today().first().thursday() + "Returns the first Thursday of the current month.<br>");
-        document.writeln(Date.today().second().thursday() + "Returns the second Thursday of the current month.<br>");
+        document.writeln(Date.january().first().monday() + " - Devuelve el primer lunes del año actual.<br>");
+        document.writeln(Date.december().final().friday() + " - Devuelve el último viernes del año actual.<br>");
 
-        document.writeln(Date.march().third().thursday() + "Returns the third Thursday in March of the current year.<br>");
-        document.writeln(Date.october().fourth().sunday() + "Returns the fourth Sunday in October.<br>");
-
-        document.writeln(Date.today().fifth().sunday() + "Returns the fifth Sunday in the current month,<br>");
-        document.writeln(Date.october().final().sunday() + "Returns the final Sunday in October.<br>");
-
-        document.writeln(Date.january().first().monday() + "Returns the first Monday of the current year.<br>");
-        document.writeln(Date.december().final().friday() + "Returns the last Friday of the current year.<br>");
-
-        document.writeln(Date.today().at("6:15pm") + "Returns todays date at 6:15pm.<br>");
+        document.writeln(Date.today().at("6:15pm") + " - Devuelve la fecha de hoy a las 6:15pm.<br>");
     </script>
 </body>
 </html>

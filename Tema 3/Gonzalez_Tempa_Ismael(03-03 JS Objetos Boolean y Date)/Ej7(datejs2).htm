@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 7</title>ç
+    <title>Ejercicio 7</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
 </head>
 <body>
@@ -11,42 +11,42 @@
     
     <h3>1. Hoy</h3>    
     <script>
-        document.writeln(Date.today() + "<br>");
+        document.writeln(Date.today().toLocaleDateString('es-ES') + "<br>");
     </script>        
     
     <h3>2. La fecha del proximo lunes</h3>
     <script>
-        document.writeln(Date.today().next().monday() + "<br>");
+        document.writeln(Date.today().next().monday().toLocaleDateString('es-ES') + "<br>");
     </script>
     
     <h3>3. Hoy a las 23:00</h3>
     <script>
-        document.writeln(Date.today().at("23:00") + "<br>");
+        document.writeln(Date.today().at("23:00").toLocaleString('es-ES') + "<br>");
     </script>
     
     <h3>4. Hoy dentro de un año</h3>
     <script>
-        document.writeln(Date.today().addYears(1) + "<br>");
+        document.writeln(Date.today().addYears(1).toLocaleDateString('es-ES') + "<br>");
     </script>
     
     <h3>5. Tu cumpleaños este año</h3>
     <script>
-        document.writeln(Date.parse("2026-01-23") + "<br>");
+        document.writeln(new Date("2026-01-23").toLocaleDateString('es-ES') + "<br>");
     </script>
     
     <h3>6. El primer lunes de mes que viene</h3>
     <script>
-        document.writeln(Date.today().addMonths(1).moveToFirstDayOfMonth().next().monday() + "<br>");
+        document.writeln(Date.today().addMonths(1).moveToFirstDayOfMonth().next().monday().toLocaleDateString('es-ES') + "<br>");
     </script>
     
     <h3>7. Preguntar si hoy es viernes</h3>
     <script>
-        document.writeln(Date.today().is().friday() + "<br>");
+        document.writeln((Date.today().is().friday() ? "Sí" : "No") + "<br>");
     </script>
 
     <h3>8. Preguntar si hace un mes fue septiembre</h3>
     <script>
-        document.writeln(Date.today().addMonths(-1).is().september() + "<br>");
+        document.writeln((Date.today().addMonths(-1).is().september() ? "Sí" : "No") + "<br>");
     </script>
 </body>
 </html>
