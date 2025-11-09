@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Tema 3 - Objetos de JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .card {
+            margin-bottom: 2rem;
+        }
+
+        .card-header h3 {
+            margin-bottom: 0;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        code {
+            color: #d63384;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Documentación Completa de JavaScript</h1>
+            <p class="lead">Un resumen de los conceptos, operadores y objetos de JavaScript vistos en los Temas 2 y 3.</p>
+        </header>
+
+        <!-- Objeto String -->
+        <div class="card">
+            <div class="card-header">
+                <h3>1. Objeto <code>String</code> y Expresiones Regulares</h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Manipulación de Cadenas de Texto</h5>
+                <p>El objeto <code>String</code> se utiliza para trabajar con texto. Permite realizar una gran variedad de operaciones, desde obtener su longitud hasta buscar y reemplazar subcadenas.</p>
+                
+                <h6>Creación y Propiedades:</h6>
+                <ul>
+                    <li><b>Creación:</b> Se puede crear una cadena de forma literal (<code>let s = "hola"</code>) o como un objeto (<code>let s = new String("hola")</code>).</li>
+                    <li><b><code>.length</code>:</b> Devuelve el número de caracteres de la cadena.</li>
+                    <li><b>Caracteres de escape:</b> Se usa la barra invertida <code>\</code> para incluir caracteres especiales como comillas dentro de una cadena. Ejemplo: <code>"El pájaro \"pedro\"..."</code>.</li>
+                </ul>
+
+                <h6>Métodos Fundamentales:</h6>
+                <ul>
+                    <li><b><code>.indexOf(subcadena)</code>:</b> Devuelve la posición (índice) de la primera aparición de una subcadena. Si no la encuentra, devuelve -1.</li>
+                    <li><b><code>.match(expresionRegular)</code>:</b> Busca una coincidencia entre una expresión regular y una cadena, devolviendo las coincidencias en un array.</li>
+                </ul>
+
+                <h6>Código de Ejemplo (Ejercicios 2 y 10):</h6>
+                <pre><code>
+// Creación de un objeto String y uso de propiedades/métodos
+var s = new String('rafa');
+document.writeln("Cadena: " + s); // Muestra 'rafa'
+
+var longitud = s.length;
+document.writeln("Longitud: " + longitud); // Muestra 4
+
+var pos = s.indexOf("fa"); 
+document.writeln("Posición de 'fa': " + pos); // Muestra 2
+
+// Búsqueda con expresiones regulares
+cadena = "Los temas son tema 1, tema 3, tema 5 y tema 6";
+expresion = /(tema \d+)/i; // Busca "tema" seguido de un número
+hallado = cadena.match(expresion); 
+document.write("Primera coincidencia encontrada: " + hallado[0]); // Muestra "tema 1"
+                </code></pre>
+                <h6>Explicación:</h6>
+                <ul>
+                    <li>En el primer bloque, se crea un objeto <code>String</code>, se obtiene su longitud con <code>.length</code> y se busca la posición de "fa" con <code>.indexOf()</code>.</li>
+                    <li>En el segundo, se usa una expresión regular para encontrar un patrón específico (<code>"tema "</code> seguido de uno o más dígitos <code>\d+</code>) dentro de una cadena. El flag <code>i</code> hace que la búsqueda no distinga mayúsculas de minúsculas.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Objeto Array -->
+        <div class="card">
+            <div class="card-header">
+                <h3>2. Objeto <code>Array</code></h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Manejo de Colecciones Ordenadas</h5>
+                <p>Los arrays son objetos similares a una lista que permiten almacenar múltiples valores en una sola variable. Los elementos se acceden mediante un índice numérico que empieza en 0.</p>
+                
+                <h6>Creación y Acceso:</h6>
+                <ul>
+                    <li><b>Creación literal (preferida):</b> <code>let miArray = ["a", "b", "c"];</code></li>
+                    <li><b>Creación con constructor:</b> <code>let miArray = new Array("a", "b", "c");</code></li>
+                    <li><b>Acceso a elementos:</b> Se utiliza la notación de corchetes. Ejemplo: <code>miArray[0]</code> devolvería "a".</li>
+                </ul>
+
+                <h6>Diferencia con Objetos Genéricos:</h6>
+                <p>Aunque se puede crear una estructura similar a un array con un objeto (<code>{elem1: "a", elem2: "b"}</code>), no es un verdadero array y no tendrá acceso a sus métodos específicos (como <code>.push()</code>, <code>.pop()</code>, <code>.forEach()</code>, etc.). El operador <code>instanceof Array</code> permite verificar si una variable es un array real.</p>
+
+                <h6>Código de Ejemplo (Ejercicios 4, 6, 8 y 12):</h6>
+                <pre><code>
+// Creación de un array literal
+var arraya = ["Santiago", "Coruña", "Lugo"];
+document.writeln(arraya[1]); // Muestra "Coruña"
+
+// Creación de un objeto que parece un array
+var arrayb = { elem1: "Santiago", elem2: "Coruña", elem3: "Lugo" };
+document.writeln(arrayb["elem3"]); // Muestra "Lugo"
+
+// El operador 'delete' elimina una propiedad de un objeto
+delete arrayb.elem3;
+document.writeln(arrayb["elem3"]); // Muestra 'undefined'
+
+// Comprobar si una variable es un Array
+let a = new Array(1, 2, 3);
+let esArray = a instanceof Array; // Devuelve true
+document.writeln("La variable 'a' es un array: " + esArray);
+                </code></pre>
+            </div>
+        </div>
+
+        <!-- Estructuras de Control -->
+        <div class="card">
+            <div class="card-header">
+                <h3>3. Estructuras de Control (Condicionales y Bucles)</h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Dirigiendo el Flujo del Programa</h5>
+                <p>Las estructuras de control permiten ejecutar diferentes bloques de código según se cumplan ciertas condiciones (condicionales) o repetir un bloque de código múltiples veces (bucles).</p>
+
+                <h6>Condicional <code>if/else</code>:</h6>
+                <p>Ejecuta un bloque de código si la condición es verdadera, y otro bloque (opcional) si es falsa.</p>
+                <pre><code>
+let num = prompt("Ingresa un número de cliente:");
+if (num == 1000) { // Ojo: '==' compara valor, '===' compara valor y tipo.
+    document.writeln("Ganaste un premio");
+} else {
+    document.writeln("Lo sentimos, sigue participando");
+}
+                </code></pre>
+
+                <h6>Bucle <code>for</code>:</h6>
+                <p>Repite un bloque de código un número determinado de veces. Es ideal para iterar sobre arrays o realizar una acción N veces.</p>
+                <pre><code>
+let capital = 1000;
+let interesAnual = 0.05;
+let numAnios = 5;
+
+for (let i = 1; i <= numAnios; i++) {
+  capital *= (1 + interesAnual);
+  document.writeln("Capital tras año " + i + ": " + capital.toFixed(2) + "€&lt;br&gt;");
+}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Objeto Number y Math -->
+        <div class="card">
+            <div class="card-header">
+                <h3>4. Objetos <code>Number</code> y <code>Math</code></h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Manipulación de Números y Operaciones Matemáticas</h5>
+                <p>Estos ejercicios muestran cómo trabajar con números, validar entradas y realizar operaciones matemáticas comunes utilizando los objetos <code>Number</code> y <code>Math</code>.</p>
+
+                <h6>Funciones destacadas del objeto <code>Number</code>:</h6>
+                <ul>
+                    <li><b><code>parseFloat(string)</code>:</b> Convierte una cadena de texto en un número de punto flotante (decimal).</li>
+                    <li><b><code>isNaN(valor)</code>:</b> Comprueba si un valor "No es un Número" (Not-a-Number). Es muy útil para validar si la entrada del usuario es un número válido.</li>
+                </ul>
+
+                <h6>Métodos destacados del objeto <code>Math</code>:</h6>
+                <ul>
+                    <li><b><code>Math.floor(x)</code>:</b> Redondea un número hacia abajo al entero más cercano.</li>
+                    <li><b><code>Math.ceil(x)</code>:</b> Redondea un número hacia arriba al entero más cercano.</li>
+                    <li><b><code>Math.round(x)</code>:</b> Redondea un número al entero más cercano (si la parte decimal es .5 o mayor, redondea hacia arriba).</li>
+                    <li><b><code>Math.random()</code>:</b> Devuelve un número pseudoaleatorio entre 0 (inclusive) y 1 (exclusive).</li>
+                </ul>
+
+                <h6>Código de Ejemplo (Ejercicio 8):</h6>
+                <pre><code>
+num = parseFloat(prompt("Ingrese un numero decimal"));
+if (isNaN(num)) {
+    document.writeln(`&lt;p class="text-danger"&gt;ERROR: DEBES INTRODUCIR UN NUMERO&lt;/p&gt;`);
+} else {
+    document.writeln(`Es un numero lo que has introducido ${num}.
+    &lt;ol class="list group list-group-numbered"&gt;
+    &lt;li class="list-group-item"&gt;Su floor es: ${Math.floor(num)}&lt;/li&gt;
+    &lt;li class="list-group-item"&gt;Su ceil es: ${Math.ceil(num)}&lt;/li&gt;
+    &lt;li class="list-group-item"&gt;Su round es: ${Math.round(num)}&lt;/li&gt;
+    &lt;/ol&gt;`);
+}
+                </code></pre>
+            </div>
+        </div>
+
+        <!-- Objeto Date -->
+        <div class="card">
+            <div class="card-header">
+                <h3>5. Objeto <code>Date</code></h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Manejo de Fechas y Horas</h5>
+                <p>El objeto <code>Date</code> se utiliza para trabajar con fechas y horas. Permite obtener la fecha y hora actual, así como manipular sus componentes (día, mes, año, horas, minutos, etc.).</p>
+                <h6>Ejemplo de uso:</h6>
+                <pre><code>
+const fechaActual = new Date();
+document.write("La fecha y hora actual es: " + fechaActual.toLocaleString());
+
+// Obtener componentes individuales
+let anio = fechaActual.getFullYear(); // Año con 4 dígitos
+let mes = fechaActual.getMonth(); // Mes (0-11, Enero es 0)
+let dia = fechaActual.getDate(); // Día del mes (1-31)
+
+document.write(`&lt;br&gt;Hoy es ${dia}/${mes + 1}/${anio}`);
+                </code></pre>
+            </div>
+        </div>
+
+        <!-- Objeto Location y Navigator -->
+        <div class="card">
+            <div class="card-header"> 
+                <h3>6. Objetos <code>location</code> y <code>navigator</code></h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejercicios 2-11: Interactuando con el Navegador y la URL</h5>
+                <p>Estos ejercicios exploran las propiedades y métodos de los objetos <code>location</code> (información
+                    de la URL) y <code>navigator</code> (información del navegador).</p>
+
+                <h6>Funciones destacadas del objeto <code>location</code>:</h6>
+                <ul>
+                    <li><b>Mostrar propiedades:</b> Se accede a <code>window.location</code> para mostrar detalles de la
+                        URL actual como <code>.href</code>, <code>.hostname</code>, <code>.protocol</code>, etc.</li>
+                    <li><b><code>location.assign(url)</code>:</b> Navega a una nueva URL y la guarda en el historial,
+                        permitiendo usar el botón "Atrás" del navegador.</li>
+                    <li><b><code>location.replace(url)</code>:</b> Navega a una nueva URL pero la reemplaza en el
+                        historial. No se puede volver a la página anterior.</li>
+                    <li><b><code>location.reload()</code>:</b> Recarga la página actual, equivalente a pulsar F5.</li>
+                </ul>
+
+                <h6>Funciones destacadas del objeto <code>navigator</code>:</h6>
+                <ul>
+                    <li><b>Mostrar propiedades:</b> Se accede a <code>window.navigator</code> para obtener información
+                        del navegador como <code>.userAgent</code>, <code>.platform</code> o si las cookies están
+                        habilitadas (<code>.cookieEnabled</code>).</li>
+                    <li><b>Geolocalización:</b> Se utiliza <code>navigator.geolocation.getCurrentPosition()</code> para
+                        solicitar al usuario su ubicación (latitud y longitud) y mostrarla en pantalla.</li>
+                    <li><b>Integración con Mapas:</b> Se manipula un <code>&lt;iframe&gt;</code> para mostrar un mapa de
+                        Google Maps, cambiando dinámicamente la URL para ajustar el nivel de zoom.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Objeto Document -->
+        <div class="card">
+            <div class="card-header">
+                <h3>7. Objeto <code>document</code></h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejercicio 1: Colecciones HTML del DOM</h5>
+                <p>Este ejercicio recorre varias propiedades del objeto <code>document</code> que son colecciones de
+                    elementos HTML. Estas colecciones permiten acceder a todos los elementos de un tipo específico
+                    (imágenes, enlaces, formularios, etc.) presentes en la página.</p>
+                <h6>Código de Ejemplo:</h6>
+                <pre><code>
+// Array con los nombres de las colecciones a inspeccionar.
+const nombresDeColecciones = [
+    "anchors", "applets", "links", "forms", "images", "scripts", "styleSheets", "cookie"
+];
+
+// Se itera sobre cada nombre.
+for (let i = 0; i < nombresDeColecciones.length; i++) {
+    const nombreActual = nombresDeColecciones[i];
+
+    // Se accede a la colección dinámicamente usando document[nombreActual]
+    const coleccion = document[nombreActual];
+
+    // Se muestra el nombre de la colección y su contenido.
+    document.write(`&lt;h2&gt;document.${nombreActual}&lt;/h2&gt;`);
+
+    if (coleccion &amp;&amp; coleccion.length > 0) {
+        document.write("&lt;ul&gt;");
+        for (let j = 0; j < coleccion.length; j++) {
+            // Se muestra cada elemento de la colección.
+            document.write(`&lt;li&gt;Elemento ${j}&lt;/li&gt;`);
+        }
+        document.write("&lt;/ul&gt;");
+    } else {
+        document.write("&lt;p&gt;La colección está vacía o no es una colección iterable.&lt;/p&gt;");
+    }
+}
+                </code></pre>
+                <h6>Colecciones exploradas:</h6>
+                <p>Se inspeccionan <code>document.links</code>, <code>document.images</code>,
+                    <code>document.forms</code>, <code>document.scripts</code>, <code>document.styleSheets</code>, y la
+                    propiedad <code>document.cookie</code>, mostrando cuántos elementos de cada tipo hay en la página y
+                    sus detalles.</p>
+            </div>
+        </div>
+
+        <!-- Operadores -->
+        <div class="card">
+            <div class="card-header">
+                <h3>8. Operadores en JavaScript</h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Realizando Comparaciones y Operaciones</h5>
+                <p>JavaScript incluye un amplio conjunto de operadores para realizar tareas lógicas, matemáticas y de asignación.</p>
+
+                <h6>Operadores Lógicos y Booleanos:</h6>
+                <p>Se usan para combinar o invertir valores booleanos (<code>true</code>/<code>false</code>). Son la base de las estructuras condicionales.</p>
+                <ul>
+                    <li><b>AND (<code>&&</code>):</b> Devuelve <code>true</code> solo si ambos operandos son verdaderos.</li>
+                    <li><b>OR (<code>||</code>):</b> Devuelve <code>true</code> si al menos uno de los operandos es verdadero.</li>
+                    <li><b>NOT (<code>!</code>):</b> Invierte el valor booleano (<code>!true</code> es <code>false</code>).</li>
+                </ul>
+                <pre><code>
+let a = true, b = false, c = true;
+document.write("a && (b || c) = " + (a && (b || c))); // true
+document.write("!(a || b) && c = " + (!(a || b) && c)); // false
+                </code></pre>
+
+                <h6>Operador Ternario:</h6>
+                <p>Es un atajo para una sentencia <code>if/else</code> simple. Su sintaxis es <code>condicion ? valor_si_true : valor_si_false</code>.</p>
+                <pre><code>
+var a = 10, b = 15;
+var opcion = b > a ? "B es mayor que A" : "A es mayor que B";
+document.writeln(opcion); // Muestra "B es mayor que A"
+                </code></pre>
+
+                <h6>Operador <code>typeof</code>:</h6>
+                <p>Devuelve una cadena que indica el tipo de dato de una variable.</p>
+                <pre><code>
+var a = "hola", b = 34, c = true;
+document.writeln("El tipo de 'a' es: " + typeof(a)); // "string"
+document.writeln("El tipo de 'b' es: " + typeof(b)); // "number"
+document.writeln("El tipo de 'c' es: " + typeof(c)); // "boolean"
+                </code></pre>
+
+                <h6>Operadores Bit a Bit:</h6>
+                <p>Trabajan a nivel de la representación binaria de los números. Son menos comunes en el desarrollo web diario, pero muy potentes para operaciones de bajo nivel, manipulación de flags o criptografía. Incluyen AND (<code>&</code>), OR (<code>|</code>), XOR (<code>^</code>), y desplazamientos (<code>&lt;&lt;</code>, <code>&gt;&gt;</code>).</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
