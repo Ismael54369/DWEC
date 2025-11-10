@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title h3">Array mostrado</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">A continuación se muestra el array de numeros random:</p>
+                <div id="tablaContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Crear un array 2D (4x5) y llenarlo con números aleatorios del 0 al 9.
+        const numeros = [];
+
+        for (let i = 0; i < 4; i++) {
+            numeros[i] = [];
+            for (let j = 0; j < 5; j++) {
+                numeros[i][j] = Math.floor(Math.random() * 10); // Número aleatorio entre 0 y 9
+            }
+        }
+
+        // 2. Generar el HTML para la tabla a partir del array.
+        let html = '<table class="table table-bordered text-center">';
+        for (let i = 0; i < numeros.length; i++) {
+            html += '<tr>'; // Iniciar una nueva fila
+            for (let j = 0; j < numeros[i].length; j++) {
+                html += `<td>${numeros[i][j]}</td>`; // Añadir una celda con el número
+            }
+            html += '</tr>'; // Cerrar la fila
+        }
+        html += '</table>';
+
+        // 3. Insertar la tabla generada en el DOM.
+        document.getElementById("tablaContainer").innerHTML = html;
+    </script>
+</body>
+
+</html>

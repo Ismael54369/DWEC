@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title h3">Listado de Personal</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">A continuación se muestra el nombre de las personas en la base de datos:</p>
+                <div id="listaNombres"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var datos = new Array();
+        datos[0] = new Array("Cristina", "Seguridad", 24);
+        datos[1] = new Array("Catalina", "Bases de Datos", 17);
+        datos[2] = new Array("Vieites", "Sistemas Informáticos", 28);
+        datos[3] = new Array("Benjamin", "Redes", 26);
+
+        let html = '<ol>';
+        
+        for (let i = 0; i < datos.length; i++) {
+            for (let j = 0; j < 1; j++) {
+                html += `<li> Nombre de la persona ${i + 1}: ${datos[i][j]} </li>`;
+            }
+        }
+        html += '</ol>';
+
+        document.getElementById("listaNombres").innerHTML = html;
+    </script>
+</body>
+
+</html>

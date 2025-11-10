@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title h3">Array mostrado</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">A continuación se muestran las tablas de multiplicar del 1 al 100:</p>
+                <div id="tablaContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Crear un array 2D (100x100)
+        const numeros = [];
+
+        for (let i = 1; i <= 10; i++) {
+            numeros[i] = [];
+            for (let j = 1; j <= 10; j++) {
+                numeros[i][j] = i * j; 
+            }
+        }
+
+        const numeros2 = numeros.map(fila => fila.map(function(num) {
+            return num + 2;
+        }));
+
+        // 2. Generar el HTML para la tabla a partir del array.
+        let html = '<table class="table table-bordered text-center">';
+       
+        // Cabecera de la tabla (columnas)
+        html += '<thead><tr><th class="table-dark">×</th>';
+        for (let i = 1; i < numeros.length; i++) {
+            html += `<th class="table-success">${i}</th>`;
+        }
+        html += '</tr></thead>';
+
+        // Cuerpo de la tabla (filas)
+        html += '<tbody>';
+        for (let i = 1; i < numeros.length; i++) {
+            html += `<tr><th class="table-danger">${i}</th>`; // Cabecera de la fila
+            for (let j = 1; j < numeros[i].length; j++) {
+                html += `<td>${numeros[i][j]}</td>`; // Celda con el resultado
+            }
+            html += '</tr>'; // Cerrar la fila
+        }
+        html += '</tbody></table>';
+
+        // Genero otra tabla para el map
+        html += '<table class="table table-bordered text-center">';
+       
+        // Cabecera de la tabla (columnas)
+        html += '<thead><tr><th class="table-dark">× (+2)</th>';
+        for (let i = 1; i < numeros2.length; i++) {
+            html += `<th class="table-success">${i}</th>`;
+        }
+        html += '</tr></thead>';
+
+        // Cuerpo de la tabla (filas)
+        html += '<tbody>';
+        for (let i = 1; i < numeros2.length; i++) {
+            html += `<tr><th class="table-danger">${i}</th>`; // Cabecera de la fila
+            for (let j = 1; j < numeros2[i].length; j++) {
+                html += `<td>${numeros2[i][j]}</td>`; // Celda con el resultado
+            }
+            html += '</tr>'; // Cerrar la fila
+        }
+        html += '</tbody></table>';
+
+        // 3. Insertar la tabla generada en el DOM.
+        document.getElementById("tablaContainer").innerHTML = html;
+    </script>
+</body>
+
+</html>
