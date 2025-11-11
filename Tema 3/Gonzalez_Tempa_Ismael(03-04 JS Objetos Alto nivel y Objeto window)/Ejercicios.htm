@@ -96,12 +96,63 @@
             }
          }
 
+        // --- Funciones para los ejercicios 8, 9 y 10 ---
+        let colorInterval; // Variable global para el intervalo de cambio de color
+
+        function setColor(color1 = "yellow", color2 = "pink") {
+            let x = document.body;
+            // Usamos el operador ternario para un código más limpio
+            x.style.backgroundColor = x.style.backgroundColor === color1 ? color2 : color1;
+        }
+
+        function stopColor() {
+            clearInterval(colorInterval);
+            colorInterval = null;
+            document.body.style.backgroundColor = ''; // Restablece el color de fondo
+            document.getElementById("text").textContent = "Intervalo de color detenido.";
+        }
+
+        function iniciarIntervalo8() {
+            if (colorInterval) clearInterval(colorInterval); // Limpia el intervalo anterior si existe
+            colorInterval = setInterval(setColor, 500);
+            document.getElementById("text").textContent = "Cambiando de color cada 500ms.";
+        }
+
+        function iniciarIntervalo9() {
+            if (colorInterval) clearInterval(colorInterval);
+            const intervalo = parseInt(prompt("Introduce el intervalo en milisegundos:"));
+            if (isNaN(intervalo) || intervalo <= 0) {
+                alert("Por favor, introduce un número válido mayor que cero.");
+                return;
+            }
+            colorInterval = setInterval(setColor, intervalo);
+            document.getElementById("text").textContent = `Cambiando de color cada ${intervalo}ms.`;
+        }
+
+        function iniciarIntervalo10() {
+            if (colorInterval) clearInterval(colorInterval);
+            const input = prompt("Introduce intervalo y dos colores (ej: 500,red,blue):");
+            if (!input) return;
+
+            const partes = input.split(',');
+            if (partes.length !== 3 || isNaN(parseInt(partes[0])) || parseInt(partes[0]) <= 0) {
+                alert("Formato incorrecto. Usa: milisegundos,color1,color2");
+                return;
+            }
+
+            const intervalo = parseInt(partes[0]);
+            const color1 = partes[1].trim();
+            const color2 = partes[2].trim();
+
+            colorInterval = setInterval(() => setColor(color1, color2), intervalo);
+            document.getElementById("text").textContent = `Cambiando entre ${color1} y ${color2} cada ${intervalo}ms.`;
+        }
+
         function setupEjercicio(num) {
             const controlesDiv = document.getElementById("controles-ejercicio");
             const titulo = document.getElementById("titulo-ejercicio");
             const textoResultado = document.getElementById("text");
             textoResultado.innerHTML = "";
-
             let htmlControles = "";
 
             switch (num) {
@@ -139,6 +190,21 @@
                     htmlControles = `<button onclick="ejecutarEj7()" class="btn btn-success me-2">Iniciar recuento de hora</button>
                                      <button onclick="parar()" class="btn btn-danger">Detener</button>`;
                     break;
+                case 8:
+                    titulo.textContent = "Ejercicio 8";
+                    htmlControles = `<button onclick="iniciarIntervalo8()" class="btn btn-success me-2">Start</button>
+                                     <button onclick="stopColor()" class="btn btn-danger">Stop</button>`;
+                    break;
+                case 9:
+                    titulo.textContent = "Ejercicio 9";
+                    htmlControles = `<button onclick="iniciarIntervalo9()" class="btn btn-success me-2">Start</button>
+                                     <button onclick="stopColor()" class="btn btn-danger">Stop</button>`;
+                    break;
+                case 10:
+                    titulo.textContent = "Ejercicio 10";
+                    htmlControles = `<button onclick="iniciarIntervalo10()" class="btn btn-success me-2">Start</button>
+                                     <button onclick="stopColor()" class="btn btn-danger">Stop</button>`;
+                    break;
             }
             controlesDiv.innerHTML = htmlControles;
         }
@@ -165,6 +231,9 @@
                 <option value="5">Ejercicio 5: Alerta y Confirmación</option>
                 <option value="6">Ejercicio 6: setInterval y clearInterval</option>
                 <option value="7">Ejercicio 7: Hora</option>
+                <option value="8">Ejercicio 8</option>
+                <option value="9">Ejercicio 9</option>
+                <option value="10">Ejercicio 10</option>
             </select>
         </div>
 
