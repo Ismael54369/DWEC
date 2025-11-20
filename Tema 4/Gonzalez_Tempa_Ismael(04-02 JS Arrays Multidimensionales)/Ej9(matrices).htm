@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolver Sistema de Ecuaciones Lineales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Resolver Sistema de Ecuaciones Lineales</h1>
+        <p>Introduce los coeficientes de la matriz A (3x3) y la matriz B (3x1).</p>
+
+        <!-- Matriz A (3x3) -->
+        <h3>Matriz A (3x3)</h3>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="A11" placeholder="A11">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A12" placeholder="A12">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A13" placeholder="A13">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <input type="number" class="form-control" id="A21" placeholder="A21">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A22" placeholder="A22">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A23" placeholder="A23">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <input type="number" class="form-control" id="A31" placeholder="A31">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A32" placeholder="A32">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="A33" placeholder="A33">
+            </div>
+        </div>
+
+        <!-- Matriz B (3x1) -->
+        <h3>Matriz B (3x1)</h3>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="B1" placeholder="B1">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <input type="number" class="form-control" id="B2" placeholder="B2">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <input type="number" class="form-control" id="B3" placeholder="B3">
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="resolverSistema()">Resolver Sistema</button>
+
+        <div id="resultados" class="mt-4">
+            <!-- Aquí se mostrarán los resultados -->
+        </div>
+    </div>
+
+    <script>
+        function resolverSistema() {
+            // 1. Obtener los valores de los inputs
+            const A = [
+                [Number(document.getElementById('A11').value), Number(document.getElementById('A12').value), Number(document.getElementById('A13').value)],
+                [Number(document.getElementById('A21').value), Number(document.getElementById('A22').value), Number(document.getElementById('A23').value)],
+                [Number(document.getElementById('A31').value), Number(document.getElementById('A32').value), Number(document.getElementById('A33').value)]
+            ];
+            const B = [
+                [Number(document.getElementById('B1').value)],
+                [Number(document.getElementById('B2').value)],
+                [Number(document.getElementById('B3').value)]
+            ];
+
+            // 2. Calcular el determinante de A
+            const determinanteA = calcularDeterminante(A);
+
+            // 3. Verificar si A es invertible
+            if (determinanteA === 0) {
+                document.getElementById('resultados').textContent = "La matriz A no es invertible (Determinante = 0). El sistema no tiene solución única.";
+                return;
+            }
+
+            // 4. Calcular la inversa de A
+            const inversaA = calcularInversa(A, determinanteA);
+
+            // 5. Multiplicar la inversa de A por B para obtener la solución
+            const X = multiplicarMatrices(inversaA, B);
+
+            // 6. Mostrar los resultados
+            mostrarResultados(X);
+        }
+
+        function calcularDeterminante(matriz) {
+            // Usamos la regla de Sarrus para matrices 3x3
+            return (
+                matriz[0][0] * matriz[1][1] * matriz[2][2] +
+                matriz[0][1] * matriz[1][2] * matriz[2][0] +
+                matriz[0][2] * matriz[1][0] * matriz[2][1] -
+                matriz[0][2] * matriz[1][1] * matriz[2][0] -
+                matriz[0][1] * matriz[1][0] * matriz[2][2] -
+                matriz[0][0] * matriz[1][2] * matriz[2][1]
+            );
+        }
+
+        function calcularInversa(matriz, determinante) {
+            // 1. Calcular la matriz de cofactores
+            const cofactores = [
+                [
+                    matriz[1][1] * matriz[2][2] - matriz[1][2] * matriz[2][1],
+                    -(matriz[0][1] * matriz[2][2] - matriz[0][2] * matriz[2][1]),
+                    matriz[0][1] * matriz[1][2] - matriz[0][2] * matriz[1][1]
+                ],
+                [
+                    -(matriz[1][0] * matriz[2][2] - matriz[1][2] * matriz[2][0]),
+                    matriz[0][0] * matriz[2][2] - matriz[0][2] * matriz[2][0],
+                    -(matriz[0][0] * matriz[1][2] - matriz[0][2] * matriz[1][0])
+                ],
+                [
+                    matriz[1][0] * matriz[2][1] - matriz[1][1] * matriz[2][0],
+                    -(matriz[0][0] * matriz[2][1] - matriz[0][1] * matriz[2][0]),
+                    matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0]
+                ]
+            ];
+
+            // 2. Calcular la adjunta (transpuesta de la matriz de cofactores)
+            const adjunta = [
+                [cofactores[0][0], cofactores[1][0], cofactores[2][0]],
+                [cofactores[0][1], cofactores[1][1], cofactores[2][1]],
+                [cofactores[0][2], cofactores[1][2], cofactores[2][2]]
+            ];
+
+            // 3. Dividir cada elemento de la adjunta por el determinante
+            const inversa = adjunta.map(fila => fila.map(elemento => elemento / determinante));
+            return inversa;
+        }
+
+        function multiplicarMatrices(matriz1, matriz2) {
+            const filas1 = matriz1.length;
+            const columnas1 = matriz1[0].length;
+            const columnas2 = matriz2[0].length;
+
+            const resultado = Array(filas1).fill(null).map(() => Array(columnas2).fill(0));
+
+            for (let i = 0; i < filas1; i++) {
+                for (let j = 0; j < columnas2; j++) {
+                    for (let k = 0; k < columnas1; k++) {
+                        resultado[i][j] += matriz1[i][k] * matriz2[k][j];
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+        function mostrarResultados(matrizX) {
+            const x1 = matrizX[0][0];
+            const x2 = matrizX[1][0];
+            const x3 = matrizX[2][0];
+
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = `
+                <p>Solución:</p>
+                <ul>
+                    <li>x1 = ${x1}</li>
+                    <li>x2 = </li>
+                    <li>x3 = </li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>
