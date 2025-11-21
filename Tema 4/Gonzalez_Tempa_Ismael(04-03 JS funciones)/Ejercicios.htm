@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Funciones</title>
+</head>
+<body>
+    <h1>Prueba de la función `Ej1`</h1>
+
+    <script>
+        //Ejercicio 1
+        function Ej1(angulo, operacion) {
+            let radianes = angulo * Math.PI / 180;
+            var resultado;
+
+            switch (operacion) {
+                case "cos":
+                    resultado = Math.cos(radianes);
+                    break;
+                case "sen":
+                    resultado = Math.sin(radianes);
+                    break;
+                case "tan":
+                    resultado = Math.tan(radianes);
+                    break;
+                default:
+                    resultado = "Operación no válida";
+                    break;
+            }
+
+            return resultado;
+        }
+
+        const resultadoSeno = Ej1(90, "sen");
+        document.write("<p>El seno de 90 grados es: <strong>" + resultadoSeno + "</strong></p>");
+
+        const resultadoCoseno = Ej1(0, "cos");
+        document.write("<p>El coseno de 0 grados es: <strong>" + resultadoCoseno + "</strong></p>");
+    </script>
+
+    <h1>Prueba de la función `Ej2`</h1>
+
+    <script>
+        function Ej2(lista, id) {
+            let valores = lista.split(",");
+            let html = "<ul type='square'>";
+            
+            for (let valor of valores) {
+                html += "<li>" + valor.trim() + "</li>";
+            }
+
+            html += "</ul>";
+            document.getElementById(id).innerHTML = html;
+        }
+    </script>
+
+    <div id="algo"></div>
+
+    <script>Ej2("hola, adios, bien, Hasta, mañana", "algo");</script>
+
+    <h1>Prueba de la función `Ej3`</h1>
+
+    <script>
+        function Ej3(id, ...lista) {
+            let html = "<ul type='square'>";
+
+            for (let elemento of lista) {
+                html += "<li>" + elemento + "</li>";
+            }
+
+            html += "</ul>";
+            document.getElementById(id).innerHTML = html;
+        }
+    </script>
+
+    <div id="identificador"></div>
+
+    <script>Ej3("identificador", "Hola", "adios", "bien", "Hasta", "mañana", "algo");</script>
+
+    <h1>Prueba de la función `Ej4`</h1>
+
+    <script>
+        let triple = function(x) {
+            return x * 3;
+        }
+
+        document.writeln("<p>El triple de 4 es " + triple(4) + "</p>");
+    </script>
+
+    <h1>Prueba de la función `Ej5`</h1>
+
+    <script>
+        let cuadrado = x => x * x;
+
+        document.writeln("<p>El cuadrado de 2 es " + cuadrado(2) + "</p>");
+    </script>
+
+    <h1>Prueba de la función `Ej6`</h1>
+
+    <script>
+        (() => {
+            document.writeln("<p>Hola mundo</p>");
+        }) ();
+    </script>
+
+    <h1>Prueba de la función `Ej7`</h1>
+
+    <script>
+        let ponerNegrita = texto => "<strong>" + texto + "</strong>";
+
+        let array = ["ola", "adiós", "amalia pide muchos detalles"];
+
+        let resultado = array.map(ponerNegrita);
+
+        document.writeln("<p>" + resultado + "</p>");
+    </script>
+
+    <h1>Prueba de la función `Ej8`</h1>
+
+    <script>
+        function Ej8() {
+            let matriz = [];
+            let texto = "<table border='1'>";
+            
+            for (let fila = 0; fila < 4; fila++) {
+                matriz[fila] = [];
+                texto += "<tr>";
+
+                for (let col = 0; col < 5; col++) {
+                    matriz[fila][col] = Math.floor(Math.random() * 10);
+                    texto += "<td>" + matriz[fila][col] + "</td>";
+                }
+
+                texto += "</tr>";
+            }
+
+            texto += "</table>";
+
+            return texto;
+        }
+
+        document.writeln(Ej8());
+    </script>
+
+    <h1>Prueba de la función `Ej9`</h1>
+
+    <script>
+        function Ej9(i) {
+            let tabla = "<table border='1'>";
+
+            let m = [
+                [i+3, i+8, i+1],
+                [i+2, i+4, i+6],
+                [i+7, i,   i+5]
+            ];
+
+            for (let fila of m) {
+                tabla += "<tr>";
+
+                for (let col of fila) {
+                    tabla += "<td>" + col + "</td>";
+                }
+
+                tabla += "</tr>";
+            }
+
+            tabla += "</table>";
+
+            return tabla;
+        }
+
+        document.writeln(Ej9(5));
+    </script>
+
+    <h1>Prueba de la función `Ej10`</h1>
+
+    <script>
+        function Ej10(id, nombreColor) {
+            let obj = document.getElementById(id);
+            obj.style.color = nombreColor;
+        }
+    </script>
+
+    <div id="texto">Texto de ejemplo</div>
+
+    <select id="colores">
+        <option value="red">Rojo</option>
+        <option value="blue">Azul</option>
+        <option value="green">Verde</option>
+    </select>
+
+    <button onclick="Ej10('texto', document.getElementById('colores').value)">
+        Cambiar color
+    </button>
+
+    <h1>Prueba de la función `Ej11`</h1>
+
+    <script>
+        function factorial(valor) {
+            if (valor == 1) return 1;
+            else return valor + factorial(valor - 1);
+        } //No calcula el factorial, calcula la suma, hace una suma recursiva
+
+        document.writeln("<p>Factorial(suma) de 3 es " + factorial(3) + "</p>");
+    </script>
+
+    <h1>Prueba de la función `Ej12`</h1>
+
+    <script>
+        function Ej12(n) {
+            let resultado;
+            if (n== 0 || n == 1) {
+                resultado = 1;
+            } else {
+                resultado = n * factorial(n - 1);
+            }
+
+            return resultado;
+        }
+
+        document.writeln("<p>Factorial de 3 es " + Ej12(3) + "</p>");
+    </script>
+</body>
+</html>
