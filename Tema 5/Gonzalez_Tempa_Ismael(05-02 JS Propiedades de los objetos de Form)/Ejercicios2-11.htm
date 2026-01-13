@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios 2 al 8</title>
+    <style>
+        div { margin-top: 10px; padding: 5px; border: 1px dashed #999; }
+        .resaltado { font-weight: bold; color: blue; }
+    </style>
+    <script type="text/javascript">
+        
+        // --- EJERCICIO 2: Convertir a mayúsculas al perder el foco (onblur) ---
+        function convertirMayusculas(){
+            var input = document.getElementById("nombre");
+            input.value = input.value.toUpperCase();
+        }
+
+        // --- EJERCICIO 3: Mostrar propiedades del input ---
+        function ejercicio3(){
+            var input = document.getElementById("nombre");
+            var info = "<ul>";
+            
+            info += "<li><b>defaultValue:</b> " + input.defaultValue + "</li>";
+            info += "<li><b>maxLength:</b> " + input.maxLength + "</li>"; // Nota: Si no está definido en HTML, suele ser -1 o un número alto por defecto
+            info += "<li><b>name:</b> " + input.name + "</li>";
+            info += "<li><b>readOnly:</b> " + input.readOnly + "</li>";
+            info += "<li><b>size:</b> " + input.size + "</li>";
+            info += "<li><b>type:</b> " + input.type + "</li>";
+            info += "<li><b>value:</b> " + input.value + "</li>";
+            
+            info += "</ul>";
+            document.getElementById("ej3").innerHTML = info;
+        }
+
+        // --- EJERCICIO 4: Insertar nombre aleatorio ---
+        function ejercicio4(){
+            var nombres = ["Juan Pérez", "Ana García", "Luis López", "María Rodríguez", "Carlos Sánchez"];
+            // Generar índice aleatorio
+            var aleatorio = Math.floor(Math.random() * nombres.length);
+            document.getElementById("nombre").value = nombres[aleatorio];
+        }
+
+        // --- EJERCICIO 5: Activar/Desactivar checkbox ---
+        function ejercicio5(){
+            var check = document.getElementById("aprobar");
+            // Invertimos el valor actual de checked
+            check.checked = !check.checked;
+        }
+
+        // --- EJERCICIO 6: Radio inputs rotativos ---
+        function ejercicio6(){
+            // Obtenemos todos los radios con el nombre 'opcionRadio'
+            var radios = document.getElementsByName("opcionRadio");
+            var encontrado = false;
+            
+            for(var i = 0; i < radios.length; i++){
+                if(radios[i].checked){
+                    radios[i].checked = false; // Desmarcar actual
+                    // Marcar el siguiente (usando módulo para volver al 0 si es el último)
+                    var siguiente = (i + 1) % radios.length;
+                    radios[siguiente].checked = true;
+                    encontrado = true;
+                    break;
+                }
+            }
+            
+            // Si ninguno estaba marcado, marcamos el primero
+            if(!encontrado && radios.length > 0){
+                radios[0].checked = true;
+            }
+        }
+
+        // --- EJERCICIO 7: Mostrar opciones del Select (negrita el seleccionado) ---
+        function ejercicio7(){
+            var select = document.getElementById("miSelect");
+            var salida = "Opciones del select:<br>";
+            
+            for(var i = 0; i < select.options.length; i++){
+                var textoOp = select.options[i].text;
+                var valorOp = select.options[i].value;
+                
+                if(select.options[i].selected){
+                    salida += "<b>" + textoOp + " (Val: " + valorOp + ")</b><br>";
+                } else {
+                    salida += textoOp + " (Val: " + valorOp + ")<br>";
+                }
+            }
+            // Mostramos el resultado en uno de los divs (ej: ej3 reusado o creamos uno nuevo)
+            document.getElementById("ej3").innerHTML = salida;
+        }
+
+        // --- EJERCICIO 8: Añadir opción al Select desde el Input ---
+        function ejercicio8(){
+            var select = document.getElementById("miSelect");
+            var textoNuevo = document.getElementById("nombre").value;
+            
+            if(textoNuevo.trim() === "") {
+                alert("Escribe algo en el campo nombre primero");
+                return;
+            }
+
+            var option = document.createElement("option");
+            option.text = textoNuevo;
+            option.value = textoNuevo; // Asignamos el mismo valor
+            
+            // Método add estándar
+            try {
+                select.add(option, null); // null para añadir al final (estándar)
+            } catch(ex) {
+                select.add(option); // IE antiguo
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Propiedad VALUE de un objeto INPUT de tipo TEXT</h1>
+    
+    <form id="formulario" action="pagina.php">
+        
+        <p> 
+            <label for="nombre">Nombre y Apellidos: </label>
+            <input type="text" id="nombre" name="nombre" value="Pepito Grillo" size="30" onblur="convertirMayusculas()">
+            Introduce tu Nombre y Apellidos y haz click fuera del campo. 
+        </p>
+
+        <p>
+            <input type="checkbox" id="aprobar" name="aprobarn" value="Si"/>¿Te gustaria Aprobar?
+        </p>
+
+        <p>
+            Radios (Ej 6): 
+            <input type="radio" name="opcionRadio" value="1"> 1
+            <input type="radio" name="opcionRadio" value="2"> 2
+            <input type="radio" name="opcionRadio" value="3"> 3
+            <input type="radio" name="opcionRadio" value="4"> 4
+            <input type="radio" name="opcionRadio" value="5"> 5
+        </p>
+
+        <p>
+            Select (Ej 7 y 8):
+            <select id="miSelect" name="miSelectName">
+                <option value="op1">Opción 1</option>
+                <option value="op2">Opción 2</option>
+                <option value="op3">Opción 3</option>
+                <option value="op4">Opción 4</option>
+                <option value="op5">Opción 5</option>
+                <option value="op6">Opción 6</option>
+            </select>
+        </p>
+
+        <hr>
+        <button type="button" onclick="ejercicio3()">ejercicio3 (Ver Propiedades)</button>
+        <button type="button" onclick="ejercicio4()">ejercicio4 (Nombre Random)</button>
+        <button type="button" onclick="ejercicio5()">ejercicio5 (Toggle Check)</button>
+        <button type="button" onclick="ejercicio6()">ejercicio6 (Radio Next)</button>
+        <button type="button" onclick="ejercicio7()">ejercicio7 (Ver Select)</button>
+        <button type="button" onclick="ejercicio8()">ejercicio8 (Add Option)</button>
+
+    </form>
+
+    <div id="ej3">Resultado Ej 3 y 7 aquí</div>
+
+    <h3>Ejercicio 10: Cambio de imagen con Select</h3>
+
+    <img class="image2" src="https://via.placeholder.com/150?text=Default" alt="bandera" width="150">
+
+    <br><br>
+
+    <select name="paises" id="paises" onchange="cambiarimagen(this)">
+        <option value="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Bandera_de_Espa%C3%B1a.svg/330px-Bandera_de_Espa%C3%B1a.svg.png">España</option>
+        <option value="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_the_United_Kingdom_%282-3%29.svg/250px-Flag_of_the_United_Kingdom_%282-3%29.svg.png">Reino Unido</option>
+        <option value="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/330px-Flag_of_France.svg.png">Francia</option>
+        <option value="https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg">Italia</option>
+    </select>
+
+    <script type="text/javascript">
+        function cambiarimagen(selectObj) {
+            // Obtenemos el valor de la opción seleccionada (la URL de la imagen)
+            var nuevaImagenSrc = selectObj.value;
+            
+            // getElementsByClassName devuelve una colección HTMLCollection
+            var imagenes = document.getElementsByClassName("image2");
+            
+            // Accedemos al primer elemento [0]
+            if(imagenes.length > 0) {
+                imagenes[0].src = nuevaImagenSrc;
+            }
+        }
+    </script>
+
+    <button type="button" onclick="eliminarOpcion()">Ejercicio 11: Eliminar País</button>
+
+    <script type="text/javascript">
+        function eliminarOpcion() {
+            var select = document.getElementById("paises");
+            
+            // remove() toma el índice de la opción a borrar
+            // select.selectedIndex devuelve el índice de la opción actualmente marcada
+            if (select.selectedIndex !== -1) {
+                select.remove(select.selectedIndex);
+            } else {
+                alert("No hay opciones para eliminar");
+            }
+        }
+    </script>
+</body>
+</html>

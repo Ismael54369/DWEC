@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+    <script type="text/javascript">
+        function mostrarValores() {
+            var salida = "";
+            
+            // 1. Por getElementById (Estándar)
+            var val1 = document.getElementById("entradaId").value;
+            salida += "1. getElementById: " + val1 + "<br>";
+
+            // 2. Acceso directo por jerarquía de nombres (document.nombreForm.nombreInput)
+            var val2 = document.formularioBusquedaName.entradaName.value;
+            salida += "2. document.form.name: " + val2 + "<br>";
+
+            // 3. Por índice en la colección elements del formulario
+            // Nota: elements[0] es el input text, elements[1] es el botón
+            var val3 = document.formularioBusquedaName.elements[0].value;
+            salida += "3. form.elements[0]: " + val3 + "<br>";
+
+            // 4. Usando la colección forms y elements con sintaxis de array asociativo ["string"]
+            var val4 = document.forms["formularioBusquedaName"].elements["entradaName"].value;
+            salida += "4. forms['name'].elements['name']: " + val4 + "<br>";
+
+            // 5. Mezcla de colección forms y acceso directo a la propiedad del input
+            var val5 = document.forms["formularioBusquedaName"].entradaName.value;
+            salida += "5. forms['name'].inputName: " + val5 + "<br>";
+
+            document.getElementById("Ejercicio1").innerHTML = salida;
+        }
+    </script>
+</head>
+<body>
+    <h3>Ejercicio 1</h3>
+    <form id="formularioBusquedaId" action="" name="formularioBusquedaName">
+        <p> 
+            <input type="text" id="entradaId" name="entradaName" value="Texto de prueba">
+            <input type="button" id="btnEnviar" name="enviar" value="Ver Valores" onclick="mostrarValores()"> 
+        </p>
+    </form>
+    <div id="Ejercicio1" style="background:#f0f0f0; padding:10px; border:1px solid #ccc;"> </div>
+</body>
+</html>
