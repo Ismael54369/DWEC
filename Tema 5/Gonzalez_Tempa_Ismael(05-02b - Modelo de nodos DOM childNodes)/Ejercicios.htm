@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Práctica DOM - Manipulación de Nodos</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .ejercicio { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; background: #f9f9f9; }
+        h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
+        .resaltado { color: blue; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Práctica de Manipulación de Nodos</h1>
+
+    <div class="ejercicio" id="ej1-container">
+        <h2>Ejercicio 1: Crear Elementos</h2>
+        <button id="btnEj1">Crear Párrafo</button>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 2: Lista UL Dinámica</h2>
+        <button onclick="ejercicio2()">Generar Lista</button>
+        <ul id="listaEj2"></ul>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 3: Select desde Array</h2>
+        <button onclick="ejercicio3()">Generar Select</button>
+        <div id="containerEj3"></div>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 4: Otro Select desde Array</h2>
+        <button onclick="ejercicio4()">Generar Select 2</button>
+        <div id="containerEj4"></div>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 5 y 6: ChildNodes</h2>
+        <div id="contenedor">
+            <p>Texto 1</p>
+            <p>Texto 2</p>
+        </div>
+        <button onclick="ejercicio5()">Contar Nodos (Log)</button>
+        <button onclick="ejercicio6()">Modificar Primer Texto</button>
+        <p id="resultadoEj5"></p>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 7: Reemplazar (Manzana/Banana/Naranja)</h2>
+        <ul id="listaFrutas">
+            <li>Manzana</li>
+            <li>Banana</li>
+            <li>Naranja</li>
+        </ul>
+        <button onclick="ejercicio7()">Reemplazar Banana por Pera</button>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 8: Reemplazo Condicional ("error")</h2>
+        <div id="containerEj8">
+            <p> Hola </p>
+            <p> Hola error</p>
+            <p> Adios error</p>
+            <p> Adios </p>
+        </div>
+        <button onclick="ejercicio8()">Corregir Errores</button>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 9: Eliminar último elemento</h2>
+        <ul id="listaBorrar">
+            <li>Elemento A</li>
+            <li>Elemento B</li>
+            <li>Elemento C</li>
+        </ul>
+        <button onclick="ejercicio9()">Eliminar último</button>
+    </div>
+
+    <div class="ejercicio">
+        <h2>Ejercicio 10: Editor Avanzado</h2>
+        <div id="panel">
+            <section>
+                <h3>Título 1</h3>
+                <p>Contenido A</p>
+            </section>
+            <section>
+                <h3>Título 2</h3>
+                <p>Contenido B</p>
+            </section>
+        </div>
+        <hr>
+        <button id="btnReemplazar" onclick="ejercicio10Reemplazar()">Reemplazar 2da Sección</button>
+        <button id="btnEliminar" onclick="ejercicio10Eliminar()">Eliminar Párrafo de 1ra Sección</button>
+    </div>
+
+    <script>
+        // ======================================================
+        // EJERCICIO 1: Crear botón y párrafo al final del body
+        // ======================================================
+        document.getElementById("btnEj1").onclick = function() {
+            // 1. Usar document.createElement()
+            var parrafo = document.createElement("p");
+            
+            // 2. Usar document.createTextNode()
+            var texto = document.createTextNode("Este párrafo fue creado dinámicamente");
+            
+            // 3. Insertar el texto en el párrafo con appendChild()
+            parrafo.appendChild(texto);
+            
+            // Añadir al body (o al contenedor del ejercicio para mantener orden visual)
+            document.body.appendChild(parrafo);
+        };
+
+        // ======================================================
+        // EJERCICIO 2: Lista UL con 5 elementos
+        // ======================================================
+        function ejercicio2() {
+            var ul = document.getElementById("listaEj2");
+            
+            // Limpiamos la lista primero (opcional, usando loop y removeChild para ser estrictos)
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+
+            for (var i = 1; i <= 5; i++) {
+                // Crear cada <li> dinámicamente
+                var li = document.createElement("li");
+                var texto = document.createTextNode("Elemento " + i);
+                
+                // Añadirlos a la lista usando appendChild()
+                li.appendChild(texto);
+                ul.appendChild(li);
+            }
+        }
+
+        // ======================================================
+        // EJERCICIO 3: Select desde Array
+        // ======================================================
+        function ejercicio3() {
+            var container = document.getElementById("containerEj3");
+            var datos = [
+                {texto: "Madrid", valor: "MAD"},
+                {texto: "Barcelona", valor: "BCN"},
+                {texto: "Valencia", valor: "VAL"}
+            ];
+
+            var select = document.createElement("select");
+
+            for (var i = 0; i < datos.length; i++) {
+                var option = document.createElement("option");
+                var textoNode = document.createTextNode(datos[i].texto);
+                
+                option.appendChild(textoNode);
+                option.value = datos[i].valor; // .value es propiedad estándar, no innerHTML
+                
+                select.appendChild(option);
+            }
+            
+            container.appendChild(select);
+        }
+
+        // ======================================================
+        // EJERCICIO 4: Select desde Array (Variación)
+        // ======================================================
+        function ejercicio4() {
+            var container = document.getElementById("containerEj4");
+            var frutas = ["Manzana", "Pera", "Uva"]; // Array simple
+
+            var select = document.createElement("select");
+
+            for (var i = 0; i < frutas.length; i++) {
+                var option = document.createElement("option");
+                var textoNode = document.createTextNode(frutas[i]);
+                
+                option.appendChild(textoNode);
+                option.value = frutas[i].toLowerCase(); 
+                
+                select.appendChild(option);
+            }
+            container.appendChild(select);
+        }
+
+        // ======================================================
+        // EJERCICIO 5: Contar childNodes
+        // ======================================================
+        function ejercicio5() {
+            var contenedor = document.getElementById("contenedor");
+            
+            // 1. Obtén la colección childNodes
+            var nodos = contenedor.childNodes;
+            var cantidad = nodos.length;
+            
+            var mensaje = "Total nodos: " + cantidad + ". Revisa la consola para detalles.";
+            console.log("--- Análisis de nodos Ejercicio 5 ---");
+            
+            // 2 y 3. Muestra cuántos y tipo (nodeType)
+            for (var i = 0; i < nodos.length; i++) {
+                var tipo = "";
+                if(nodos[i].nodeType === 1) tipo = "ELEMENT_NODE (Etiqueta)";
+                if(nodos[i].nodeType === 3) tipo = "TEXT_NODE (Texto o salto de línea)";
+                
+                console.log("Nodo " + i + ": Tipo " + nodos[i].nodeType + " (" + tipo + ")");
+            }
+            
+            // Mostrar en pantalla usando createTextNode
+            var pRes = document.getElementById("resultadoEj5");
+            // Limpiar previo
+            while(pRes.firstChild) pRes.removeChild(pRes.firstChild);
+            pRes.appendChild(document.createTextNode(mensaje));
+        }
+
+        // ======================================================
+        // EJercicio 6: Cambiar texto usando childNodes
+        // ======================================================
+        function ejercicio6() {
+            var contenedor = document.getElementById("contenedor");
+            var nodos = contenedor.childNodes;
+            
+            // Buscamos el primer nodo de tipo Elemento (P) y luego su nodo de texto interno
+            for (var i = 0; i < nodos.length; i++) {
+                // Si encontramos un nodo tipo Elemento (<p>)
+                if (nodos[i].nodeType === 1) {
+                    // Accedemos a sus hijos para encontrar el texto
+                    var hijosP = nodos[i].childNodes;
+                    for (var j = 0; j < hijosP.length; j++) {
+                        if (hijosP[j].nodeType === 3) { // Nodo de texto
+                             // Modificar nodo de texto
+                            hijosP[j].nodeValue = "Opcion modificada";
+                            return; // Terminamos tras modificar el primero
+                        }
+                    }
+                }
+            }
+        }
+
+        // ======================================================
+        // EJERCICIO 7: Reemplazar Banana por Pera (replaceChild)
+        // ======================================================
+        function ejercicio7() {
+            var lista = document.getElementById("listaFrutas");
+            var nodos = lista.childNodes;
+            
+            // Crear el nuevo elemento
+            var nuevoLi = document.createElement("li");
+            nuevoLi.appendChild(document.createTextNode("Pera"));
+
+            // Buscar "Banana"
+            for (var i = 0; i < nodos.length; i++) {
+                // Verificamos que sea un elemento y que su primer hijo (texto) sea "Banana"
+                // Ojo: nodos[i].firstChild puede ser null si está vacío, chequeo de seguridad:
+                if (nodos[i].nodeType === 1 && nodos[i].firstChild.nodeValue === "Banana") {
+                    // Reemplaza “Banana” por “Pera” usando replaceChild()
+                    lista.replaceChild(nuevoLi, nodos[i]);
+                    break;
+                }
+            }
+        }
+
+        // ======================================================
+        // EJERCICIO 8: Reemplazo condicional ("error")
+        // ======================================================
+        function ejercicio8() {
+            var container = document.getElementById("containerEj8");
+            var nodos = container.childNodes;
+
+            // Recorremos al revés o guardamos referencia porque replaceChild altera el DOM en vivo
+            // y childNodes es una "live collection".
+            for (var i = nodos.length - 1; i >= 0; i--) {
+                var nodoActual = nodos[i];
+
+                // Solo procesamos ELEMENT_NODES (<p>)
+                if (nodoActual.nodeType === 1) {
+                    var textoContenido = nodoActual.firstChild.nodeValue;
+                    
+                    // Si contiene la palabra "error"
+                    if (textoContenido && textoContenido.indexOf("error") !== -1) {
+                        
+                        // Crear nuevo párrafo
+                        var nuevoP = document.createElement("p");
+                        nuevoP.appendChild(document.createTextNode("Contenido corregido"));
+                        
+                        // Reemplazar
+                        container.replaceChild(nuevoP, nodoActual);
+                    }
+                }
+            }
+        }
+
+        // ======================================================
+        // EJERCICIO 9: Eliminar elementos (removeChild)
+        // ======================================================
+        function ejercicio9() {
+            var lista = document.getElementById("listaBorrar");
+            
+            // Loop inverso para encontrar el último ELEMENTO real (ignorando saltos de linea/texto vacio)
+            var nodos = lista.childNodes;
+            for (var i = nodos.length - 1; i >= 0; i--) {
+                if (nodos[i].nodeType === 1) { // Es un LI
+                    lista.removeChild(nodos[i]);
+                    break; // Borramos uno y salimos
+                }
+            }
+        }
+
+        // ======================================================
+        // EJERCICIO 10: Editor dinámico (Avanzado)
+        // ======================================================
+        
+        // Parte 1: Reemplazo total de sección (replaceChild)
+        function ejercicio10Reemplazar() {
+            var panel = document.getElementById("panel");
+            var nodos = panel.childNodes;
+            var contadorSecciones = 0;
+            var seccionAReemplazar = null;
+
+            // 1. Selecciona la segunda sección usando childNodes
+            for(var i = 0; i < nodos.length; i++) {
+                if(nodos[i].nodeType === 1 && nodos[i].tagName === "SECTION") {
+                    contadorSecciones++;
+                    if(contadorSecciones === 2) {
+                        seccionAReemplazar = nodos[i];
+                        break;
+                    }
+                }
+            }
+
+            if(seccionAReemplazar) {
+                // 2. Crea dinámicamente la nueva estructura
+                var nuevaSeccion = document.createElement("section");
+                
+                var nuevoH3 = document.createElement("h3");
+                nuevoH3.appendChild(document.createTextNode("Título reemplazado"));
+                
+                var nuevoP = document.createElement("p");
+                nuevoP.appendChild(document.createTextNode("Este contenido fue creado dinámicamente"));
+
+                nuevaSeccion.appendChild(nuevoH3);
+                nuevaSeccion.appendChild(nuevoP);
+
+                // 3. Sustituye la sección original
+                panel.replaceChild(nuevaSeccion, seccionAReemplazar);
+            } else {
+                alert("No se encontró la segunda sección");
+            }
+        }
+
+        // Parte 2: Eliminación selectiva (removeChild)
+        function ejercicio10Eliminar() {
+            var panel = document.getElementById("panel");
+            var nodos = panel.childNodes;
+            var primeraSeccion = null;
+
+            // 1. Accede a la primera sección
+            for(var i = 0; i < nodos.length; i++) {
+                if(nodos[i].nodeType === 1 && nodos[i].tagName === "SECTION") {
+                    primeraSeccion = nodos[i];
+                    break; 
+                }
+            }
+
+            if(primeraSeccion) {
+                // 2. Localiza el nodo <p> usando childNodes dentro de la sección
+                var hijosSeccion = primeraSeccion.childNodes;
+                var parrafoAEliminar = null;
+
+                for(var j = 0; j < hijosSeccion.length; j++) {
+                    // Buscamos etiqueta P (nodeType 1)
+                    if(hijosSeccion[j].nodeType === 1 && hijosSeccion[j].tagName === "P") {
+                        parrafoAEliminar = hijosSeccion[j];
+                        break;
+                    }
+                }
+
+                // 3. Elimina únicamente el párrafo
+                if(parrafoAEliminar) {
+                    primeraSeccion.removeChild(parrafoAEliminar);
+                } else {
+                    alert("No se encontró párrafo en la primera sección");
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
