@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Expresiones Regulares - Práctica</title>
+    <style>
+        .formulario { margin: auto; width: 600px; text-align: left; }
+        #ejercicioid { border: 1px solid #ccc; padding: 10px; background: #f0f0f0; min-height: 50px; }
+        button { margin: 2px; }
+    </style>
+</head>
+<body>
+
+<div class="formulario">
+    <fieldset>
+        <legend> Panel de Control Regex </legend>
+        <p> Nombre: <input type="text" id="textopeq" value="2" /> </p>
+        <p> Comentarios (Texto base): </p>
+        <textarea id="textogrande" rows="10" cols="70">
+Málaga (Andalucia) es una ciudad y municipio español. 
+2020 es el año. contactohola@hola.com
+Costa del Sol 10 11.
+952433421, 951433422, 954433422.
+https://es.wikipedia.org/wiki/Gibraltar
+www.Feniciios.org en el año 0900.
+(Reino unido). El perro corre.
+        </textarea>
+        <br><br>
+        <button id="b2">Ej 2 (Años)</button>
+        <button id="b3">Ej 3 (Vocal + 3)</button>
+        <button id="b4">Ej 4 (Inicio Párrafo)</button>
+        <button id="b5">Ej 5 (Final Párrafo)</button>
+        <button id="b6">Ej 6 (Comillas)</button>
+        <button id="b7">Ej 7 (Reemplazar a/o)</button>
+        <button id="b8">Ej 8 (Tel. Málaga)</button>
+        <button id="b9">Ej 9 (Emails)</button>
+        <button id="b10">Ej 10 (URLs)</button>
+        <button id="b11">Ej 11 (Sin Saltos)</button>
+        <button id="b12">Ej 12 (Solo Palabras)</button>
+        <button id="b13">Ej 13 (Num o Tam > 3)</button>
+        <button id="b14">Ej 14 (Artículos)</button>
+        <button id="b15">Ej 15 (Paréntesis)</button>
+    </fieldset>
+</div>
+
+<h2>Resultado:</h2>
+<div id="ejercicioid"></div>
+
+<script>
+    // Función auxiliar para imprimir resultados en lista
+    function imprimir(iterador) {
+        let cad = "<ol>";
+        for (const item of iterador) { cad += "<li>" + item[0] + "</li>"; }
+        document.getElementById('ejercicioid').innerHTML = cad + "</ol>";
+    }
+
+    const txt = () => document.getElementById('textogrande').value;
+
+    // Ejercicio 2: Años (4 dígitos)
+    document.getElementById('b2').addEventListener('click', () => {
+        let regex = /[0-9]{4}/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 3: Cadenas tamaño 4 que empiecen por vocal
+    document.getElementById('b3').addEventListener('click', () => {
+        let regex = /\b[aeiouAEIOU][a-zA-Z]{3}\b/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 4: Al principio de cada párrafo
+    document.getElementById('b4').addEventListener('click', () => {
+        let regex = /^\w+/gm; // 'm' es multilínea para detectar cada inicio
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 5: Al final de cada párrafo
+    document.getElementById('b5').addEventListener('click', () => {
+        let regex = /\w+$/gm;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 6: Entre comilladas ''
+    document.getElementById('b6').addEventListener('click', () => {
+        let regex = /'[^']*'/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 7: Reemplazar 'a' u 'o' por @
+    document.getElementById('b7').addEventListener('click', () => {
+        let nueva = txt().replace(/[aoAO]/g, "@");
+        document.getElementById('ejercicioid').innerText = nueva;
+    });
+
+    // Ejercicio 8: Teléfonos Málaga (952 o 951)
+    document.getElementById('b8').addEventListener('click', () => {
+        let regex = /95[12][0-9]{6}/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 9: Emails
+    document.getElementById('b9').addEventListener('click', () => {
+        let regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 10: URLs
+    document.getElementById('b10').addEventListener('click', () => {
+        let regex = /https?:\/\/[^\s]+|www\.[^\s]+/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 11: Eliminar saltos de línea
+    document.getElementById('b11').addEventListener('click', () => {
+        let limpia = txt().replace(/[\r\n]+/g, " ");
+        document.getElementById('ejercicioid').innerText = limpia;
+    });
+
+    // Ejercicio 12: Listar palabras (sin números)
+    document.getElementById('b12').addEventListener('click', () => {
+        let regex = /[a-zA-ZáéíóúÁÉÍÓÚñÑ]+/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 13: Números O palabras de tamaño > 3
+    document.getElementById('b13').addEventListener('click', () => {
+        let regex = /\b\d+\b|\b[a-zA-Z]{4,}\b/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 14: Artículos (el, la, los, las) + palabra siguiente
+    document.getElementById('b14').addEventListener('click', () => {
+        let regex = /\b(el|la|los|las)\s+\w+/gi;
+        imprimir(txt().matchAll(regex));
+    });
+
+    // Ejercicio 15: Elementos entre paréntesis
+    document.getElementById('b15').addEventListener('click', () => {
+        let regex = /\([^)]+\)/g;
+        imprimir(txt().matchAll(regex));
+    });
+
+</script>
+</body>
+</html>
