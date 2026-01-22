@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Practica 05-03 JS Eventos 1</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; transition: background-color 0.3s; }
+        section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; background: #f9f9f9; }
+        h2 { margin-top: 0; color: #333; }
+        .box { border: 1px dashed #666; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Practica 05-03 JS Eventos 1</h1>
+    <p><b>Nombre:</b> Ismael Gonzalez | <b>Curso:</b> Desarrollo DAW</p>
+
+    <section>
+        <h2>Ejercicio 1: Modelos de Eventos</h2>
+        <ul>
+            <li><b>Modelo Básico (Línea):</b> Se define dentro de la etiqueta HTML (ej. onclick="..."). Poco mantenible.</li>
+            <li><b>Modelo Estándar (Tradicional):</b> Se asigna mediante propiedad en JS (ej. objeto.onclick = funcion). Solo permite un manejador.</li>
+            <li><b>Modelo Avanzado (DOM Nivel 2):</b> Usa addEventListener. Permite múltiples funciones y control de fases (captura/burbujeo).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Ejercicio 2: Burbujeo (Bubbling)</h2>
+        <p>
+            El burbujeo es el proceso por el cual, cuando un evento ocurre en un elemento, este se propaga hacia sus padres. 
+            Primero se ejecuta el evento en el elemento más interno y luego sube como una "burbuja" por toda la jerarquía de etiquetas.
+        </p>
+        
+    </section>
+
+    <section>
+        <h2>Ejercicio 3: Cancelar acción por defecto</h2>
+        <a href="pagina.html" onClick="alert('Enlace pulsado: No navegará'); return false">Pulsa aquí (No te lleva a ningún lado)</a>
+    </section>
+
+    <section>
+        <h2>Ejercicio 5: Modelo Tradicional e Input</h2>
+        <input type="text" id="inputEx5" placeholder="Escribe aquí...">
+        <h1 id="h1Ex5" class="box">Aquí aparecerá el texto</h1>
+        <script>
+            // Accedemos al elemento
+            var input5 = document.getElementById("inputEx5");
+            // Asignación tradicional (evento oninput para cambios en tiempo real)
+            input5.oninput = function Ponerengrande() {
+                // 'this' hace referencia al input. 'value' obtiene el texto.
+                document.getElementById("h1Ex5").innerText = this.value;
+            };
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 6: Operación con Parámetros</h2>
+        <input type="number" id="numA" value="0">
+        <input type="number" id="numB" value="0">
+        <button id="btnSuma">Sumar (+)</button>
+        <h1 id="res6" class="box">Resultado: </h1>
+        <script>
+            function operacion(operador) {
+                var a = parseFloat(document.getElementById("numA").value);
+                var b = parseFloat(document.getElementById("numB").value);
+                var suma = a + b;
+                document.getElementById("res6").innerText = "Resultado: " + suma;
+            }
+            // Sintaxis: elemento.onclick = function { llamada1; ... }
+            document.getElementById("btnSuma").onclick = function() {
+                operacion('+');
+            };
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 7 y 8: addEventListener y removeEventListener</h2>
+        <button id="btn7">Sumar con Listener</button>
+        <button id="btn8">Inhabilitar botón de suma</button>
+        <script>
+            // Función con nombre necesaria para poder borrarla después
+            function funcionSumar() { operacion('+'); }
+
+            var boton7 = document.getElementById("btn7");
+            // Ej 7: Asignación con addEventListener
+            boton7.addEventListener('click', funcionSumar);
+
+            // Ej 8: Eliminar el evento
+            document.getElementById("btn8").addEventListener('click', function() {
+                boton7.removeEventListener('click', funcionSumar);
+                alert("Botón de suma inhabilitado.");
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 9: Fondo Aleatorio (Anónima)</h2>
+        <button id="b1">Cambia de color aleatorio</button>
+        <script>
+            document.getElementById("b1").addEventListener('click', () => {
+                // Math.random() genera entre 0 y 1, multiplicamos por 256
+                let r = Math.random() * 256;
+                let g = Math.random() * 256;
+                let b = Math.random() * 256;
+                let color = "rgb(" + r + "," + g + "," + b + ")";
+                document.body.style.backgroundColor = color; 
+            }, true);
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 10: Rotación R-V-A</h2>
+        <button id="btn10">Girar colores</button>
+        <script>
+            let colores = ["red", "green", "blue"];
+            let i = 0;
+            document.getElementById("btn10").addEventListener('click', function() {
+                document.body.style.backgroundColor = colores[i];
+                // El operador % (módulo) mantiene el índice entre 0 y 2
+                i = (i + 1) % colores.length;
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 11: attachEvent (Legacy)</h2>
+        <input type="text" id="input11" placeholder="Solo para IE antiguo">
+        <h1 id="res11"></h1>
+        <script>
+            function hacerAlgo() {
+                // En attachEvent, 'this' no apunta al elemento, usamos srcElement
+                var el = window.event.srcElement;
+                document.getElementById("res11").innerText = el.value;
+            }
+            var el11 = document.getElementById("input11");
+            // attachEvent usa 'on' + nombre del evento (onclick, onkeyup...)
+            if (el11.attachEvent) {
+                el11.attachEvent('onkeyup', hacerAlgo);
+            } else {
+                console.log("attachEvent no es compatible con este navegador.");
+            }
+        </script>
+    </section>
+
+    <script>
+        /* Ejercicio 4: Onload para fondo aleatorio inicial */
+        window.onload = function() {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            document.body.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+        };
+    </script>
+
+</body>
+</html>
