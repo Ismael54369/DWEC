@@ -1,0 +1,202 @@
+ <form action="" method="post" id="idformulario" name="nameformulario">
+        <div> 
+        <fieldset>  <legend> Datos Personales </legend>
+            <p> Nombre: <input id="f1" type="text" name="name_control" autofocus required value="Manolo" />       </p> 
+            <p> Contraseña: <input id="f2"  type="password" name="pass_control" required /></p> 
+            <p> Correo Electrónico: <input  id="f3" type="email" name="email_control" required /></p> 
+             <br />
+         </fieldset>
+         <fieldset>  <legend> Gustos  </legend>
+            <br />
+            <p>  URL: <input type="url" name="url_control" placeholder="Escripe la URL de tu página web personal" /> </p> 
+            <p> Fecha: <input type="date" name="date_control" />          </p> 
+            <p> Tiempo: <input type="time" name="time_control" />      </p> 
+            <p> Número (min -10, max 10): <input type="number" name="number_control" min="-10" max="10" value="0" /></p> 
+            <p> Teléfono: <input type="tel" name="tel_control" /></p> 
+            <p> Término de búsqueda: <input type="search" name="search_control" /></p> 
+            <p> Color Favorito: <input type="color" name="color_control" /></p>   
+             
+            <br/><br />
+          </fieldset>
+        <fieldset>  <legend> Informatica   </legend>
+            <br/>
+            <p>  Sistema operativo:
+                <select name="sistema_control"> 
+                        <option value="windows">Windows</option>
+                        <option value="linux">Linux</option>
+                        <option value="macos">Macos</option>
+                </select></p>
+                
+            <p>  Que lenguaje de programación web conoces? </p> 
+            <input name="lenguaje_control" type="checkbox" value="html5" checked /> Html5
+            <input name="lenguaje_control" type="checkbox" value="ccs3" checked /> Css3
+            <input name="lenguaje_control" type="checkbox" value="javascript"/> JavaScript
+            <input name="lenguaje_control" type="checkbox" value="php"/> Php
+            <input name="lenguaje_control" type="checkbox" value="python"/> Python    
+        <p>  Sabes utilizar Python?  </p> 
+        <p>   <input name="python_control" type="radio"  value="si" checked /> Si  <input name="python_control" type="radio" value="no" /> No </p> 
+        <p>  Comentarios: </p> 
+                 <p>   <textarea name="comentario_control" rows="4" cols="50"></textarea> </p> 
+             
+             <br/><br />
+            <input type="submit" value="Submit!" />
+        </fieldset>
+    </div>
+        </form>
+    
+     <h2> Ejercicio2 </h2><div id="Ejercicio2">  </div>
+     <input type="button" value="Ver Contenido" onclick="verEj1FormularioMetodo3()"/>
+
+     <script > 
+     /*
+     Crea una funcion que Use el Método 3 a través de la colección forms[] del objeto document,  
+     que contiene la referencia a todos los controles del formulario para para mostrar los
+      datos del formulario con InnerElements. Añade un boton que llame a esa función.
+     */
+
+    function verEj1FormularioMetodo3 () {
+        var miformulario=document.forms[0]; // metodo3
+
+        var cadena="";
+         for (i=0; i<miformulario.length; i++ )   {
+            cadena+= "<b>"+miformulario[i].name +":</b> ";
+            cadena+= miformulario[i].value+ "<br>";
+         }
+         document.getElementById("Ejercicio2").innerHTML=cadena;
+    }
+    </script>
+
+    <h2> Ejercicio3 </h2><div id="Ejercicio3"> </div>
+
+    <input type="button" value="Ver Contenido" onclick="verEj3FormularioMetodo2()"/>
+
+    <script > 
+    
+    /* Usa el Método 2 A través del método getElementsByTagName() . 
+    Añade un botón (MostrarDatosName)  que llame una función para  
+    mostrar los datos del formulario con InnerElements en el div con id ejercicio */
+    
+
+   function verEj3FormularioMetodo2 () {
+       
+    var miformulario=document.getElementsByTagName("form")[0]; // metodo 2
+
+       var cadena="";
+        for (i=0; i<miformulario.length; i++ )   {
+           cadena+= "<b>"+miformulario[i].name +":</b> ";
+           cadena+= miformulario[i].value+ "<br>";
+        }
+        document.getElementById("Ejercicio3").innerHTML=cadena;
+   }
+   </script>
+
+ 
+    <h2> Ejercicio4 </h2> <div id="Ejercicio4"> </div>
+    <input type="button" value="Ver Contenido" onclick="verEj4FormularioMetodo1()"/>
+    <script > 
+    
+        /* Ejercicio 4. Añade ids cada control y Usa el Método 1 A través del método getElementById() del DOM,
+que nos permite acceder a un objeto a través de su atributo ID. Ejemplo: var
+formulario=document.getElementById("contactar"); Añade un botón que llame una función para mostrar
+los datos del formulario con InnerElements en el div con id ejercicio3  */
+        
+    
+       function verEj4FormularioMetodo1 () {
+
+        cadena="";
+        cadena+=document.getElementById('f1').value+"<br>";
+        cadena+=document.getElementById('f2').value+"<br>";
+        cadena+=document.getElementById('f3').value+"<br>";
+        
+        //var arraycontroles = new array();
+        //push(document.getElementsById("f1").value); 
+        //push(document.getElementsById("f2").value); 
+        //push(document.getElementsById("f3").value); 
+
+        document.getElementById("Ejercicio4").innerHTML=cadena;
+
+        
+        
+       }
+    </script>
+
+    <h2> Ejercicio5 </h2> <div id="Ejercicio5"> </div>
+
+    <input type="button" value="Rellenar datos" onclick="verEj5Rellenar()"/>
+    <script > 
+    
+        /* Ejercicio 5. Crea un boton que te rellene con datos el formulario con el metodo anterior que más te guste.  */
+        
+    
+       function verEj5Rellenar () {
+
+        
+        document.getElementById('f1').value="Pepe pepillo";
+        document.getElementById('f2').value="Pepe pepillo";
+        document.getElementById('f3').value="Pepe@pepillo.com";
+        
+        //var arraycontroles = new array();
+        //push(document.getElementsById("f1").value); 
+        //push(document.getElementsById("f2").value); 
+        //push(document.getElementsById("f3").value); 
+
+        
+
+        
+        
+       }
+    </script>
+
+
+
+    <h2> Ejercicio6 </h2> <div id="Ejercicio6"> </div>
+
+    <input type="button" value="Comprobar no vacio" onclick="ej5Comprobar()"/>
+
+    <script > 
+    /*
+
+Ejercicio 6. Haz una funcion que Empleando la propiedad elements[] haga un bucle que recorra el
+formulario y compruebe que ninguno de los controles esta en blanco.
+
+if (objFormulario.elements[i].value == "") { .... }
+    */
+
+   function ej5Comprobar () {
+       var misElementos=document.forms[0].elements; // metodo3
+
+       var cadena="";
+        for (i=0; i<misElementos.length; i++ )   {
+           if(misElementos[i].value=="") {
+            cadena+="<br> Elemento vacio "+misElementos[i].name;
+           };
+        }
+        document.getElementById("Ejercicio6").innerHTML=cadena;
+   }
+   </script>
+
+
+<h2> Ejercicio7 </h2> <div id="Ejercicio7"> </div>
+<script>
+    
+   
+    
+    
+
+// Resumen del lio tio pio 
+
+// esta sintasix se debe usar con los name en ambos
+document.getElementById("Ejercicio7").innerHTML= "<br> esta sintasix se debe usar con los name en ambos"
+document.getElementById("Ejercicio7").innerHTML+=  document.nameformulario.name_control.value; 
+
+// esta sintasix con id para referenciar al formulario no funciona 
+document.getElementById("Ejercicio7").innerHTML+= "<br> esta sintasix con id para referenciar al formulario no funciona "
+//document.getElementById("Ejercicio7").innerHTML+=  document.idformulario.name_control.value;
+
+// podemos indexar el formulario tanto por su id como por su name 
+document.getElementById("Ejercicio7").innerHTML+= "<br>  Podemos indexar el formulario tanto por su id como por su name pero en el elements debemos usar el id ";
+document.getElementById("Ejercicio7").innerHTML+=  document.forms["idformulario"].elements["f1"].value;
+document.getElementById("Ejercicio7").innerHTML+=  document.forms["nameformulario"].name_control.value;
+
+
+</script>
