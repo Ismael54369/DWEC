@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Practica 05-04 JS Eventos Parte 2</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; line-height: 1.6; }
+        section { border: 2px solid #e0e0e0; padding: 20px; margin-bottom: 25px; border-radius: 10px; background: #fff; }
+        .img-container { position: relative; height: 250px; border: 1px dashed #ccc; overflow: hidden; }
+        img { transition: transform 0.2s; cursor: pointer; }
+        .log { margin-top: 10px; padding: 10px; background: #333; color: #fff; border-radius: 5px; }
+        #divOutput, #divSelect, #divKey { border: 1px solid #000; padding: 10px; min-height: 20px; margin-top: 5px; background: #eee; }
+    </style>
+</head>
+<body>
+
+    <h1>Practica 05-04 JS Eventos - Parte 2</h1>
+
+    <section onclick="alert('Soy el ABUELO')">
+        <h2>Ejercicio 1: Burbujeo (Bubbling)</h2>
+        <div onclick="alert('Soy el PADRE')" style="padding: 20px; background: #ddd;">
+            <button onclick="alert('Soy el HIJO')">¡Púlsame!</button>
+        </div>
+        <p><small>Al pulsar el botón, verás 3 alertas debido a la propagación hacia arriba.</small></p>
+    </section>
+
+    
+
+    <section>
+        <h2>Ejercicios 2 y 3: Focus y Blur</h2>
+        <label>Interactúa conmigo: </label>
+        <input type="text" id="inputFoco" placeholder="Pincha dentro y fuera">
+        <script>
+            const inputF = document.getElementById("inputFoco");
+            // Ejercicio 2: Blur (pierde el foco)
+            inputF.addEventListener('blur', () => alert("Mensaje: El elemento ha perdido el foco (onblur)"));
+            // Ejercicio 3: Focus (gana el foco)
+            inputF.addEventListener('focus', () => console.log("Evento onfocus activado"));
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicios 4, 5 y 6: Load, Click y Doble Click</h2>
+        <img id="imgPrincipal" src="https://picsum.photos/200" alt="Imagen Dinámica" width="200">
+        <p><small>Click: 85% | Doble Click: 115%</small></p>
+        <script>
+            const imgP = document.getElementById("imgPrincipal");
+            let escala = 1;
+
+            // Ejercicio 4: Onload
+            imgP.addEventListener('load', () => console.log("La imagen se ha cargado correctamente"));
+            
+            // Ejercicio 5: Onclick (Reducir 85%)
+            imgP.addEventListener('click', function() {
+                escala *= 0.85;
+                this.style.transform = `scale(${escala})`;
+            });
+
+            // Ejercicio 6: Ondblclick (Aumentar 115%)
+            imgP.addEventListener('dblclick', function() {
+                escala *= 1.15;
+                this.style.transform = `scale(${escala})`;
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 7: Evento Error</h2>
+        <img src="ruta_falsa.jpg" id="imgError">
+        <script>
+            document.getElementById("imgError").addEventListener('error', () => {
+                alert("Error: No se pudo cargar la imagen del Ejercicio 7");
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicios 8 y 9: Change y Teclado</h2>
+        <input type="text" id="inputTeclado" placeholder="Escribe algo...">
+        <div id="divOutput">Contenido Change: </div>
+        <div id="divKey" class="log">Eventos Teclado: </div>
+        <script>
+            const inKey = document.getElementById("inputTeclado");
+            const outC = document.getElementById("divOutput");
+            const outK = document.getElementById("divKey");
+
+            // Ejercicio 8: Onchange (se activa al perder el foco si cambió el valor)
+            inKey.addEventListener('change', function() {
+                outC.innerText = "Contenido Change: " + this.value;
+            });
+
+            // Ejercicio 9: Keydown, Keyup, Keypress
+            inKey.addEventListener('keydown', () => outK.innerText = "Estado: Bajando tecla...");
+            inKey.addEventListener('keypress', () => outK.innerText = "Estado: Tecla presionada");
+            inKey.addEventListener('keyup', () => outK.innerText = "Estado: Tecla soltada");
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 10: Evento Select</h2>
+        <input type="text" id="inputSelect" value="Selecciona una parte de este texto">
+        <div id="divSelect">Texto seleccionado aparecerá aquí</div>
+        <script>
+            document.getElementById("inputSelect").addEventListener('select', function(e) {
+                // Obtenemos la parte subrayada por el usuario
+                let seleccion = this.value.substring(this.selectionStart, this.selectionEnd);
+                document.getElementById("divSelect").innerText = "Seleccionado: " + seleccion;
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 11: Mousedown, Up, Move, Out, Over</h2>
+        <div class="img-container" id="contenedorRaton">
+            <img id="imgRaton" src="https://picsum.photos/100/100?random=1" style="position: absolute; left: 0; top: 0;" width="100">
+        </div>
+        <script>
+            const imgR = document.getElementById("imgRaton");
+            const originalSrc = imgR.src;
+            const nuevaSrc = "https://picsum.photos/100/100?random=2";
+            let actualScale = 1;
+
+            // 1. Mousedown: Cambia imagen
+            imgR.addEventListener('mousedown', function() { this.src = nuevaSrc; });
+
+            // 2. Mouseup: Vuelve original
+            imgR.addEventListener('mouseup', function() { this.src = originalSrc; });
+
+            // 3. Mousemove: Seguir al ratón dentro del contenedor
+            document.getElementById("contenedorRaton").addEventListener('mousemove', function(e) {
+                // Ajustamos posición restando el offset del contenedor
+                imgR.style.left = (e.clientX - this.offsetLeft - 50) + "px";
+                imgR.style.top = (e.clientY - this.offsetTop - 50) + "px";
+            });
+
+            // 4. Mouseout: -10%
+            imgR.addEventListener('mouseout', function() {
+                actualScale *= 0.9;
+                this.style.transform = `scale(${actualScale})`;
+            });
+
+            // 5. Mouseover: +5%
+            imgR.addEventListener('mouseover', function() {
+                actualScale *= 1.05;
+                this.style.transform = `scale(${actualScale})`;
+            });
+        </script>
+    </section>
+
+    <script>
+        // Resize: Al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            console.log("Has cambiado el tamaño de la ventana");
+        });
+
+        // Unload: Al cerrar o recargar la pestaña
+        // Nota: Muchos navegadores modernos bloquean alerts en unload por seguridad/spam
+        window.addEventListener('beforeunload', (event) => {
+            console.log("Saliendo de la página...");
+        });
+    </script>
+
+</body>
+</html>
