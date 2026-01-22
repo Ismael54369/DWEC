@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica: Expresiones Regulares en JavaScript</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: auto; padding: 20px; background-color: #f4f7f6; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; border-left: 5px solid #3498db; padding-left: 10px; }
+        section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        code { background-color: #eee; padding: 2px 5px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; color: #c7254e; }
+        pre { background: #2d3436; color: #dfe6e9; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .nota { font-style: italic; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Completa de Expresiones Regulares (RegExp)</h1>
+
+    <section>
+        <h2>Conceptos Básicos</h2>
+        <h3>Ejercicio 2: ¿Qué es una Expresión Regular?</h3>
+        <p>Con mis propias palabras: Una <b>Expresión Regular</b> (o Regex) es como un "filtro inteligente" o una plantilla de búsqueda. Es una secuencia de caracteres que forma un patrón, el cual usamos para encontrar, extraer o reemplazar texto dentro de cadenas más largas.</p>
+        
+        <h3>Ejercicio 3: ¿Para qué sirven?</h3>
+        <ul>
+            <li><b>Validación:</b> Comprobar si un email o teléfono tiene el formato correcto.</li>
+            <li><b>Búsqueda:</b> Encontrar palabras específicas o patrones (ej. buscar todas las fechas).</li>
+            <li><b>Limpieza:</b> Eliminar espacios extra o caracteres prohibidos.</li>
+            <li><b>Extracción:</b> Sacar datos específicos de un bloque de texto (ej. precios).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Ejercicio 4: Literales</h2>
+        <p>Una expresión regular <b>literal</b> se escribe entre barras inclinadas <code>/patrón/</code>. Se compilan cuando se carga el script, lo que las hace más rápidas si el patrón es constante.</p>
+        <pre>
+let re = /b+ca/; 
+let resultado = re.exec('acbbbcabaabbbceee');
+console.log(resultado); // Encuentra "bbbc" seguido de "a"</pre>
+        <script>
+            let re4 = /b+ca/; 
+            console.log("Resultado Ej 4:", re4.exec('acbbbcabaabbbceee'));
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 5: Constructor</h2>
+        <p>Se realiza mediante <code>new RegExp("patrón")</code>. Es útil cuando el patrón va a cambiar o se recibe de una variable externa durante la ejecución.</p>
+        <pre>
+let re = new RegExp("ab+c");
+let resultado = re.exec('ababaabbbceee');
+console.log(resultado);</pre>
+        <script>
+            let re5 = new RegExp("ab+c");
+            console.log("Resultado Ej 5:", re5.exec('ababaabbbceee'));
+        </script>
+    </section>
+
+    <section>
+        <h2>Ejercicio 7: Diferencias entre Literales y Constructor</h2>
+        <table>
+            <tr>
+                <th>Característica</th>
+                <th>Literal (/.../)</th>
+                <th>Constructor (new RegExp)</th>
+            </tr>
+            <tr>
+                <td>Compilación</td>
+                <td>Al cargar el script (estático).</td>
+                <td>En tiempo de ejecución (dinámico).</td>
+            </tr>
+            <tr>
+                <td>Rendimiento</td>
+                <td>Mejor rendimiento para patrones fijos.</td>
+                <td>Ligeramente más lento por la compilación.</td>
+            </tr>
+            <tr>
+                <td>Uso de variables</td>
+                <td>No permite variables.</td>
+                <td>Permite construir el patrón con variables.</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Patrones y Caracteres</h2>
+        <h3>Ejercicio 8: Patrones Simples</h3>
+        <p>Son aquellos que buscan una coincidencia exacta de caracteres. Por ejemplo, <code>/hola/</code> solo coincidirá si el texto contiene exactamente "hola".</p>
+
+        <h3>Ejercicio 9 y 10: Caracteres Especiales</h3>
+        <p>Son símbolos que no se buscan literalmente, sino que representan conceptos lógicos como "el inicio de línea", "un número" o "cualquier letra".</p>
+        
+        
+
+        <h3>Ejercicio 11: Patrones Compuestos</h3>
+        <p>Combinan caracteres simples con especiales para búsquedas complejas:</p>
+        <ul>
+            <li><b>Aserciones:</b> Indican límites (inicio <code>^</code>, fin <code>$</code>) o condiciones (mirar hacia adelante).</li>
+            <li><b>Grupos y Rangos:</b> <code>[a-z]</code> busca cualquier letra, <code>(abc)</code> agrupa caracteres.</li>
+            <li><b>Cuantificadores:</b> Indican cantidad (<code>*</code> cero o más, <code>+</code> uno o más, <code>?</code> opcional).</li>
+            <li><b>Escapes Unicode:</b> Permiten buscar caracteres por sus propiedades (ej: letras en cualquier idioma).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Ejercicio 12: Caracteres de Escape</h2>
+        <p>Se usa la barra invertida <code>\</code> para buscar un carácter especial como si fuera texto normal. Por ejemplo, para buscar un punto real (no "cualquier carácter"), usamos <code>\.</code></p>
+    </section>
+
+    <section>
+        <h2>Ejercicio 14 y 15: Métodos de Ejecución</h2>
+        <p>Las dos formas principales son: invocar el método desde el objeto <b>RegExp</b> o desde el objeto <b>String</b>.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Método</th>
+                    <th>Devuelve</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RegExp.exec(str)</td>
+                    <td>Array / null</td>
+                    <td>Busca la coincidencia y devuelve un array con detalles o null.</td>
+                </tr>
+                <tr>
+                    <td>RegExp.test(str)</td>
+                    <td>Boolean</td>
+                    <td>Devuelve true si hay coincidencia, false si no.</td>
+                </tr>
+                <tr>
+                    <td>String.match(re)</td>
+                    <td>Array / null</td>
+                    <td>Devuelve las coincidencias encontradas en la cadena.</td>
+                </tr>
+                <tr>
+                    <td>String.matchAll(re)</td>
+                    <td>Iterador</td>
+                    <td>Devuelve un iterador con todas las coincidencias incluyendo grupos.</td>
+                </tr>
+                <tr>
+                    <td>String.search(re)</td>
+                    <td>Número</td>
+                    <td>Devuelve el índice de la primera coincidencia (-1 si no hay).</td>
+                </tr>
+                <tr>
+                    <td>String.replace(re, new)</td>
+                    <td>String</td>
+                    <td>Reemplaza la coincidencia con una nueva cadena.</td>
+                </tr>
+                <tr>
+                    <td>String.replaceAll(re, new)</td>
+                    <td>String</td>
+                    <td>Reemplaza todas las coincidencias encontradas.</td>
+                </tr>
+                <tr>
+                    <td>String.split(re)</td>
+                    <td>Array</td>
+                    <td>Divide la cadena usando el patrón como separador.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Pruebas de Match y MatchAll (Ver Consola F12)</h2>
+        <p>Los resultados de los ejercicios 16 y 17 se han enviado a la consola del navegador para inspección.</p>
+        <script>
+            // Ejercicio 16: matchAll
+            const regexp16 = /t(e)(st(\d?))/g; 
+            const str16 = 'test1test2';
+            const array16 = [...str16.matchAll(regexp16)];
+            console.log("Ej 16 - MatchAll[0]:", array16[0]);
+            console.log("Ej 16 - MatchAll[1]:", array16[1]);
+
+            // Ejercicio 17: match
+            const paragraph17 = 'The quick brown fox jumps over the lazy dog. It barked.';
+            const regex17g = /[A-Z]/g;
+            console.log("Ej 17 - Match (Global):", paragraph17.match(regex17g));
+            const regex17 = /[A-Z]/;
+            console.log("Ej 17 - Match (Único):", paragraph17.match(regex17));
+        </script>
+    </section>
+
+    <section>
+        <h2>Banderas (Flags)</h2>
+        <p><b>Ejercicio 19:</b> Las banderas son modificadores que alteran cómo se comporta la búsqueda.</p>
+        <p><b>Ejercicio 20:</b> Se ponen después de la segunda barra en literales (<code>/patron/g</code>) o como segundo argumento en el constructor.</p>
+        
+        <h3>Ejercicio 21: Tabla de Banderas comunes</h3>
+        <table>
+            <tr>
+                <th>Bandera</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td><code>d</code></td>
+                <td>Genera índices para el inicio y fin de las subcoincidencias (indices).</td>
+            </tr>
+            <tr>
+                <td><code>g</code></td>
+                <td>Búsqueda global: no se detiene tras la primera coincidencia.</td>
+            </tr>
+            <tr>
+                <td><code>i</code></td>
+                <td>Insensible a mayúsculas/minúsculas (Case-insensitive).</td>
+            </tr>
+            <tr>
+                <td><code>m</code></td>
+                <td>Multilínea: permite que <code>^</code> y <code>$</code> funcionen en cada línea.</td>
+            </tr>
+        </table>
+    </section>
+
+</body>
+</html>
