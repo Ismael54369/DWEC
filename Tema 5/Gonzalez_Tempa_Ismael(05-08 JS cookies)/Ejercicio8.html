@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 8 - JS Cookie Library</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .box { border: 1px solid #333; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 8: Uso de js-cookie</h1>
+    
+    <div class="box">
+        <button onclick="crear()">1. Crear Cookie (Cookies.set)</button>
+        <button onclick="leer()">2. Leer Cookie (Cookies.get)</button>
+        <button onclick="borrar()">3. Borrar Cookie (Cookies.remove)</button>
+        <button onclick="leerJSON()">4. Leer Todo (Cookies.get JSON)</button>
+    </div>
+
+    <h3>Consola de Salida:</h3>
+    <div id="consola" style="background:#eee; padding:10px; min-height:50px;"></div>
+
+    <script>
+        const output = document.getElementById('consola');
+
+        function log(texto) {
+            output.innerHTML += texto + "<br>";
+        }
+
+        function crear() {
+            // Primitiva SET
+            // Cookies.set('nombre', 'valor', { atributos })
+            Cookies.set('usuario_libreria', 'JuanPerez', { expires: 7, path: '' }); 
+            log("-> Cookie 'usuario_libreria' creada (expira en 7 días).");
+        }
+
+        function leer() {
+            // Primitiva GET (individual)
+            const valor = Cookies.get('usuario_libreria');
+            if(valor) {
+                log(`-> Valor leído: ${valor}`);
+            } else {
+                log("-> La cookie 'usuario_libreria' no existe.");
+            }
+        }
+
+        function borrar() {
+            // Primitiva REMOVE
+            Cookies.remove('usuario_libreria', { path: '' }); 
+            // Es buena práctica pasar el mismo path al borrar
+            log("-> Cookie 'usuario_libreria' eliminada.");
+        }
+
+        function leerJSON() {
+            // Primitiva GET (todo)
+            const todas = Cookies.get(); 
+            log("-> Todas las cookies (Objeto JSON): " + JSON.stringify(todas));
+        }
+    </script>
+</body>
+</html>

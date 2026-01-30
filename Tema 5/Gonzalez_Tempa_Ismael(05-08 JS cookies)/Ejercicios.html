@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios Cookies - Vanilla JS</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+        section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; background: #f9f9f9; }
+        button { cursor: pointer; padding: 5px 10px; margin: 5px; background-color: #007bff; color: white; border: none; border-radius: 3px; }
+        button:hover { background-color: #0056b3; }
+        button.delete { background-color: #dc3545; }
+        input, select { padding: 5px; margin: 5px; }
+        .output { margin-top: 10px; padding: 10px; background: #e9ecef; border-radius: 3px; min-height: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Ejercicios Cookies (0 - 7)</h1>
+
+    <section>
+        <h3>Ejercicio 0: Corrección y Ejemplo Base</h3>
+        <button id="b0">Ejercicio 0: Crear cookie de prueba</button>
+        <div id="ejercicio0Output" class="output"></div>
+    </section>
+
+    <section>
+        <h3>Ejercicios 1, 3 y 5: Añadir Cookies</h3>
+        <input type="text" id="cookieName" placeholder="Nombre de la cookie">
+        <input type="text" id="cookieValue" placeholder="Valor de la cookie">
+        <br>
+        <button id="btnAdd">Ej 1: Guardar Cookie (Sesión)</button>
+        <button id="btnAddMonth">Ej 5: Guardar (Expira 1 mes)</button>
+    </section>
+
+    <section>
+        <h3>Ejercicios 2, 4 y 7: Lista y Borrado LIFO</h3>
+        <button id="btnList">Ej 2/7: Mostrar Lista Cookies</button>
+        <button id="btnDeleteLast" class="delete">Ej 4: Borrar última cookie</button>
+        <div id="listOutput" class="output"></div>
+    </section>
+
+    <section>
+        <h3>Ejercicios 3 y 6: Gestión con Select</h3>
+        <label>Cookies disponibles:</label>
+        <select id="cookieSelector">
+            <option value="" disabled selected>Selecciona una cookie</option>
+        </select>
+        <button id="btnDeleteSelected" class="delete">Ej 6: Borrar Seleccionada</button>
+    </section>
+
+<script>
+    // --- VARIABLES GLOBALES PARA FECHAS ---
+    const fechaCaducada = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+    // --- EJERCICIO 0: Corrección ---
+    // El error original era: button id="b1" pero el script buscaba "b0".
+    document.getElementById('b0').addEventListener('click', ejercicio0);
+    function ejercicio0() {
+        document.cookie = "ejemplo=1";
+        document.getElementById('ejercicio0Output').innerHTML = "Valor actual: " + document.cookie;
+        actualizarTodo(); // Actualizamos las listas de los otros ejercicios
+    }
+
+    // --- EJERCICIO 1 y 5: Crear Cookies ---
+    document.getElementById('btnAdd').addEventListener('click', () => crearCookie(false));
+    document.getElementById('btnAddMonth').addEventListener('click', () => crearCookie(true));
+
+    function crearCookie(conExpiracion) {
+        let nombre = document.getElementById('cookieName').value || "sinNombre";
+        let valor = document.getElementById('cookieValue').value || "sinValor";
+        let cookieString = nombre + "=" + encodeURIComponent(valor);
+
+        if (conExpiracion) {
+            // Ejercicio 5: Expiración de 1 mes
+            let d = new Date();
+            d.setMonth(d.getMonth() + 1);
+            cookieString += ";expires=" + d.toUTCString();
+        }
+
+        // Guardamos
+        document.cookie = cookieString;
+        
+        // Limpiamos inputs y actualizamos visualización
+        document.getElementById('cookieName').value = "";
+        document.getElementById('cookieValue').value = "";
+        actualizarTodo();
+    }
+
+    // --- EJERCICIO 2 y 7: Mostrar Lista ---
+    document.getElementById('btnList').addEventListener('click', mostrarListaCookies);
+
+    function mostrarListaCookies() {
+        let output = document.getElementById('listOutput');
+        let lasCookies = document.cookie;
+        
+        if (lasCookies === "") {
+            output.innerHTML = "No hay cookies activas.";
+            return;
+        }
+
+        let arrayCookies = lasCookies.split(';');
+        let html = "<ul>";
+        
+        /* NOTA EJERCICIO 7: JavaScript del lado del cliente NO puede leer 
+           la fecha de expiración, path o domain de una cookie ya creada. 
+           Solo puede leer "clave=valor". Por tanto, solo mostramos eso.
+        */
+        for (let i = 0; i < arrayCookies.length; i++) {
+            let cookie = arrayCookies[i].trim();
+            html += `<li>${cookie}</li>`;
+        }
+        html += "</ul>";
+        output.innerHTML = html;
+    }
+
+    // --- EJERCICIO 3: Actualizar Select ---
+    function actualizarSelect() {
+        let select = document.getElementById('cookieSelector');
+        // Limpiar select (dejando la opción por defecto)
+        select.innerHTML = '<option value="" disabled selected>Selecciona una cookie</option>';
+
+        if (document.cookie === "") return;
+
+        let arrayCookies = document.cookie.split(';');
+        
+        for (let i = 0; i < arrayCookies.length; i++) {
+            let c = arrayCookies[i].trim();
+            let separatorIndex = c.indexOf('=');
+            let nombre = c.substring(0, separatorIndex);
+            
+            // Código solicitado en el enunciado:
+            var opt = document.createElement('option');
+            opt.value = nombre;
+            opt.innerHTML = c; // Mostramos par clave-valor en el texto
+            select.appendChild(opt);
+        }
+    }
+
+    // --- EJERCICIO 4: Borrar última cookie añadida ---
+    // Nota: document.cookie no garantiza orden cronológico, 
+    // borraremos la primera que aparezca en la cadena (que suele ser la última o primera según navegador).
+    document.getElementById('btnDeleteLast').addEventListener('click', function() {
+        if (document.cookie === "") return;
+        
+        let arrayCookies = document.cookie.split(';');
+        let cookieParaBorrar = arrayCookies[0].trim(); // Cogemos la primera
+        let nombre = cookieParaBorrar.split('=')[0];
+
+        // Borramos usando la fecha antigua
+        document.cookie = nombre + "=;" + fechaCaducada;
+        
+        actualizarTodo();
+    });
+
+    // --- EJERCICIO 6: Borrar cookie seleccionada en el Select ---
+    document.getElementById('btnDeleteSelected').addEventListener('click', function() {
+        let select = document.getElementById('cookieSelector');
+        let nombreCookie = select.value;
+
+        if (!nombreCookie) {
+            alert("Por favor selecciona una cookie de la lista");
+            return;
+        }
+
+        // 1. Borrar la cookie del navegador
+        // Código basado en el enunciado
+        let cookie = nombreCookie + "=0"; 
+        document.cookie = cookie + ";" + fechaCaducada + ";";
+
+        // 2. Eliminar del select visualmente
+        // El enunciado pedía usar select.remove(opcion), pero remove usa índice.
+        select.remove(select.selectedIndex);
+        
+        // Actualizamos el resto de la interfaz (lista y select)
+        actualizarTodo(); 
+    });
+
+    // Función auxiliar para refrescar la vista automáticamente
+    function actualizarTodo() {
+        mostrarListaCookies();
+        actualizarSelect();
+    }
+
+    // Inicialización al cargar página
+    actualizarTodo();
+
+</script>
+</body>
+</html>
