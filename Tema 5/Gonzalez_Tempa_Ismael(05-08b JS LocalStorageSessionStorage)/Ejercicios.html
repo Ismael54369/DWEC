@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios LocalStorage</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+        section { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; background: #fdfdfd; }
+        button { cursor: pointer; padding: 6px 12px; margin: 5px; background-color: #28a745; color: white; border: none; border-radius: 3px; }
+        button:hover { background-color: #218838; }
+        button.delete { background-color: #dc3545; }
+        button.delete:hover { background-color: #c82333; }
+        button.info { background-color: #17a2b8; }
+        input, select { padding: 5px; margin: 5px; min-width: 200px; }
+        .output { margin-top: 10px; padding: 10px; background: #eee; min-height: 20px; border-radius: 3px; }
+        ul { list-style-type: disc; margin-left: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Ejercicios LocalStorage (0 - 6)</h1>
+
+    <section>
+        <h3>Ejercicio 0: Ejemplo Base</h3>
+        <button id="b0">Ejercicio 0: Guardar "Miguel Antonio"</button>
+        <p id="ejercicio0Output" class="output">Esperando acción...</p>
+    </section>
+
+    <section>
+        <h3>Ejercicio 1: Comprobar Soporte</h3>
+        <button id="btnCheck" class="info">Comprobar si tengo Storage</button>
+    </section>
+
+    <section>
+        <h3>Ejercicios 2 y 3: Guardar Dato y Añadir a Select</h3>
+        <label>Introduce un dato (será Clave y Valor):</label><br>
+        <input type="text" id="inputDato" placeholder="Escribe algo aquí...">
+        <button id="btnGuardar">Guardar en LS y Select</button>
+        <br><br>
+        <label>Select (Ejercicio 3):</label><br>
+        <select id="selectElementId">
+            <option value="" disabled selected>Selecciona un dato guardado</option>
+        </select>
+    </section>
+
+    <section>
+        <h3>Ejercicio 4: Mostrar Lista Completa</h3>
+        <button id="btnListar" class="info">Actualizar Lista</button>
+        <div id="listaSalida" class="output"></div>
+    </section>
+
+    <section>
+        <h3>Ejercicios 5 y 6: Borrado</h3>
+        <p>Selecciona un elemento en el desplegable de arriba para borrarlo.</p>
+        <button id="btnBorrarUno" class="delete">Ejercicio 5: Borrar Seleccionado</button>
+        <button id="btnBorrarTodo" class="delete">Ejercicio 6: Limpiar Todo Storage</button>
+    </section>
+
+<script>
+    // --- VARIABLES GLOBALES ---
+    const select = document.getElementById('selectElementId');
+    const input = document.getElementById('inputDato');
+
+    // --- AL CARGAR LA PÁGINA ---
+    // Recuperamos lo que ya exista en LS para rellenar el select y la lista al iniciar
+    window.onload = function() {
+        actualizarSelect();
+        mostrarLista();
+    };
+
+
+    // --- EJERCICIO 0 ---
+    document.getElementById('b0').addEventListener('click', ejercicio0);
+    function ejercicio0() {
+        // Guardamos datos
+        localStorage.setItem('Nombre', 'Miguel Antonio');
+        localStorage.Apellido = 'García'; // Otra forma de asignar
+        
+        // Mostramos resultado
+        document.getElementById('ejercicio0Output').innerHTML = 
+            "Guardado: " + localStorage.getItem('Nombre') + " " + localStorage.Apellido;
+        
+        // Actualizamos las visualizaciones de los otros ejercicios
+        actualizarSelect();
+        mostrarLista();
+    }
+
+
+    // --- EJERCICIO 1: Comprobar Soporte ---
+    document.getElementById('btnCheck').addEventListener('click', function() {
+        if (typeof(Storage) !== "undefined") {
+            alert("¡Genial! Tu navegador soporta LocalStorage.");
+        } else {
+            alert("Lo siento, tu navegador no soporta LocalStorage.");
+        }
+    });
+
+
+    // --- EJERCICIO 2 y 3: Guardar y Añadir a Select ---
+    document.getElementById('btnGuardar').addEventListener('click', function() {
+        var texto = input.value;
+        
+        if (!texto) {
+            alert("Escribe algo en la caja de texto.");
+            return;
+        }
+
+        // Ejercicio 2: Guardar en LocalStorage
+        // Usamos el texto como Clave y como Valor para simplificar el ejemplo
+        localStorage.setItem(texto, texto);
+
+        // Ejercicio 3: Añadir al Select visualmente (usando el código del enunciado)
+        // Nota: He movido la lógica a una función 'agregarOpcion' para reutilizarla
+        agregarOpcion(texto);
+
+        // Limpiar input
+        input.value = "";
+        
+        // Actualizar la lista del Ejercicio 4
+        mostrarLista();
+    });
+
+    function agregarOpcion(valor) {
+        var opt = document.createElement('option');
+        opt.value = valor;
+        opt.innerHTML = valor;
+        select.appendChild(opt);
+    }
+
+
+    // --- EJERCICIO 4: Mostrar Lista ---
+    document.getElementById('btnListar').addEventListener('click', mostrarLista);
+
+    function mostrarLista() {
+        var zonaSalida = document.getElementById('listaSalida');
+        
+        if (localStorage.length === 0) {
+            zonaSalida.innerHTML = "El LocalStorage está vacío.";
+            return;
+        }
+
+        var html = "<ul>";
+        // Recorremos el Storage
+        // OJO: Hay que sacar los nombres (keys) usando localStorage.key(i)
+        for (var i = 0; i < localStorage.length; i++) {
+            var clave = localStorage.key(i);
+            var valor = localStorage.getItem(clave);
+            html += "<li><strong>" + clave + ":</strong> " + valor + "</li>";
+        }
+        html += "</ul>";
+        zonaSalida.innerHTML = html;
+    }
+
+
+    // --- AUXILIAR: Rellenar Select desde 0 ---
+    // Esta función es necesaria para que el Select muestre datos si recargas la página
+    function actualizarSelect() {
+        select.innerHTML = '<option value="" disabled selected>Selecciona un dato guardado</option>';
+        for (var i = 0; i < localStorage.length; i++) {
+            var clave = localStorage.key(i);
+            agregarOpcion(clave);
+        }
+    }
+
+
+    // --- EJERCICIO 5: Borrar Seleccionado ---
+    document.getElementById('btnBorrarUno').addEventListener('click', function() {
+        var seleccionado = select.value;
+
+        if (!seleccionado) {
+            alert("Selecciona algo en el desplegable primero.");
+            return;
+        }
+
+        // 1. Eliminar del LocalStorage
+        localStorage.removeItem(seleccionado);
+
+        // 2. Eliminar del Select (también del select)
+        select.remove(select.selectedIndex);
+
+        // 3. Actualizar lista
+        mostrarLista();
+    });
+
+
+    // --- EJERCICIO 6: Limpiar Todo ---
+    document.getElementById('btnBorrarTodo').addEventListener('click', function() {
+        var confirmacion = confirm("¿Estás seguro de borrar todo el almacenamiento?");
+        if (confirmacion) {
+            localStorage.clear(); // Borra todo
+            actualizarSelect();   // Limpia el select
+            mostrarLista();       // Limpia la lista visual
+        }
+    });
+
+</script>
+</body>
+</html>
