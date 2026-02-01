@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 5 - JSON Completo</title>
+    <script>
+        function hacerpromesa() {
+            fetch("ajax-ej5.php")
+                .then(function (response) {
+                    if (response.ok)
+                        return response.text(); // Recibimos texto que luego parseamos
+                    else
+                        throw new Error(response.status);
+                })
+                .then(function (data) {
+                    // Convertimos el texto a Objeto JSON
+                    const jsonData = JSON.parse(data);
+                    
+                    // MODIFICACIÓN: Mostrar todos los valores
+                    let salida = "<ul>";
+                    salida += "<li><strong>Nombre:</strong> " + jsonData.Nombre + "</li>";
+                    salida += "<li><strong>Apellido:</strong> " + jsonData.Apellido + "</li>";
+                    salida += "<li><strong>Cargo:</strong> " + jsonData.Cargo + "</li>";
+                    salida += "<li><strong>Fecha:</strong> " + jsonData.Fecha + "</li>";
+                    salida += "</ul><hr>";
+
+                    document.getElementById("cosas").innerHTML += salida;
+                })
+                .catch(err => {
+                    console.error("ERROR: " + err)
+                });
+        }
+    </script>
+</head>
+<body>
+    <h3>Ejercicio 5: Leer todo el JSON</h3>
+    <button onclick="hacerpromesa()"> Cargar Datos JSON </button>
+    <div id="cosas" style="margin-top:10px; border:1px solid #ccc; padding:10px;"> </div>
+</body>
+</html>

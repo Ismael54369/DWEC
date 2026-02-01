@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 6 - Parámetros GET</title>
+    <script>
+        function hacerpromesa() {
+            const valor = parseInt(document.getElementById("i1").value);
+            
+            // Si el input está vacío o no es un número, avisamos
+            if(isNaN(valor)) {
+                alert("Por favor introduce un número");
+                return;
+            }
+
+            const options = { method: "GET" };
+            
+            // Enviamos el valor en la URL
+            fetch("ajax-ej6.php?valor=" + valor, options)
+                .then(function (response) {
+                    if (response.ok)
+                        return response.text();
+                    else
+                        throw new Error(response.status);
+                })
+                .then(function (data) {
+                    document.getElementById("cosas").innerHTML += "Respuesta del servidor: " + data;
+                })
+                .catch(err => {
+                    console.error("ERROR: ", err.message)
+                });
+        }
+    </script>
+</head>
+<body>
+    <h3>Ejercicio 6: Enviar parámetros GET</h3>
+    <label>Introduce un número:</label>
+    <input type="number" id="i1" value="20">
+    <button onclick="hacerpromesa()"> Calcular Cuadrado </button>
+    <div id="cosas" style="margin-top:10px; border:1px solid #ccc; padding:10px;"> </div>
+</body>
+</html>
