@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1: Promise.all</title>
+    <script>
+        // 1. Cargar Artículos (1.5s)
+        function cargarArticulos() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Lista de Artículos Recientes");
+                }, 1500);
+            });
+        }
+
+        // 2. Cargar Ventas (2.0s) - La más lenta
+        function cargarVentas() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Datos de Ventas del Mes");
+                }, 2000);
+            });
+        }
+
+        // 3. Cargar Perfil (0.5s)
+        function cargarPerfil() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Imagen de Perfil cargada");
+                }, 500);
+            });
+        }
+
+        async function cargarPanelDeControl() {
+            const inicio = Date.now(); // Marcamos el tiempo de inicio
+            document.getElementById("log").innerHTML = "Cargando panel...";
+
+            // Promise.all espera a que TODAS terminen, pero se lanzan a la vez
+            const resultados = await Promise.all([
+                cargarArticulos(), 
+                cargarVentas(), 
+                cargarPerfil()
+            ]);
+
+            const fin = Date.now(); // Marcamos el tiempo final
+            const tiempoTotal = (fin - inicio) / 1000; // Convertimos a segundos
+
+            // Mostramos resultados
+            let html = "<h3>Panel Cargado</h3>";
+            html += "<ul>";
+            html += "<li>" + resultados[0] + "</li>"; // Artículos
+            html += "<li>" + resultados[1] + "</li>"; // Ventas
+            html += "<li>" + resultados[2] + "</li>"; // Perfil
+            html += "</ul>";
+            html += "<p><strong>Tiempo total: " + tiempoTotal + " segundos</strong> (aprox 2.0s)</p>";
+
+            document.getElementById("log").innerHTML = html;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="cargarPanelDeControl()">Cargar Panel (Paralelo)</button>
+    <div id="log" style="margin-top: 20px;"></div>
+</body>
+</html>

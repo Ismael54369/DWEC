@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3: Secuencial</title>
+    <script>
+        // Paso 1: Obtener Token (1 segundo)
+        function obtenerToken() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("TOKEN_ABC_123");
+                }, 1000);
+            });
+        }
+
+        // Paso 2: Obtener Recursos usando el token (2 segundos)
+        function obtenerRecursos(tokenRecibido) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Recursos cargados usando el token: " + tokenRecibido);
+                }, 2000);
+            });
+        }
+
+        async function ejecutarFlujo() {
+            const inicio = Date.now();
+            const logDiv = document.getElementById("log");
+            
+            logDiv.innerHTML = "1. Solicitando token... (espera 1s)<br>";
+
+            // ESPERAMOS a que termine la primera
+            const token = await obtenerToken();
+            logDiv.innerHTML += "-> Token recibido: " + token + "<br>";
+            logDiv.innerHTML += "2. Solicitando recursos... (espera 2s)<br>";
+
+            // ESPERAMOS a que termine la segunda, pasándole el dato de la primera
+            const resultadoFinal = await obtenerRecursos(token);
+
+            const fin = Date.now();
+            const tiempoTotal = (fin - inicio) / 1000;
+
+            logDiv.innerHTML += "-> <b>Finalizado:</b> " + resultadoFinal + "<br>";
+            logDiv.innerHTML += "<hr>Tiempo total: " + tiempoTotal + " segundos (Debe ser aprox 3.0s)";
+        }
+    </script>
+</head>
+<body>
+    <button onclick="ejecutarFlujo()">Iniciar Flujo Secuencial</button>
+    <div id="log" style="margin-top: 20px; font-family: monospace;"></div>
+</body>
+</html>

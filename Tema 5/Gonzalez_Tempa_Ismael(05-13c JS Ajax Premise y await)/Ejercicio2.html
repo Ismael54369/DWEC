@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2: Try Catch</title>
+    <script>
+        function cargarArticulos() {
+            return new Promise(resolve => setTimeout(() => resolve("Artículos OK"), 1500));
+        }
+
+        // MODIFICADO: Esta función falla
+        function cargarVentasConError() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // En lugar de resolve, usamos reject para simular error
+                    reject("Error de conexión con la base de datos de ventas");
+                }, 2000);
+            });
+        }
+
+        function cargarPerfil() {
+            return new Promise(resolve => setTimeout(() => resolve("Perfil OK"), 500));
+        }
+
+        async function cargarPanelDeControl() {
+            document.getElementById("log").innerHTML = "Intentando cargar panel...";
+            
+            try {
+                // Intentamos ejecutar todas
+                const resultados = await Promise.all([
+                    cargarArticulos(), 
+                    cargarVentasConError(), 
+                    cargarPerfil()
+                ]);
+                
+                // Si llegamos aquí, todo salió bien (no pasará en este ejercicio)
+                document.getElementById("log").innerHTML = "Todo cargado correctamente: " + resultados;
+
+            } catch (error) {
+                // Si ALGUNA falla, saltamos aquí directamente
+                console.error(error);
+                document.getElementById("log").innerHTML = 
+                    "<h3 style='color:red'>Ha ocurrido un error</h3>" + 
+                    "<p>" + error + "</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="cargarPanelDeControl()">Cargar Panel con Error</button>
+    <div id="log" style="margin-top: 20px;"></div>
+</body>
+</html>
