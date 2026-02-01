@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <meta charset="UTF-8">
+    <title>Ejercicio 1 - JSON Parse</title>
+</head>
+<body>
+    <h3>Ejercicio 1: Lectura básica de JSON</h3>
+    <div id="json"> </div>
+
+    <script>
+        const JSONCadena = '{"nombre": "Pepito", "Amiguitos": ["Manolo", "Juanito", "Kiko", "Pedrito"], "ciudad": "Torremolinos"}';
+        
+        try {
+            const JSONObjeto = JSON.parse(JSONCadena);
+            
+            const JSONDisplay = document.getElementById("json");
+            
+            JSONDisplay.innerHTML = JSONObjeto.nombre + ", [" + JSONObjeto.Amiguitos + "], " + JSONObjeto.ciudad;
+            
+        } catch (error) {
+            console.log("Error al leer el JSON: " + error);
+        }
+    </script>
+</body>
+</html>

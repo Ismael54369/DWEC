@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <meta charset="UTF-8">
+    <title>Ejercicio 3 - Varios Alumnos</title>
+</head>
+<body>
+    <h3>Ejercicio 3: Listado de Alumnos</h3>
+    <div id="salida"> </div>
+
+    <script>
+        const JSONData = `{
+            "Alumno1":{"name": "Pepito", "favFriends": ["Manolo", "Juanito", "Kiko", "Pedrito"], "from": "Torrem"},
+            "Alumno2":{"name": "Juanito", "favFriends": ["Loli", "Kiko", "Pepito", "Pedrito"], "from": "Malaga"},
+            "Alumno3":{"name": "Kiko", "favFriends": ["Loli", "Juanito", "Inma", "Maria"], "from": "Churriana"},
+            "Alumno4":{"name": "Loli", "favFriends": ["Kiko", "Juanito", "Inma", "Maria"], "from": "Torrem"},
+            "Alumno5":{"name": "Maria", "favFriends": ["Loli", "Juanito", "Inma", "Kiko"], "from": "Churriana"} 
+        }`;
+
+        try {
+            const alumnosObj = JSON.parse(JSONData);
+            let textoSalida = "";
+
+            // Recorremos las claves del objeto (Alumno1, Alumno2, etc.)
+            for (let clave in alumnosObj) {
+                let alumno = alumnosObj[clave]; // Obtenemos el objeto del alumno actual
+                
+                // .join(', ') convierte el array de amigos en un string separado por comas
+                let listaAmigos = alumno.favFriends.join(", ");
+
+                textoSalida += `<p>
+                    <strong>${alumno.name}</strong> es de 
+                    <strong>${alumno.from}</strong> tiene por amigos a 
+                    <em>${listaAmigos}</em>
+                </p>`;
+            }
+
+            document.getElementById("salida").innerHTML = textoSalida;
+
+        } catch (e) {
+            console.error(e);
+        }
+    </script>
+</body>
+</html>

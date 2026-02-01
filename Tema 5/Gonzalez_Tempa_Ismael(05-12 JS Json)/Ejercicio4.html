@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <meta charset="UTF-8">
+    <title>Ejercicio 4 - Stringify</title>
+</head>
+<body>
+    <h3>Ejercicio 4: JSON.stringify</h3>
+    <div id="json" style="font-family: monospace; white-space: pre;"> </div>
+
+    <script>
+        const alumno = {
+            1: { 
+                Alumno: "Paco", 
+                DWEC: 9, 
+                DIW: 9, 
+                DWES: 9, 
+                HLC: 9,
+                // Las funciones NO se guardan en JSON
+                notas: function () { return "Pedazo notas"; } 
+            },
+            2: { 
+                Alumno: "pepe", 
+                DWEC: 8, 
+                DIW: 8, 
+                DWES: 8, 
+                HLC: 8,
+                notas: function () { return "Pedazo notas"; }
+            }
+        };
+
+        // Convertimos el objeto a String
+        // El null, 4 es opcional, sirve para que se vea "bonito" (indentado) en pantalla
+        const JSONString = JSON.stringify(alumno, null, 4);
+        
+        document.getElementById("json").innerHTML = JSONString;
+        
+        console.log("Observa que las funciones 'notas' han desaparecido del JSON final.");
+    </script>
+</body>
+</html>

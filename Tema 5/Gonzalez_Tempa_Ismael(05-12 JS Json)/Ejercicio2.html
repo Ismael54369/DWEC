@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <meta charset="UTF-8">
+    <title>Ejercicio 2 - Bucle Array JSON</title>
+</head>
+<body>
+    <h3>Ejercicio 2: Lista detallada</h3>
+    <div id="json"> </div>
+
+    <script>
+        const JSONCadena = '{"nombre": "Pepito", "Amiguitos": ["Manolo", "Juanito", "Kiko", "Pedrito"], "ciudad": "Torremolinos"}';
+
+        try {
+            const JSONObjeto = JSON.parse(JSONCadena);
+            const display = document.getElementById("json");
+
+            // Creamos la estructura inicial
+            let htmlContent = `
+                <strong>Nombre:</strong> ${JSONObjeto.nombre} <br>
+                <strong>Ciudad:</strong> ${JSONObjeto.ciudad} <br>
+                <strong>Amigos:</strong>
+                <ul>
+            `;
+
+            // Bucle para recorrer el array de amigos
+            // Usamos un for clásico como pide el enunciado
+            for (let i = 0; i < JSONObjeto.Amiguitos.length; i++) {
+                htmlContent += `<li>${JSONObjeto.Amiguitos[i]}</li>`;
+            }
+
+            htmlContent += "</ul>"; // Cerramos la lista
+
+            display.innerHTML = htmlContent;
+
+        } catch (error) {
+            console.log("Error json");
+        }
+    </script>
+</body>
+</html>
