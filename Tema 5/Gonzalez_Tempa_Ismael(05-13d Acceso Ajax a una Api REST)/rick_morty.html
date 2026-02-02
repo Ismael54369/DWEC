@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty con Fotos</title>
+    <style>
+        /* Un poco de estilo para que se vea ordenado */
+        #personajes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 50%; /* Hace la foto redonda */
+        }
+        .card h3 {
+            font-size: 18px;
+            margin: 10px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Personajes de Rick and Morty</h1>
+    <ul id="personajes"></ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", cargarPersonajes);
+
+        async function cargarPersonajes() {
+            const lista = document.getElementById("personajes");
+            
+            try {
+                // 1. Hacemos la petición
+                const respuesta = await fetch("https://rickandmortyapi.com/api/character");
+                
+                // 2. Convertimos a JSON
+                const data = await respuesta.json();
+
+                // 3. Recorremos los resultados
+                data.results.forEach(personaje => {
+                    // Creamos el elemento de lista (la tarjeta)
+                    const li = document.createElement("li");
+                    li.classList.add("card");
+
+                    // Construimos el HTML interno usando Template Strings
+                    // Accedemos a personaje.image y personaje.name
+                    li.innerHTML = `
+                        <img src="${personaje.image}" alt="${personaje.name}">
+                        <h3>${personaje.name}</h3>
+                        <p>Especie: ${personaje.species}</p>
+                    `;
+
+                    // Agregamos a la lista
+                    lista.appendChild(li);
+                });
+
+            } catch (error) {
+                console.error("Error al cargar:", error);
+                lista.innerHTML = "<p style='color:red'>Hubo un error al cargar los datos.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
