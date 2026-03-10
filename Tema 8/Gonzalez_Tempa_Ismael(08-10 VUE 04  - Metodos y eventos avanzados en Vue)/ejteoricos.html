@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría Vue.js - Ejemplo 5</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9fa;
+        }
+        h1 {
+            color: #35495e;
+            text-align: center;
+            border-bottom: 3px solid #42b883;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            border-left: 5px solid #42b883;
+        }
+        h2 {
+            color: #35495e;
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        .respuesta {
+            margin-top: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background-color: #f0f0f0;
+            color: #e83e8c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 0.95em;
+        }
+        .codigo-bloque {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Respuestas Teóricas - TodoList (Vue.js)</h1>
+
+    <div class="card">
+        <h2>Ejercicio 2: ¿Qué es <code>tasks.length</code>? ¿Dónde se define en el template y en el script?</h2>
+        <div class="respuesta">
+            <ul>
+                <li><strong>¿Qué es?</strong> Es una propiedad nativa de JavaScript que devuelve el número de elementos que hay dentro de un array. En este caso, nos dice exactamente cuántas tareas se han añadido a la lista.</li>
+                <li><strong>En el Template (HTML):</strong> Se utiliza dentro de la etiqueta <code>&lt;h1&gt;</code> usando la interpolación de Vue (dobles llaves): <code>{{ tasks.length }}</code> para mostrar el número de forma dinámica en la pantalla.</li>
+                <li><strong>En el Script (JS):</strong> Viene del array <code>tasks</code> que está definido y se inicializa vacío dentro de la función <code>data()</code>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Ejercicio 3: ¿Qué hace esta línea de código?</h2>
+        <div class="codigo-bloque">data: () => ({ newTask: "", tasks: [] }),</div>
+        <div class="respuesta">
+            <p>Es una forma abreviada (usando una función flecha de JavaScript) de definir el estado reactivo o las variables iniciales de nuestro componente. Hace dos cosas:</p>
+            <ul>
+                <li>Crea la variable <code>newTask</code> como una cadena de texto vacía. Aquí es donde se guardará automáticamente lo que el usuario escriba en el input.</li>
+                <li>Crea la variable <code>tasks</code> como un array vacío <code>[]</code>. Aquí es donde se irán almacenando en forma de lista todas las tareas que el usuario vaya creando.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Ejercicio 4: Análisis del elemento <code>&lt;li&gt;</code></h2>
+        <div class="codigo-bloque">
+&lt;li class="task"
+    v-for="(task, i) in tasks"
+    :key="'task' + i"
+    :class="{completed: task.completed}"
+    @click="completeTask(task.text)"&gt;
+    {{task.text}}
+&lt;/li&gt;
+        </div>
+        <div class="respuesta">
+            <ul>
+                <li><strong>¿Qué hace <code>v-for</code>?</strong><br>
+                Es una directiva de bucle. Le indica a Vue: <em>"Por cada tarea (<code>task</code>) que exista en la lista general (<code>tasks</code>), renderiza o dibuja un elemento <code>&lt;li&gt;</code> nuevo"</em>. Genera la lista visual.</li>
+                
+                <li><strong>¿Qué es <code>@click</code> y por qué llama a <code>completeTask(task.text)</code>?</strong><br>
+                <code>@click</code> es un "escuchador" de eventos. Detecta cuándo el usuario hace clic izquierdo con el ratón sobre ese elemento de la lista. Al hacer clic, ejecuta la función <code>completeTask</code> y le envía como parámetro el texto exacto de esa tarea (<code>task.text</code>) para que el código sepa específicamente cuál de todas las tareas debe marcar o desmarcar como completada.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Ejercicio 5: Identifica los dos métodos</h2>
+        <div class="respuesta">
+            <p>Los métodos están definidos en el bloque <code>methods: { ... }</code> del script y son los siguientes:</p>
+            <ul>
+                <li><strong><code>createTask()</code>:</strong> Se activa al enviar el formulario. Toma el texto que hay en <code>newTask</code>, construye un objeto nuevo indicando que la tarea no está completada (<code>completed: false</code>), lo añade al final del array <code>tasks</code> con <code>.push()</code> y, finalmente, vacía el input para que puedas escribir otra tarea.</li>
+                <li><strong><code>completeTask(taskText)</code>:</strong> Se activa al hacer clic en una tarea. Recorre todo el array de tareas con un bucle <code>for</code> buscando aquella cuyo texto coincida con el que le han pasado. Cuando la encuentra, invierte su estado booleano (si <code>completed</code> era <code>false</code>, lo pasa a <code>true</code>, y viceversa) para tacharla o destacharla visualmente.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

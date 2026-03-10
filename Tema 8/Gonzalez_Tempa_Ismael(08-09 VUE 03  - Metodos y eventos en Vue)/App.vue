@@ -4,19 +4,22 @@
   
   <hr style="margin: 40px 0;">
 
-  <todoist />
+  <h2>Contador (Suma de 1 en 1)</h2>
+  <ContadorBoton :incremento="1" />
 
+  <h2>Contador (Suma de 5 en 5)</h2>
+  <ContadorBoton :incremento="5" />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import todoist from './components/todoist.vue' // Importamos el componente
+import ContadorBoton from './components/ContadorBoton.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    todoist // Lo registramos
+    ContadorBoton
   }
 }
 </script>
